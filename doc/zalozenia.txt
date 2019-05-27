@@ -1,0 +1,16 @@
+-Utworzenie trzech typów kont u¿ytkowników: administrator, u¿ytkownik, moderator.
+-Umo¿liwienie im logowania do aplikacji, dostêpu do danych w bazie wed³ug typu konta.
+-Ka¿de z kont ma inne mo¿liwoœci:
+-Konto u¿ytkownika pozwala tylko na wyœwietlanie danych znajduj¹cych siê w bazie wed³ug okreœlonych regu³.
+-Konto moderatora pozwala na wszystko na co pozwala³o konto u¿ytkownika oraz edytowanie rekordów, dodawanie nowych. Nie mo¿e usuwaæ rekordów które nie by³y utworzone w czasie trwania sesji
+-Konto administratora pozwala na absolutna kontrolê nad baz¹.
+-sortowanie danych wg: klubu - pokazuje aktualnych zawodników i trenera, herb, nazwê, stadion etc, wszystkie informacje o klubie
+-pokazywanie aktualnego sk³adu
+-tabela mistrzów ligowych
+-tabela mistrzów pucharowych
+-szczegó³owe informacje o wybranych zawodnikach
+-dodawanie danych do bazy (moderator i administrator)
+-prze³¹czanie za pomoc¹ zak³adek do innych kart
+-zabezpieczenia przed sql injection
+-model MVP
+-Projekt wzorowany jest na aplikacji EXTRANET PZPN
