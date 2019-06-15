@@ -11,9 +11,9 @@ using application.Forms;
 
 namespace application
 {
-    public partial class FormMain : Form
+    public partial class FormAdmin : Form
     {
-        public FormMain()
+        public FormAdmin()
         {
             InitializeComponent();
 
