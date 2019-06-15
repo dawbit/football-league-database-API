@@ -10,45 +10,38 @@ namespace application
 {
     class Model
     {
-        DBconnection _conn;
+        DBconnection _conn = DBconnection.Instance();
         MySqlConnection _connection;
 
         private string Query;
 
         public string AccountType(string login, string password)
         {
-            string Query = $"SELECT user, insert_priv FROM mysql.user WHERE user = \"{login}\"";
+            Query = $"INSERT INTO ekstraklasa.logs(user, date) VALUES(\"{login}\", \"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}\")";
+            Console.WriteLine("QUERY: " + Query);
 
-            _conn = DBconnection.Init(login, password);
-            _connection = _conn.Connection;
-
-            MySqlCommand command = new MySqlCommand(Query, _connection);
-
-            using (command)
+            try
             {
-                try
+                _conn = DBconnection.Init(login, password);
+                _connection = _conn.Connection;
+
+                MySqlCommand command = new MySqlCommand(Query, _connection);
+
+                using (command)
                 {
                     _connection.Open();
 
-                    MySqlDataReader dataReader = command.ExecuteReader();
-
-                    List<string> _result = new List<string>();
-
-                    while (dataReader.Read())
-                    {
-                        _result.Add((string)dataReader["insert_priv"]);
-                    }
+                    var dataReader = command.ExecuteNonQuery();
 
                     _connection.Close();
 
-                    if (_result.Count > 1) return "connUnsuccessful";
-                    else if (_result[0] == "N") return "user";
-                    else return "administrator";
+                    if (dataReader > 1) return "connUnsuccessful";
+                    else if (dataReader == 1) return "administrator";
+                    else return "user";
                 }
-                catch (MySqlException)
-                {
-                    return "connUnsuccessful";
-                }
+            } catch(MySqlException e)
+            {
+                return e.ToString();
             }
         }
     }
