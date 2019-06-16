@@ -7,24 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using application.Login;
+using MySql.Data.MySqlClient;
+using application.DAL;
 
 namespace application.Forms
 {
-    public enum AccountType
+    public partial class FormLogin : Form
     {
-        user,
-        administrator
-    };
-
-    public partial class FormLogin : Form, ILogin
-    {
-        public FormLogin()
+       public FormLogin()
         {
             InitializeComponent();
 
+            this.ControlBox = false;
+            this.Text = String.Empty;
+
             textBoxPassword.PasswordChar = '*';
-            //this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
 
         public string Login
@@ -45,42 +42,67 @@ namespace application.Forms
                 return textBoxPassword.Text;
             }
         }
-        public static AccountType type { get; set; }
-        private string Account { get; set; }
+        private DBconnection _conn = DBconnection.Instance();
+        private MySqlConnection _connection;
 
         public event Func<string> LoginCheck;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            if (Login != "")
+            if (Login != "" && Password != "")
             {
-                if (LoginCheck != null)
+                int _result = DefineAccountType(Login, Password);
+
+                Console.WriteLine(_result);
+
+                if (_result == 0)
                 {
-                    Account = LoginCheck();
-                    if (Check())
-                    {
-                        this.Close();
-                    }
+                    this.Close();
+                    DialogResult = DialogResult.OK;
                 }
+                else if (_result == 1) DialogResult = DialogResult.Yes;
+
             }
-            
         }
 
-        private bool Check()
+        private int DefineAccountType (string login, string password)
         {
-            Console.WriteLine(Account);
-            if (Enum.IsDefined(typeof(AccountType), Account))
+            string Query = $"INSERT INTO ekstraklasa.logs(user, date) VALUES(\"{login}\", \"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}\")";
+
+            try
             {
-                return true;
+                _conn = DBconnection.Init(login, password);
+                _connection = _conn.Connection;
+
+                using (MySqlCommand command = new MySqlCommand(Query, _connection))
+                {
+                    _connection.Open();
+
+                    var dataReader = command.ExecuteNonQuery();
+
+                    _connection.Close();
+
+                    if (dataReader == 1) return 0;
+                    else return 2;
+                }
             }
-            else
+            catch (MySqlException e)
             {
-                return false;
+                Console.WriteLine("ERROR: " + e.ToString());
+                if (e.ToString().Contains("INSERT command denied to user")) return 1;
+                else if (e.ToString().Contains("Authentication to host")) return 2;
+                else return 2;
             }
         }
-        //void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    Program.lstClosedForms.Add(this.Name);
-        //}
+
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Sorry, we are currently unable to complete that action. Please try again later.");
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
     }
 }

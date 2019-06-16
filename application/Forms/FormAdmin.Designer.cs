@@ -30,12 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // FormMain
+            // FormAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "FormMain";
+            this.MinimizeBox = false;
+            this.Name = "FormAdmin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ekstraklasa";
             this.ResumeLayout(false);
 

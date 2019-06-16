@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using application.Forms;
-using application.Login;
 
 namespace application
 {
@@ -21,20 +20,22 @@ namespace application
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
 
+            DialogResult logResult = new FormLogin().ShowDialog();
 
-            Model model = new Model();
-            ILogin viewLogin = new FormLogin();
-            LoginPanelPresenter presenter = new LoginPanelPresenter(viewLogin, model);
-
-            DialogResult logResult = ((FormLogin)viewLogin).ShowDialog();
-            while (logResult != DialogResult.OK)
+            while (logResult != DialogResult.OK && logResult != DialogResult.Yes && logResult != DialogResult.Cancel)
             {
-                logResult = ((FormLogin)viewLogin).ShowDialog();
+                logResult = new FormLogin().ShowDialog();
             }
+
+
 
             if (logResult == DialogResult.OK)
             {
-                Console.WriteLine("?");
+                Application.Run(new FormAdmin());
+            }
+            else if (logResult == DialogResult.Yes)
+            {
+                Application.Run(new FormUser());
             }
             
         }

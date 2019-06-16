@@ -16,11 +16,6 @@ namespace application
         public FormAdmin()
         {
             InitializeComponent();
-
-            FormLogin formLogin = new FormLogin();
-
-            // Show the settings form
-            formLogin.Show();
         }
     }
 }

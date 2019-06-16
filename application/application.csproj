@@ -75,8 +75,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBinfo.resx</DependentUpon>
     </Compile>
-    <Compile Include="Login\ILogin.cs" />
-    <Compile Include="Login\LoginPanelPresenter.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -39,11 +39,6 @@ namespace application.DAL
 
         public static DBconnection Init(string login, string password)
         {
-            if (_singleton != null)
-            {
-                return _singleton;
-            }
-
             _singleton = new DBconnection(login, password);
             return _singleton;
         }

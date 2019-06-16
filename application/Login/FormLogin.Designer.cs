@@ -32,6 +32,7 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonRegister = new System.Windows.Forms.Button();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.textBoxPassword = new application.Controls.PlaceHolderTextBox();
             this.textBoxLogin = new application.Controls.PlaceHolderTextBox();
             this.SuspendLayout();
@@ -39,7 +40,6 @@
             // buttonLogin
             // 
             this.buttonLogin.BackColor = System.Drawing.Color.DarkCyan;
-            this.buttonLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLogin.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.buttonLogin.ForeColor = System.Drawing.Color.White;
@@ -58,9 +58,9 @@
             this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Font = new System.Drawing.Font("Trebuchet MS", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.panel1.Location = new System.Drawing.Point(284, 194);
+            this.panel1.Location = new System.Drawing.Point(-1, 184);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(106, 100);
+            this.panel1.Size = new System.Drawing.Size(113, 108);
             this.panel1.TabIndex = 7;
             // 
             // buttonRegister
@@ -76,6 +76,20 @@
             this.buttonRegister.TabIndex = 3;
             this.buttonRegister.Text = "Zarejestruj się";
             this.buttonRegister.UseVisualStyleBackColor = false;
+            this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonExit.Location = new System.Drawing.Point(305, 244);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(46, 35);
+            this.buttonExit.TabIndex = 11;
+            this.buttonExit.Text = "X";
+            this.buttonExit.UseVisualStyleBackColor = false;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // textBoxPassword
             // 
@@ -103,10 +117,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(5F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::application.Properties.Resources.photo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(391, 291);
+            this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxLogin);
             this.Controls.Add(this.buttonLogin);
@@ -116,7 +132,9 @@
             this.Font = new System.Drawing.Font("Tw Cen MT Condensed Extra Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.MaximizeBox = false;
             this.Name = "FormLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -130,5 +148,6 @@
         private System.Windows.Forms.Button buttonRegister;
         private Controls.PlaceHolderTextBox textBoxLogin;
         private Controls.PlaceHolderTextBox textBoxPassword;
+        private System.Windows.Forms.Button buttonExit;
     }
 }
