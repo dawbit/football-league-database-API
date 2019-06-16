@@ -1,9 +1,10 @@
 -Utworzenie dwóch typów kont: administrator i  u¿ytkownik.
--Umo¿liwienie im logowania do aplikacji, dostêpu do danych w bazie wed³ug typu konta.
+-Umo¿liwienie im logowania do aplikacji, dostêpu do danych w bazie wed³ug typu konta
 -Ka¿de z kont ma inne mo¿liwoœci:
-a)Konto u¿ytkownika pozwala tylko na wyœwietlanie danych znajduj¹cych siê w bazie wed³ug okreœlonych regu³.
-b)Konto u¿ytkownika pozwala tylko na wyœwietlanie danych znajduj¹cych siê w bazie wed³ug okreœlonych regu³.
--Do edytowania/przegl¹dania dostêpne s¹ tabele: kluby, gracze, sezony, puchar krajowy oraz stadiony.
+a)Konto u¿ytkownika pozwala tylko na wyœwietlanie danych znajduj¹cych siê w bazie wed³ug okreœlonych regu³
+b)Konto administratora pozwala na wyœwietlanie, edycjê i dodawanie danych
+znajduj¹cych siê w bazie
+-Do edytowania/przegl¹dania dostêpne s¹ tabele: kluby, gracze, puchar krajowy, stadiony etc
 -Informacje o klubie: pokazuje aktualnych zawodników i trenera, herb, nazwê, stadion etc
 -Szczegó³owe informacje o wybranych zawodnikach
 -Dodawanie danych do bazy (administrator)
