@@ -52,6 +52,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DAL\DBconnection.cs" />
+    <Compile Include="DBdata\Club.cs" />
+    <Compile Include="DBdata\Player.cs" />
     <Compile Include="Forms\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
