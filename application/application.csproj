@@ -53,7 +53,11 @@
     </Compile>
     <Compile Include="DAL\DBconnection.cs" />
     <Compile Include="DBdata\Club.cs" />
+    <Compile Include="DBdata\Coach.cs" />
+    <Compile Include="DBdata\Crest.cs" />
+    <Compile Include="DBdata\Kit.cs" />
     <Compile Include="DBdata\Player.cs" />
+    <Compile Include="DBdata\Stadium.cs" />
     <Compile Include="Forms\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>

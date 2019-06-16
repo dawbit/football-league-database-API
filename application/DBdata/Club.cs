@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace application.DBdata
 {
     class Club
     {
         public int? Id { get; set; } // zabezpieczenie przed nullem
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string Name { get; set; }
+        public string City { get; set; }
+        public short Founded { get; set; } // 0 to 65,535
+        public string League { get; set; }
 
-        public User() { }
+        public Club() { }
 
-        public User(IDataReader dataReader)
+        public Club(IDataReader dataReader)
         {
             // dataReader.Read()
-            Id = (int)dataReader["id_u"];
-            FirstName = (string)dataReader["fname"];
-            LastName = (string)dataReader["lname"];
-            BirthDate = (DateTime)dataReader["bdate"];
+            Id = (int)dataReader["id"];
+            Name = (string)dataReader["name"];
+            City = (string)dataReader["city"];
+            Founded = (short)dataReader["founded"];
+            League = (string)dataReader["active"];
         }
 
-        public override string ToString()
+        public Tuple<int, string, string, short, string> GetClub()
         {
-            // return string.Format("ID: {0}, First name: {1}, Last name: {2}, Birth Date: {3}.", Id, FirstName, LastName, BirthDate);
-            return $"{Id} {FirstName} {LastName} {BirthDate.Date.Year}";
+            return new Tuple<int, string, string, short, string>((int)Id, Name, City, Founded, League);
         }
     }
 }

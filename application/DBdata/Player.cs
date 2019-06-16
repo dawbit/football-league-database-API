@@ -14,8 +14,9 @@ namespace application.DBdata
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Position { get; set; }
-        public int Height { get; set; } 
-        public int Weight { get; set; }
+        public byte Height { get; set; } // 0 to 255
+        public byte Weight { get; set; }
+        public string Nationality { get; set; }
 
         private int number;
 
@@ -31,15 +32,17 @@ namespace application.DBdata
             Position = (string)dataReader["position"];
 
             if (dataReader["height"] == null) Height = 0;
-            else Height = (int)dataReader["height"];
+            else Height = (byte)dataReader["height"];
 
             if (dataReader["weight"] == null) Weight = 0;
-            else Weight = (int)dataReader["height"];
+            else Weight = (byte)dataReader["height"];
+
+            Nationality = (string)dataReader["nationality"];
         }
 
-        public Tuple<int, string, string, DateTime, int, int> GetAnswer()
+        public Tuple<int, string, string, DateTime, string, byte, byte, string> GetPlayer()
         {
-            return new Tuple<int, string, string, DateTime, int, int>((int)Id, FirstName, LastName, BirthDate, Height, Weight);
+            return new Tuple<int, string, string, DateTime, string, byte, byte, string>((int)Id, FirstName, LastName, BirthDate, Position, Height, Weight, Nationality);
         }
     }
 }
