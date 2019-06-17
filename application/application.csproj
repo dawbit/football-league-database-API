@@ -48,7 +48,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\PlaceHolderTextBox.cs">
+    <Compile Include="MainFormPresenter.cs" />
+    <Compile Include="MainFormView.cs" />
+    <Compile Include="UserControls\AdminControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AdminControls.Designer.cs">
+      <DependentUpon>AdminControls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeControlDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AttributeControlDisplay.Designer.cs">
+      <DependentUpon>AttributeControlDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AttributeControlEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AttributeControlEdit.Designer.cs">
+      <DependentUpon>AttributeControlEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DataControl.Designer.cs">
+      <DependentUpon>DataControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PlaceHolderTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DAL\DBconnection.cs" />
@@ -58,23 +84,17 @@
     <Compile Include="DBdata\Kit.cs" />
     <Compile Include="DBdata\Player.cs" />
     <Compile Include="DBdata\Stadium.cs" />
-    <Compile Include="Forms\FormAdmin.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormAdmin.Designer.cs">
-      <DependentUpon>FormAdmin.cs</DependentUpon>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Login\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormUser.Designer.cs">
-      <DependentUpon>FormUser.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\DBinfo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -84,14 +104,17 @@
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\FormAdmin.resx">
-      <DependentUpon>FormAdmin.cs</DependentUpon>
+    <Compile Include="UserControls\MainMenuPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MainMenuPanel.Designer.cs">
+      <DependentUpon>MainMenuPanel.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormUser.resx">
-      <DependentUpon>FormUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\DBinfo.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -107,6 +130,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserControls\AdminControls.resx">
+      <DependentUpon>AdminControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AttributeControlDisplay.resx">
+      <DependentUpon>AttributeControlDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AttributeControlEdit.resx">
+      <DependentUpon>AttributeControlEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DataControl.resx">
+      <DependentUpon>DataControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MainMenuPanel.resx">
+      <DependentUpon>MainMenuPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,7 +162,34 @@
     <None Include="Resources\photo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <None Include="Resources\001-plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\esa-logo-2017.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lotto-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background_swapped.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LiFuuXW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\002-minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\003-list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\004-refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

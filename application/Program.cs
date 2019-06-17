@@ -13,12 +13,13 @@ namespace application
         /// Główny punkt wejścia dla aplikacji.
         /// </summary>
 
+        public static string AccountType;
+
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
 
             DialogResult logResult = new FormLogin().ShowDialog();
 
@@ -27,28 +28,17 @@ namespace application
                 logResult = new FormLogin().ShowDialog();
             }
 
-
-
-            if (logResult == DialogResult.OK)
+            if (logResult == DialogResult.OK || logResult == DialogResult.Yes)
             {
-                Application.Run(new FormAdmin());
-            }
-            else if (logResult == DialogResult.Yes)
-            {
-                Application.Run(new FormUser());
+                if (logResult == DialogResult.OK) AccountType = "administrator";
+                else AccountType = "user";
+
+                Model model = new Model();
+                MainFormView view = new FormMain();
+                MainFormPresenter presenter = new MainFormPresenter(view, model);
+                Application.Run((FormMain)view);
             }
             
-        }
-
-        static void Application_ApplicationExit(object sender, EventArgs e)
-        {
-            if (DialogResult.OK == MessageBox.Show("Are You Sure To Exit?", "ExitConfirmation", MessageBoxButtons.OKCancel))
-            {
-                if (Application.MessageLoop)
-                    Application.Exit();
-                else
-                    Environment.Exit(1);
-            }
         }
     }
 }

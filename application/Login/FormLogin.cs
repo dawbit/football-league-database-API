@@ -21,6 +21,9 @@ namespace application.Forms
             this.ControlBox = false;
             this.Text = String.Empty;
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
             textBoxPassword.PasswordChar = '*';
         }
 
