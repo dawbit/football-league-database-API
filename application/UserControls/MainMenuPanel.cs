@@ -18,7 +18,18 @@ namespace application.UserControls
             InitializeComponent();
 
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, panelLogo, new object[] { true });
+
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, this, new object[] { true });
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams createParams = base.CreateParams;
+                createParams.ExStyle |= 0x00000020;
+                return createParams;
+            }
         }
 
         private void mainPanelButton_Click(object sender, EventArgs e)

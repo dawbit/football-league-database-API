@@ -34,7 +34,8 @@
             this.buttonKits = new System.Windows.Forms.Button();
             this.buttonCrests = new System.Windows.Forms.Button();
             this.buttonStadiums = new System.Windows.Forms.Button();
-            this.panelLogo = new System.Windows.Forms.Panel();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonPlayers
@@ -127,22 +128,23 @@
             this.buttonStadiums.UseVisualStyleBackColor = false;
             this.buttonStadiums.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
-            // panelLogo
+            // pictureBoxLogo
             // 
-            this.panelLogo.BackColor = System.Drawing.Color.Transparent;
-            this.panelLogo.BackgroundImage = global::application.Properties.Resources.logo_white;
-            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panelLogo.Location = new System.Drawing.Point(429, 137);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(350, 350);
-            this.panelLogo.TabIndex = 6;
+            this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBoxLogo.Image = global::application.Properties.Resources.logo_white;
+            this.pictureBoxLogo.ImageLocation = "";
+            this.pictureBoxLogo.Location = new System.Drawing.Point(409, 164);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(390, 360);
+            this.pictureBoxLogo.TabIndex = 8;
+            this.pictureBoxLogo.TabStop = false;
             // 
             // MainMenuPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.panelLogo);
+            this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.buttonKits);
             this.Controls.Add(this.buttonCrests);
             this.Controls.Add(this.buttonStadiums);
@@ -153,6 +155,7 @@
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "MainMenuPanel";
             this.Size = new System.Drawing.Size(1209, 689);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -165,6 +168,6 @@
         private System.Windows.Forms.Button buttonKits;
         private System.Windows.Forms.Button buttonCrests;
         private System.Windows.Forms.Button buttonStadiums;
-        private System.Windows.Forms.Panel panelLogo;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
     }
 }
