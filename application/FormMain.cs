@@ -1,40 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using application.Forms;
-using application.UserControls;
+using application.Controls;
 
 namespace application
 {
-    public partial class FormMain : Form, MainFormView
+    public partial class FormMain : Form, IMainForm
     {
-        #region .. Double Buffered function ..
+        #region Function for double buffering
         public static void SetDoubleBuffered(System.Windows.Forms.Control c)
         {
-            if (System.Windows.Forms.SystemInformation.TerminalServerSession)
+            if (SystemInformation.TerminalServerSession)
                 return;
-            System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            aProp.SetValue(c, true, null);
+            PropertyInfo prop = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
+            prop.SetValue(c, true, null);
         }
 
         #endregion
 
-        #region .. code for Flucuring ..
+        #region Flucuring
 
         protected override CreateParams CreateParams
         {
             get
             {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
+                CreateParams parameters = base.CreateParams;
+                parameters.ExStyle |= 0x02000000;
+                return parameters;
             }
         }
 
@@ -51,6 +45,18 @@ namespace application
             this.Text = String.Empty;
         }
 
+        public List<Control> PanelControls
+        {
+            set
+            {
+                mainApplicationPanel.Controls.Clear();
+                for (int i = 0; i < value.Count; i++)
+                {
+                    mainApplicationPanel.Controls.Add(value[i]);
+                }
+            }
+        }
+
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -62,7 +68,9 @@ namespace application
         {
             MainMenuPanel panel = new MainMenuPanel();
             SetDoubleBuffered(panel); // wywołaj funkcje dla kontenera która naprawi problem migotania
-            mainApplicationPanel.Controls.Add(panel);
+            List<Control> objects = new List<Control>();
+            objects.Add(panel);
+            PanelControls = objects;
 
             if (Program.AccountType == "administrator")
             {

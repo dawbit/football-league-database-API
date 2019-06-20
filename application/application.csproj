@@ -48,33 +48,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AdminButtons\IAdminControl.cs" />
+    <Compile Include="Controls\AdminButtons\PresenterAdminControl.cs" />
+    <Compile Include="Controls\ListViewControl\IDataControl.cs" />
+    <Compile Include="Controls\ListViewControl\PresenterDataControl.cs" />
+    <Compile Include="Controls\MenuPanel\IMenuPanel.cs" />
+    <Compile Include="Controls\MenuPanel\PresenterMenuPanel.cs" />
     <Compile Include="MainFormPresenter.cs" />
-    <Compile Include="MainFormView.cs" />
-    <Compile Include="UserControls\AdminControls.cs">
+    <Compile Include="IMainForm.cs" />
+    <Compile Include="Controls\AdminButtons\AdminControls.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\AdminControls.Designer.cs">
+    <Compile Include="Controls\AdminButtons\AdminControls.Designer.cs">
       <DependentUpon>AdminControls.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AttributeControlDisplay.cs">
+    <Compile Include="Controls\SingleControls\AttributeControlDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\AttributeControlDisplay.Designer.cs">
+    <Compile Include="Controls\SingleControls\AttributeControlDisplay.Designer.cs">
       <DependentUpon>AttributeControlDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AttributeControlEdit.cs">
+    <Compile Include="Controls\SingleControls\AttributeControlEdit.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\AttributeControlEdit.Designer.cs">
+    <Compile Include="Controls\SingleControls\AttributeControlEdit.Designer.cs">
       <DependentUpon>AttributeControlEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DataControl.cs">
+    <Compile Include="Controls\ListViewControl\DataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\DataControl.Designer.cs">
+    <Compile Include="Controls\ListViewControl\DataControl.Designer.cs">
       <DependentUpon>DataControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PlaceHolderTextBox.cs">
+    <Compile Include="Controls\SingleControls\PlaceHolderTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DAL\DBconnection.cs" />
@@ -104,10 +110,10 @@
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\MainMenuPanel.cs">
+    <Compile Include="Controls\MenuPanel\MainMenuPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MainMenuPanel.Designer.cs">
+    <Compile Include="Controls\MenuPanel\MainMenuPanel.Designer.cs">
       <DependentUpon>MainMenuPanel.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormMain.resx">
@@ -130,19 +136,19 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControls\AdminControls.resx">
+    <EmbeddedResource Include="Controls\AdminButtons\AdminControls.resx">
       <DependentUpon>AdminControls.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\AttributeControlDisplay.resx">
+    <EmbeddedResource Include="Controls\SingleControls\AttributeControlDisplay.resx">
       <DependentUpon>AttributeControlDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\AttributeControlEdit.resx">
+    <EmbeddedResource Include="Controls\SingleControls\AttributeControlEdit.resx">
       <DependentUpon>AttributeControlEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\DataControl.resx">
+    <EmbeddedResource Include="Controls\ListViewControl\DataControl.resx">
       <DependentUpon>DataControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MainMenuPanel.resx">
+    <EmbeddedResource Include="Controls\MenuPanel\MainMenuPanel.resx">
       <DependentUpon>MainMenuPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -191,5 +197,6 @@
   <ItemGroup>
     <None Include="Resources\004-refresh.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

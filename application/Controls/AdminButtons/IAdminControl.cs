@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace application
+namespace application.Controls.AdminButtons
 {
-    interface MainFormView
+    interface IAdminControl
     {
     }
 }

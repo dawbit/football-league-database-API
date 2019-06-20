@@ -1,4 +1,4 @@
-﻿namespace application.UserControls
+﻿namespace application.Controls
 {
     partial class MainMenuPanel
     {
@@ -49,7 +49,7 @@
             this.buttonPlayers.Name = "buttonPlayers";
             this.buttonPlayers.Size = new System.Drawing.Size(213, 59);
             this.buttonPlayers.TabIndex = 0;
-            this.buttonPlayers.Text = "Gracze";
+            this.buttonPlayers.Text = "Players";
             this.buttonPlayers.UseVisualStyleBackColor = false;
             this.buttonPlayers.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
@@ -64,7 +64,7 @@
             this.buttonClubs.Name = "buttonClubs";
             this.buttonClubs.Size = new System.Drawing.Size(213, 59);
             this.buttonClubs.TabIndex = 1;
-            this.buttonClubs.Text = "Kluby";
+            this.buttonClubs.Text = "Clubs";
             this.buttonClubs.UseVisualStyleBackColor = false;
             this.buttonClubs.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
@@ -79,7 +79,7 @@
             this.buttonCoaches.Name = "buttonCoaches";
             this.buttonCoaches.Size = new System.Drawing.Size(213, 59);
             this.buttonCoaches.TabIndex = 2;
-            this.buttonCoaches.Text = "Trenerzy";
+            this.buttonCoaches.Text = "Coaches";
             this.buttonCoaches.UseVisualStyleBackColor = false;
             this.buttonCoaches.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
@@ -94,7 +94,7 @@
             this.buttonKits.Name = "buttonKits";
             this.buttonKits.Size = new System.Drawing.Size(213, 59);
             this.buttonKits.TabIndex = 5;
-            this.buttonKits.Text = "Barwy";
+            this.buttonKits.Text = "Club colours";
             this.buttonKits.UseVisualStyleBackColor = false;
             this.buttonKits.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
@@ -109,7 +109,7 @@
             this.buttonCrests.Name = "buttonCrests";
             this.buttonCrests.Size = new System.Drawing.Size(213, 59);
             this.buttonCrests.TabIndex = 4;
-            this.buttonCrests.Text = "Herby";
+            this.buttonCrests.Text = "Crests";
             this.buttonCrests.UseVisualStyleBackColor = false;
             this.buttonCrests.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 
@@ -124,7 +124,7 @@
             this.buttonStadiums.Name = "buttonStadiums";
             this.buttonStadiums.Size = new System.Drawing.Size(213, 59);
             this.buttonStadiums.TabIndex = 3;
-            this.buttonStadiums.Text = "Stadiony";
+            this.buttonStadiums.Text = "Stadiums";
             this.buttonStadiums.UseVisualStyleBackColor = false;
             this.buttonStadiums.Click += new System.EventHandler(this.mainPanelButton_Click);
             // 

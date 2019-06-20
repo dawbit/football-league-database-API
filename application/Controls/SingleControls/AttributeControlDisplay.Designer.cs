@@ -1,6 +1,6 @@
-﻿namespace application.UserControls
+﻿namespace application.Controls
 {
-    partial class AttributeControlEdit
+    partial class AttributeControlDisplay
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.labelAttributeName = new System.Windows.Forms.Label();
-            this.textBoxEdit = new System.Windows.Forms.TextBox();
+            this.labelAttributeValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelAttributeName
@@ -38,32 +38,34 @@
             this.labelAttributeName.BackColor = System.Drawing.Color.Transparent;
             this.labelAttributeName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelAttributeName.ForeColor = System.Drawing.Color.White;
-            this.labelAttributeName.Location = new System.Drawing.Point(5, 1);
+            this.labelAttributeName.Location = new System.Drawing.Point(5, 3);
             this.labelAttributeName.Name = "labelAttributeName";
             this.labelAttributeName.Size = new System.Drawing.Size(0, 22);
-            this.labelAttributeName.TabIndex = 1;
+            this.labelAttributeName.TabIndex = 0;
             // 
-            // textBoxEdit
+            // labelAttributeValue
             // 
-            this.textBoxEdit.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxEdit.Location = new System.Drawing.Point(68, 1);
-            this.textBoxEdit.Name = "textBoxEdit";
-            this.textBoxEdit.Size = new System.Drawing.Size(205, 23);
-            this.textBoxEdit.TabIndex = 2;
+            this.labelAttributeValue.AutoSize = true;
+            this.labelAttributeValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelAttributeValue.ForeColor = System.Drawing.Color.White;
+            this.labelAttributeValue.Location = new System.Drawing.Point(67, 5);
+            this.labelAttributeValue.Name = "labelAttributeValue";
+            this.labelAttributeValue.Size = new System.Drawing.Size(0, 20);
+            this.labelAttributeValue.TabIndex = 1;
             // 
-            // AttributeControlEdit
+            // AttributeControlDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(47)))), ((int)(((byte)(86)))));
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.textBoxEdit);
+            this.Controls.Add(this.labelAttributeValue);
             this.Controls.Add(this.labelAttributeName);
-            this.Font = new System.Drawing.Font("Trebuchet MS", 11.25F);
+            this.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "AttributeControlEdit";
-            this.Size = new System.Drawing.Size(276, 26);
+            this.Name = "AttributeControlDisplay";
+            this.Size = new System.Drawing.Size(278, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -72,6 +74,6 @@
         #endregion
 
         private System.Windows.Forms.Label labelAttributeName;
-        private System.Windows.Forms.TextBox textBoxEdit;
+        private System.Windows.Forms.Label labelAttributeValue;
     }
 }

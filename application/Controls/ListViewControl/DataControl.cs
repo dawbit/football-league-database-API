@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using application.Controls.ListViewControl;
 
-namespace application.UserControls
+namespace application.Controls
 {
-    public partial class DataControl : UserControl
+    public partial class DataControl : UserControl, IDataControl
     {
         public DataControl()
         {

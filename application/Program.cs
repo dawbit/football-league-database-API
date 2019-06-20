@@ -34,7 +34,7 @@ namespace application
                 else AccountType = "user";
 
                 Model model = new Model();
-                MainFormView view = new FormMain();
+                IMainForm view = new FormMain();
                 MainFormPresenter presenter = new MainFormPresenter(view, model);
                 Application.Run((FormMain)view);
             }

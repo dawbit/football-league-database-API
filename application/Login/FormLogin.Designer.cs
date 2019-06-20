@@ -47,7 +47,7 @@
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(141, 45);
             this.buttonLogin.TabIndex = 2;
-            this.buttonLogin.Text = "Zaloguj się";
+            this.buttonLogin.Text = "Log in";
             this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
@@ -73,7 +73,7 @@
             this.buttonRegister.Name = "buttonRegister";
             this.buttonRegister.Size = new System.Drawing.Size(139, 45);
             this.buttonRegister.TabIndex = 3;
-            this.buttonRegister.Text = "Zarejestruj się";
+            this.buttonRegister.Text = "Register";
             this.buttonRegister.UseVisualStyleBackColor = false;
             this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 

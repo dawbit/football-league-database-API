@@ -1,4 +1,4 @@
-﻿namespace application.UserControls
+﻿namespace application.Controls
 {
     partial class DataControl
     {

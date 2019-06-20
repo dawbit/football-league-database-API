@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace application.UserControls
+namespace application.Controls
 {
     public partial class AdminControls : UserControl
     {
