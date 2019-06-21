@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace application.Controls
+namespace application.Controls.AdminButtons
 {
-    public partial class AdminControls : UserControl
+    public partial class AdminControls : UserControl, IAdminControl
     {
         public AdminControls()
         {
@@ -37,6 +37,32 @@ namespace application.Controls
             buttonSelect.FlatAppearance.BorderSize = 0;
             buttonSelect.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
             #endregion
+        }
+
+        public event Action Load_SelectPanel;
+        public event Action Load_InsertPanel;
+        public event Action Load_DeletePanel;
+        public event Action Load_UpdatePanel;
+
+
+        private void buttonSelect_Click(object sender, EventArgs e)
+        {
+            Load_SelectPanel?.Invoke();
+        }
+
+        private void buttonInsert_Click(object sender, EventArgs e)
+        {
+            Load_InsertPanel?.Invoke();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            Load_DeletePanel?.Invoke();
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            Load_UpdatePanel?.Invoke();
         }
     }
 }

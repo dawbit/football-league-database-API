@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace application.Controls.AdminButtons
 {
-    interface IAdminControl
+    public interface IAdminControl
     {
+        event Action Load_SelectPanel;
+        event Action Load_InsertPanel;
+        event Action Load_DeletePanel;
+        event Action Load_UpdatePanel;
     }
 }

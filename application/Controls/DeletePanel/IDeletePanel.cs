@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace application.Controls.ListViewControl
+namespace application.Controls.DeletePanel
 {
-    interface IDataControl
+    interface IDeletePanel
     {
     }
 }

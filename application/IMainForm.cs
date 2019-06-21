@@ -9,6 +9,9 @@ namespace application
 {
     interface IMainForm
     {
-        List<Control> PanelControls { set; }
+        Control PanelControl { get; set; }
+        Controls.AdminButtons.IAdminControl AdminControl { get; }
+
+        event Action Load_MenuPanel;
     }
 }

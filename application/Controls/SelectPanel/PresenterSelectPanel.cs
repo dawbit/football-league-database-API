@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace application.Controls.ListViewControl
+namespace application.Controls.SelectPanel
 {
-    class PresenterDataControl
+    class PresenterSelectPanel
     {
-        IDataControl view;
+        ISelectPanel view;
         Model model;
 
-        public PresenterDataControl(IDataControl view, Model model)
+        public PresenterSelectPanel(ISelectPanel view, Model model)
         {
             this.view = view;
             this.model = model;

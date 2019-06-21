@@ -15,6 +15,7 @@ namespace application
 
         public static string AccountType;
 
+
         [STAThread]
         static void Main()
         {
@@ -34,9 +35,8 @@ namespace application
                 else AccountType = "user";
 
                 Model model = new Model();
-                IMainForm view = new FormMain();
-                MainFormPresenter presenter = new MainFormPresenter(view, model);
-                Application.Run((FormMain)view);
+                MainFormPresenter presenter = new MainFormPresenter(MFSingleton.Instance.view, model);
+                Application.Run((FormMain)MFSingleton.Instance.view);
             }
             
         }

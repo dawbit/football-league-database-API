@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace application.Controls.MenuPanel
+namespace application.Controls.UpdatePanel
 {
-    class PresenterMenuPanel
+    class PresenterUpdatePanel
     {
-        IMenuPanel view;
+        IUpdatePanel view;
         Model model;
 
-        public PresenterMenuPanel(IMenuPanel view, Model model)
+        public PresenterUpdatePanel(IUpdatePanel view, Model model)
         {
             this.view = view;
             this.model = model;

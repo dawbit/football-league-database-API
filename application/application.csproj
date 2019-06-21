@@ -48,20 +48,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AdminButtons\IAdminControl.cs" />
-    <Compile Include="Controls\AdminButtons\PresenterAdminControl.cs" />
-    <Compile Include="Controls\ListViewControl\IDataControl.cs" />
-    <Compile Include="Controls\ListViewControl\PresenterDataControl.cs" />
-    <Compile Include="Controls\MenuPanel\IMenuPanel.cs" />
-    <Compile Include="Controls\MenuPanel\PresenterMenuPanel.cs" />
-    <Compile Include="MainFormPresenter.cs" />
-    <Compile Include="IMainForm.cs" />
     <Compile Include="Controls\AdminButtons\AdminControls.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\AdminButtons\AdminControls.Designer.cs">
       <DependentUpon>AdminControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DeletePanel\DeletePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DeletePanel\DeletePanel.Designer.cs">
+      <DependentUpon>DeletePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DeletePanel\IDeletePanel.cs" />
+    <Compile Include="Controls\DeletePanel\PresenterDeletePanel.cs" />
+    <Compile Include="Controls\InsertPanel\IInsertPanel.cs" />
+    <Compile Include="Controls\InsertPanel\InsertPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InsertPanel\InsertPanel.Designer.cs">
+      <DependentUpon>InsertPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AdminButtons\IAdminControl.cs" />
+    <Compile Include="Controls\AdminButtons\PresenterAdminControl.cs" />
+    <Compile Include="Controls\InsertPanel\PresenterInsertPanel.cs" />
+    <Compile Include="Controls\MenuPanel\IMenuPanel.cs" />
+    <Compile Include="Controls\MenuPanel\PresenterMenuPanel.cs" />
+    <Compile Include="Controls\SelectPanel\ISelectPanel.cs" />
+    <Compile Include="Controls\SelectPanel\PresenterSelectPanel.cs" />
+    <Compile Include="Controls\SelectPanel\SelectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectPanel\SelectPanel.Designer.cs">
+      <DependentUpon>SelectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UpdatePanel\IUpdatePanel.cs" />
+    <Compile Include="Controls\UpdatePanel\PresenterUpdatePanel.cs" />
+    <Compile Include="Controls\UpdatePanel\UpdatePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UpdatePanel\UpdatePanel.Designer.cs">
+      <DependentUpon>UpdatePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFormPresenter.cs" />
+    <Compile Include="IMainForm.cs" />
     <Compile Include="Controls\SingleControls\AttributeControlDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -73,12 +103,6 @@
     </Compile>
     <Compile Include="Controls\SingleControls\AttributeControlEdit.Designer.cs">
       <DependentUpon>AttributeControlEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListViewControl\DataControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ListViewControl\DataControl.Designer.cs">
-      <DependentUpon>DataControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SingleControls\PlaceHolderTextBox.cs">
       <SubType>Component</SubType>
@@ -107,6 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBinfo.resx</DependentUpon>
     </Compile>
+    <Compile Include="MFSingleton.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +141,21 @@
     <Compile Include="Controls\MenuPanel\MainMenuPanel.Designer.cs">
       <DependentUpon>MainMenuPanel.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\AdminButtons\AdminControls.resx">
+      <DependentUpon>AdminControls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DeletePanel\DeletePanel.resx">
+      <DependentUpon>DeletePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InsertPanel\InsertPanel.resx">
+      <DependentUpon>InsertPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SelectPanel\SelectPanel.resx">
+      <DependentUpon>SelectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UpdatePanel\UpdatePanel.resx">
+      <DependentUpon>UpdatePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,17 +176,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Controls\AdminButtons\AdminControls.resx">
-      <DependentUpon>AdminControls.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SingleControls\AttributeControlDisplay.resx">
       <DependentUpon>AttributeControlDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SingleControls\AttributeControlEdit.resx">
       <DependentUpon>AttributeControlEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ListViewControl\DataControl.resx">
-      <DependentUpon>DataControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MenuPanel\MainMenuPanel.resx">
       <DependentUpon>MainMenuPanel.cs</DependentUpon>
@@ -197,6 +231,8 @@
   <ItemGroup>
     <None Include="Resources\004-refresh.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\start.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

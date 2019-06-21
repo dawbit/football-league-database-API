@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using application.Controls.ListViewControl;
 
-namespace application.Controls
+namespace application.Controls.DeletePanel
 {
-    public partial class DataControl : UserControl, IDataControl
+    public partial class DeletePanel : UserControl
     {
-        public DataControl()
+        public DeletePanel()
         {
             InitializeComponent();
         }

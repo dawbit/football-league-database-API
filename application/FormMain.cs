@@ -9,7 +9,7 @@ namespace application
 {
     public partial class FormMain : Form, IMainForm
     {
-        #region Function for double buffering
+        #region Function for double buffering, flucuring
         public static void SetDoubleBuffered(System.Windows.Forms.Control c)
         {
             if (SystemInformation.TerminalServerSession)
@@ -17,10 +17,6 @@ namespace application
             PropertyInfo prop = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance);
             prop.SetValue(c, true, null);
         }
-
-        #endregion
-
-        #region Flucuring
 
         protected override CreateParams CreateParams
         {
@@ -31,9 +27,7 @@ namespace application
                 return parameters;
             }
         }
-
         #endregion
-
 
         public FormMain()
         {
@@ -45,15 +39,47 @@ namespace application
             this.Text = String.Empty;
         }
 
-        public List<Control> PanelControls
+        public Control PanelControl
         {
+            get
+            {
+                Control control = new Control();
+                foreach (Control obj in mainApplicationPanel.Controls)
+                {
+                    control = obj;
+                }
+                return control;
+            }
             set
             {
                 mainApplicationPanel.Controls.Clear();
-                for (int i = 0; i < value.Count; i++)
-                {
-                    mainApplicationPanel.Controls.Add(value[i]);
-                }
+                SetDoubleBuffered(value); // wywołaj funkcje dla kontenera która naprawi problem migotania
+                mainApplicationPanel.Controls.Add(value);
+            }
+        }
+
+        private Controls.AdminButtons.AdminControls adminControl = new Controls.AdminButtons.AdminControls();
+
+        public Controls.AdminButtons.IAdminControl AdminControl
+        {
+            get
+            {
+                Console.WriteLine("IAdminControl AdminControl");
+                return adminControl;
+            }
+}
+
+        public event Action Load_MenuPanel;
+
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            Load_MenuPanel?.Invoke();
+
+            if (Program.AccountType == "administrator")
+            {
+                adminControl.Location = new Point(959, 12);
+                this.Controls.Add(adminControl);
             }
         }
 
@@ -64,20 +90,9 @@ namespace application
             return;
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private void buttonMenuPanel_Click(object sender, EventArgs e)
         {
-            MainMenuPanel panel = new MainMenuPanel();
-            SetDoubleBuffered(panel); // wywołaj funkcje dla kontenera która naprawi problem migotania
-            List<Control> objects = new List<Control>();
-            objects.Add(panel);
-            PanelControls = objects;
-
-            if (Program.AccountType == "administrator")
-            {
-                AdminControls adminControl = new AdminControls();
-                adminControl.Location = new Point(959, 12);
-                this.Controls.Add(adminControl);
-            }
+            Load_MenuPanel?.Invoke();
         }
     }
 }
