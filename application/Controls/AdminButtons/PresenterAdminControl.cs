@@ -13,8 +13,6 @@ namespace application.Controls.AdminButtons
             this.view = view;
             this.model = model;
 
-            Console.WriteLine("PRESENTER, PRESENTERADMINCONTROL");
-
             this.view.Load_SelectPanel += View_Load_SelectPanel;
             this.view.Load_InsertPanel += View_Load_InsertPanel;
             this.view.Load_DeletePanel += View_Load_DeletePanel;

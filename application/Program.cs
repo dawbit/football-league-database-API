@@ -37,8 +37,7 @@ namespace application
                 Model model = new Model();
                 MainFormPresenter presenter = new MainFormPresenter(MFSingleton.Instance.view, model);
                 Application.Run((FormMain)MFSingleton.Instance.view);
-            }
-            
+            } 
         }
     }
 }

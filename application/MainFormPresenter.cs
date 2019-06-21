@@ -20,15 +20,16 @@ namespace application
             this.view = view;
             this.model = model;
 
-            Console.WriteLine(view.AdminControl.ToString());
             this.AdminPresenter = new Controls.AdminButtons.PresenterAdminControl(view.AdminControl, model);
 
-            this.view.Load_MenuPanel += View_Load_MenuPanel;
+            //this.MenuPresenter = new Controls.MenuPanel.PresenterMenuPanel()
+
+            this.view.Load_SelectPanel += View_Load_SelectPanel;
         }
 
-        private void View_Load_MenuPanel()
+        private void View_Load_SelectPanel()
         {
-            this.view.PanelControl = model.Load_Menu_Panel();
+            this.view.PanelControl = model.Load_Select_Panel();
         }
     }
 }

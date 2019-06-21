@@ -32,6 +32,7 @@
             this.flowLayoutPanelShow = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanelSearch = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.comboBoxTables = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // listViewItems
@@ -75,11 +76,31 @@
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = false;
             // 
+            // comboBoxTables
+            // 
+            this.comboBoxTables.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(47)))), ((int)(((byte)(86)))));
+            this.comboBoxTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTables.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTables.ForeColor = System.Drawing.Color.White;
+            this.comboBoxTables.FormattingEnabled = true;
+            this.comboBoxTables.Items.AddRange(new object[] {
+            "Players",
+            "Clubs",
+            "Coaches",
+            "Stadiums",
+            "Crests",
+            "Kits"});
+            this.comboBoxTables.Location = new System.Drawing.Point(0, 653);
+            this.comboBoxTables.Name = "comboBoxTables";
+            this.comboBoxTables.Size = new System.Drawing.Size(286, 26);
+            this.comboBoxTables.TabIndex = 4;
+            // 
             // SelectPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.comboBoxTables);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.flowLayoutPanelSearch);
             this.Controls.Add(this.flowLayoutPanelShow);
@@ -99,5 +120,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelShow;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSearch;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.ComboBox comboBoxTables;
     }
 }

@@ -14,14 +14,9 @@ namespace application
     {
         public Model() { }
 
-        public Control Load_Menu_Panel()
-        {
-            return new MainMenuPanel();
-        }
-
+        #region Load Selected Panels
         public Control Load_Select_Panel()
         {
-            Console.WriteLine("ZOSTAŁEM WYWOŁANY");
             return new Controls.SelectPanel.SelectPanel();
         }
 
@@ -38,6 +33,13 @@ namespace application
         public Control Load_Update_Panel()
         {
             return new Controls.UpdatePanel.UpdatePanel();
+        }
+        #endregion
+
+        public void ChoosenOption(string option)
+        {
+
+            Console.WriteLine(option);
         }
     }
 }

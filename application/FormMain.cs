@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using application.Controls;
+using application.Controls.AdminButtons;
 
 namespace application
 {
@@ -58,23 +59,21 @@ namespace application
             }
         }
 
-        private Controls.AdminButtons.AdminControls adminControl = new Controls.AdminButtons.AdminControls();
+        private AdminControls adminControl = new AdminControls();
 
-        public Controls.AdminButtons.IAdminControl AdminControl
+        public IAdminControl AdminControl
         {
             get
             {
-                Console.WriteLine("IAdminControl AdminControl");
                 return adminControl;
             }
-}
+        }
 
-        public event Action Load_MenuPanel;
-
+        public event Action Load_SelectPanel;
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            Load_MenuPanel?.Invoke();
+            Load_SelectPanel?.Invoke();
 
             if (Program.AccountType == "administrator")
             {
@@ -88,11 +87,6 @@ namespace application
             Application.Exit();
             this.Close();
             return;
-        }
-
-        private void buttonMenuPanel_Click(object sender, EventArgs e)
-        {
-            Load_MenuPanel?.Invoke();
         }
     }
 }

@@ -32,7 +32,6 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.mainApplicationPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonMenuPanel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonExit
@@ -69,21 +68,6 @@
             this.mainApplicationPanel.Size = new System.Drawing.Size(1210, 690);
             this.mainApplicationPanel.TabIndex = 4;
             // 
-            // buttonMenuPanel
-            // 
-            this.buttonMenuPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(103)))), ((int)(((byte)(0)))));
-            this.buttonMenuPanel.BackgroundImage = global::application.Properties.Resources.start;
-            this.buttonMenuPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonMenuPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenuPanel.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonMenuPanel.ForeColor = System.Drawing.Color.White;
-            this.buttonMenuPanel.Location = new System.Drawing.Point(268, 12);
-            this.buttonMenuPanel.Name = "buttonMenuPanel";
-            this.buttonMenuPanel.Size = new System.Drawing.Size(36, 36);
-            this.buttonMenuPanel.TabIndex = 5;
-            this.buttonMenuPanel.UseVisualStyleBackColor = false;
-            this.buttonMenuPanel.Click += new System.EventHandler(this.buttonMenuPanel_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,7 +75,6 @@
             this.BackgroundImage = global::application.Properties.Resources.background_swapped;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1234, 761);
-            this.Controls.Add(this.buttonMenuPanel);
             this.Controls.Add(this.mainApplicationPanel);
             this.Controls.Add(this.panelLogo);
             this.Controls.Add(this.buttonExit);
@@ -110,7 +93,6 @@
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.FlowLayoutPanel mainApplicationPanel;
-        private System.Windows.Forms.Button buttonMenuPanel;
     }
 }
 
