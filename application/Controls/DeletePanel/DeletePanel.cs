@@ -15,13 +15,20 @@ namespace application.Controls.DeletePanel
         public DeletePanel()
         {
             InitializeComponent();
+
+            listViewItems.View = View.Details;
+            listViewItems.MultiSelect = false;
+            listViewItems.GridLines = true;
+            listViewItems.FullRowSelect = true;
         }
 
         public string Selected_Table
         {
             get
             {
-                return comboBoxTables.SelectedItem.ToString();
+                if (comboBoxTables.SelectedIndex > -1)
+                    return comboBoxTables.SelectedItem.ToString();
+                else return "";
             }
         }
 

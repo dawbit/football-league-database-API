@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,8 +36,9 @@ namespace application
                 else AccountType = "user";
 
                 Model model = new Model();
-                MainFormPresenter presenter = new MainFormPresenter(MFSingleton.Instance.view, model);
-                Application.Run((FormMain)MFSingleton.Instance.view);
+                IMainForm view = new FormMain();
+                MainFormPresenter presenter = new MainFormPresenter(view, model);
+                Application.Run((FormMain)view);
             } 
         }
     }

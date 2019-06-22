@@ -21,10 +21,10 @@ namespace application.DBdata
         public Stadium(IDataReader dataReader)
         {
             // dataReader.Read()
-            Id = (int)dataReader["id"];
-            Name = (string)dataReader["name"];
-            City = (string)dataReader["lastname"];
-            Capacity = (int)dataReader["dateofbirth"];
+            Id = int.Parse(dataReader["id"].ToString());
+            Name = dataReader["name"].ToString();
+            City = dataReader["lastname"].ToString();
+            Capacity = int.Parse(dataReader["dateofbirth"].ToString());
         }
 
         public Tuple<int, string, string, int> GetInfo()

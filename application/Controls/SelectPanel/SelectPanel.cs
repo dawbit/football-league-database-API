@@ -15,13 +15,34 @@ namespace application.Controls.SelectPanel
         public SelectPanel()
         {
             InitializeComponent();
+
+            listViewItems.View = View.Details;
+            listViewItems.MultiSelect = false;
+            listViewItems.GridLines = true;
+            listViewItems.FullRowSelect = true;
         }
 
         public string Selected_Table
         {
             get
             {
-                return comboBoxTables.SelectedItem.ToString();
+                if (comboBoxTables.SelectedIndex > -1)
+                    return comboBoxTables.SelectedItem.ToString();
+                else return "";
+            }
+        }
+
+        public string[] Items
+        {
+            get
+            {
+                return listViewItems.Items.OfType<string>().ToArray();
+            }
+            set
+            {
+                listViewItems.Items.Clear();
+                foreach (var item in value)
+                    listViewItems.Items.Add(item);
             }
         }
 
@@ -66,6 +87,13 @@ namespace application.Controls.SelectPanel
                     flowLayoutPanelSearch.Controls.Add(attribute);
                 }
             }
+        }
+
+        public event Action GetItems;
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            GetItems?.Invoke();
         }
     }
 }

@@ -46,9 +46,9 @@
             // textBoxEdit
             // 
             this.textBoxEdit.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxEdit.Location = new System.Drawing.Point(68, 1);
+            this.textBoxEdit.Location = new System.Drawing.Point(119, 1);
             this.textBoxEdit.Name = "textBoxEdit";
-            this.textBoxEdit.Size = new System.Drawing.Size(205, 23);
+            this.textBoxEdit.Size = new System.Drawing.Size(154, 23);
             this.textBoxEdit.TabIndex = 2;
             // 
             // AttributeControlEdit

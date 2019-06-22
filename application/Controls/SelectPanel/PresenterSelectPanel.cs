@@ -15,6 +15,13 @@ namespace application.Controls.SelectPanel
         {
             this.view = view;
             this.model = model;
+
+            this.view.GetItems += View_GetItems;
+        }
+
+        private void View_GetItems()
+        {
+            this.view.Items = model.GetItems(this.view.Selected_Table);
         }
     }
 }

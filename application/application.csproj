@@ -79,7 +79,6 @@
       <DependentUpon>InsertPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AdminButtons\IAdminControl.cs" />
-    <Compile Include="Controls\AdminButtons\PresenterAdminControl.cs" />
     <Compile Include="Controls\InsertPanel\PresenterInsertPanel.cs" />
     <Compile Include="Controls\SelectPanel\ISelectPanel.cs" />
     <Compile Include="Controls\SelectPanel\PresenterSelectPanel.cs" />
@@ -138,7 +137,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBinfo.resx</DependentUpon>
     </Compile>
-    <Compile Include="MFSingleton.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

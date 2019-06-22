@@ -20,12 +20,11 @@ namespace application.DBdata
 
         public Kit(IDataReader dataReader)
         {
-            // dataReader.Read()
-            Id = (int)dataReader["id_u"];
-            HomeKit = (string)dataReader["home"];
-            AwayKit = (string)dataReader["away"];
-            ClubColors = (string)dataReader["clubcolours"];
-            ClubKit = (int)dataReader["club"];
+            Id = int.Parse(dataReader["id"].ToString());
+            HomeKit = dataReader["home"].ToString();
+            AwayKit = dataReader["away"].ToString();
+            ClubColors = dataReader["clubcolours"].ToString();
+            ClubKit = int.Parse(dataReader["club"].ToString());
         }
 
         public Tuple<int, string, string, string, int> GetInfo()

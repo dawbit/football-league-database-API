@@ -45,10 +45,9 @@ namespace application.Forms
                 return textBoxPassword.Text;
             }
         }
-        private DBconnection _conn = DBconnection.Instance();
-        private MySqlConnection _connection;
 
-        public event Func<string> LoginCheck;
+        private DBconnection _conn = DBconnection.Instance;
+        private MySqlConnection _connection;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {

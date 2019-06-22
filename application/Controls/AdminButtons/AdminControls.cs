@@ -52,6 +52,7 @@ namespace application.Controls.AdminButtons
 
         private void buttonInsert_Click(object sender, EventArgs e)
         {
+            Console.WriteLine(Load_InsertPanel.Method.Name);
             Load_InsertPanel?.Invoke();
         }
 

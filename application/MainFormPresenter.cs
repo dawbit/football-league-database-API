@@ -17,7 +17,6 @@ namespace application
         IMainForm view;
         Model model;
 
-        PresenterAdminControl AdminPresenter;
         PresenterSelectPanel SelectPresenter;
         PresenterInsertPanel InsertPresenter;
         PresenterDeletePanel DeletePresenter;
@@ -33,19 +32,39 @@ namespace application
 
             if (Program.AccountType == "administrator")
             {
-                this.AdminPresenter = new PresenterAdminControl(view.AdminControl, model);
-
                 this.InsertPresenter = new PresenterInsertPanel(view.InsertControl, model);
                 this.DeletePresenter = new PresenterDeletePanel(view.DeleteControl, model);
                 this.UpdatePresenter = new PresenterUpdatePanel(view.UpdateControl, model);
             }
 
             this.view.Load_SelectPanel += View_Load_SelectPanel;
+            this.view.AdminControl.Load_SelectPanel += AdminControl_Load_SelectPanel;
+            this.view.AdminControl.Load_InsertPanel += AdminControl_Load_InsertPanel;
+            this.view.AdminControl.Load_DeletePanel += AdminControl_Load_DeletePanel;
+            this.view.AdminControl.Load_UpdatePanel += AdminControl_Load_UpdatePanel;
+        }
+
+        private void AdminControl_Load_SelectPanel()
+        {
+            //this.view.Panel = new SelectPanel();
+            this.view.Panel = (Control)this.view.SelectControl;
+        }
+        private void AdminControl_Load_InsertPanel()
+        {
+            this.view.Panel = (Control)this.view.InsertControl;
+        }
+        private void AdminControl_Load_DeletePanel()
+        {
+            this.view.Panel = (Control)this.view.DeleteControl;
+        }
+        private void AdminControl_Load_UpdatePanel()
+        {
+            this.view.Panel = (Control)this.view.UpdateControl;
         }
 
         private void View_Load_SelectPanel()
         {
-            this.view.Panel = model.Load_Select_Panel();
+            this.view.Panel = (Control)this.view.SelectControl;
         }
     }
 }

@@ -32,9 +32,12 @@ namespace application.DAL
             Connection = new MySqlConnection(connStrBuilder.ToString());
         }
 
-        public static DBconnection Instance()
+        public static DBconnection Instance
         {
-            return _singleton;
+            get
+            {
+                return _singleton;
+            }
         }
 
         public static DBconnection Init(string login, string password)
@@ -42,5 +45,7 @@ namespace application.DAL
             _singleton = new DBconnection(login, password);
             return _singleton;
         }
+
+
     }
 }

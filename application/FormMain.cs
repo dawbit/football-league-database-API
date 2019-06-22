@@ -63,21 +63,15 @@ namespace application
         {
             get
             {
-                List<Control> ControlList = new List<Control>();
-                foreach (Control c in this.Controls)
-                    ControlList.Add(c);
-
-                return ControlList[ControlList.Count - 1];
+                return this.Controls[this.Controls.Count - 1];
             }
             set
             {
-                List<Control> ControlList = new List<Control>();
-                foreach (Control c in this.Controls)
-                    ControlList.Add(c);
-
                 if (init == true) init = false;
-                else this.Controls.RemoveAt(ControlList.Count - 1);
-                
+                else this.Controls.RemoveAt(this.Controls.Count - 1);
+
+                Console.WriteLine(value.ToString());
+
                 SetDoubleBuffered(value);
                 value.Location = new Point(12, 59);
                 this.Controls.Add(value);
@@ -139,6 +133,11 @@ namespace application
             }
 
             Load_SelectPanel?.Invoke();
+
+            foreach (Control c in this.Controls)
+            {
+                Console.WriteLine(c.ToString());
+            }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

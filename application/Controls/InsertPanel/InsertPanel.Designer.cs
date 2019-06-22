@@ -38,7 +38,7 @@
             // flowLayoutPanelSearch
             // 
             this.flowLayoutPanelSearch.ForeColor = System.Drawing.Color.White;
-            this.flowLayoutPanelSearch.Location = new System.Drawing.Point(0, 472);
+            this.flowLayoutPanelSearch.Location = new System.Drawing.Point(0, 470);
             this.flowLayoutPanelSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanelSearch.Name = "flowLayoutPanelSearch";
             this.flowLayoutPanelSearch.Size = new System.Drawing.Size(1209, 168);
@@ -47,7 +47,7 @@
             // flowLayoutPanelShow
             // 
             this.flowLayoutPanelShow.ForeColor = System.Drawing.Color.White;
-            this.flowLayoutPanelShow.Location = new System.Drawing.Point(0, -1);
+            this.flowLayoutPanelShow.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelShow.Name = "flowLayoutPanelShow";
             this.flowLayoutPanelShow.Size = new System.Drawing.Size(1209, 168);
             this.flowLayoutPanelShow.TabIndex = 5;

@@ -9,23 +9,26 @@ namespace application.DBdata
 {
     class Club
     {
-        public int? Id { get; set; } // zabezpieczenie przed nullem
+        public int Id { get; set; } // zabezpieczenie przed nullem
         public string Name { get; set; }
         public string City { get; set; }
         public short Founded { get; set; } // 0 to 65,535
         public string League { get; set; }
 
+        public List<Player> Players { get; set; }
+        public List<Player> Coach { get; set; }
+        public List<Player> Kits { get; set; }
+        public List<Player> Crests { get; set; }
 
         public Club() { }
 
         public Club(IDataReader dataReader)
         {
-            // dataReader.Read()
-            Id = (int)dataReader["id"];
-            Name = (string)dataReader["name"];
-            City = (string)dataReader["city"];
-            Founded = (short)dataReader["founded"];
-            League = (string)dataReader["active"];
+            Id = int.Parse(dataReader["id"].ToString());
+            Name = dataReader["name"].ToString();
+            City = dataReader["city"].ToString();
+            Founded = short.Parse(dataReader["founded"].ToString());
+            League = dataReader["active"].ToString();
         }
 
         public Tuple<int, string, string, short, string> GetInfo()

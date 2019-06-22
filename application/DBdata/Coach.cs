@@ -22,12 +22,12 @@ namespace application.DBdata
         public Coach(IDataReader dataReader)
         {
             // dataReader.Read()
-            Id = (int)dataReader["id_u"];
-            FirstName = (string)dataReader["name"];
-            LastName = (string)dataReader["lastname"];
-            BirthDate = (DateTime)dataReader["dateofbirth"];
-            Nationality = (string)dataReader["nationality"];
-            ClubCoach = (int)dataReader["club"];
+            Id = int.Parse(dataReader["id"].ToString());
+            FirstName = (string)dataReader["name"].ToString();
+            LastName = (string)dataReader["lastname"].ToString();
+            BirthDate = DateTime.Parse(dataReader["dateofbirth"].ToString());
+            Nationality = (string)dataReader["nationality"].ToString();
+            ClubCoach = int.Parse(dataReader["club"].ToString());
         }
 
         public Tuple<int, string, string, DateTime, string, int> GetInfo()

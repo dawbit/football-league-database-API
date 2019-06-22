@@ -6,40 +6,53 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using application.DAL;
 using System.Windows.Forms;
-using application.Controls;
+using application.Controls.SelectPanel;
+using application.DBdata;
+using System.Data;
 
 namespace application
 {
     class Model
     {
-        public Model() { }
-
-        #region Load Selected Panels
-        public Control Load_Select_Panel()
+        public string[] GetItems(string table)
         {
-            return new Controls.SelectPanel.SelectPanel();
-        }
+            Console.WriteLine("GETITEMS");
+            List<string> players = new List<string>();
 
-        public Control Load_Insert_Panel()
-        {
-            return new Controls.InsertPanel.InsertPanel();
-        }
+            MySqlConnection _connection = DBconnection.Instance.Connection;
 
-        public Control Load_Delete_Panel()
-        {
-            return new Controls.DeletePanel.DeletePanel();
-        }
+            if (_connection != null && _connection.State == ConnectionState.Closed)
+                _connection.Open();
+            else
+            {
+                using (var command = new MySqlCommand("select players.id, lastname, players.name pname, dateofbirth, " +
+                    "position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id;", _connection))
+                {
+                    try
+                    {
 
-        public Control Load_Update_Panel()
-        {
-            return new Controls.UpdatePanel.UpdatePanel();
-        }
-        #endregion
+                        MySqlDataReader dataReader = command.ExecuteReader();
 
-        public void ChoosenOption(string option)
-        {
+                        while (dataReader.Read())
+                        {
+                            players.Add(new Player(dataReader).ToString());
+                        }
 
-            Console.WriteLine(option);
+                        _connection.Close();
+                    }
+                    catch (MySqlException e)
+                    {
+                        Console.WriteLine("does not exist");
+                        return new List<string>().ToArray();
+                    }
+                }
+            }
+
+
+            foreach (string p in players)
+                Console.WriteLine(p);
+
+            return players.ToArray();
         }
     }
 }

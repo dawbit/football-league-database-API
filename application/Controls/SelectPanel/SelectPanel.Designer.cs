@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.listViewItems = new System.Windows.Forms.ListView();
+            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanelShow = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanelSearch = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSearch = new System.Windows.Forms.Button();
@@ -39,6 +40,8 @@
             // 
             this.listViewItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(47)))), ((int)(((byte)(86)))));
             this.listViewItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listViewItems.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ID});
             this.listViewItems.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listViewItems.ForeColor = System.Drawing.Color.White;
             this.listViewItems.Location = new System.Drawing.Point(0, 174);
@@ -46,6 +49,11 @@
             this.listViewItems.Size = new System.Drawing.Size(1209, 290);
             this.listViewItems.TabIndex = 0;
             this.listViewItems.UseCompatibleStateImageBehavior = false;
+            // 
+            // ID
+            // 
+            this.ID.Text = "Value";
+            this.ID.Width = 689;
             // 
             // flowLayoutPanelShow
             // 
@@ -75,6 +83,7 @@
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = false;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // comboBoxTables
             // 
@@ -121,5 +130,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSearch;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.ComboBox comboBoxTables;
+        private System.Windows.Forms.ColumnHeader ID;
     }
 }

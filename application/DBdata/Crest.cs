@@ -19,9 +19,9 @@ namespace application.DBdata
         public Crest(IDataReader dataReader)
         {
             // dataReader.Read()
-            Id = (int)dataReader["id"];
+            Id = int.Parse(dataReader["id"].ToString());
             Image = (byte[])dataReader["name"];
-            ClubCrest = (int)dataReader["club"];
+            ClubCrest = int.Parse(dataReader["club"].ToString());
 
             //byteArrayToImage(dr.GetSqlBytes(dr.GetOrdinal("img")).Buffer);
         }
