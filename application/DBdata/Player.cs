@@ -25,22 +25,37 @@ namespace application.DBdata
 
         public Player() { }
 
-        public Player(IDataReader dataReader)
+        //public Player(IDataReader dataReader)
+        //{
+        //    Id = int.Parse(dataReader["id"].ToString());
+        //    FirstName = dataReader["pname"].ToString();
+        //    LastName = dataReader["lastname"].ToString();
+        //    BirthDate = DateTime.Parse(dataReader["dateofbirth"].ToString());
+        //    Position = dataReader["position"].ToString();
+
+        //    if (dataReader["height"].ToString() == "") Height = 0;
+        //    else Height = int.Parse(dataReader["height"].ToString());
+
+        //    if (dataReader["weight"].ToString() == "") Weight = 0;
+        //    else Weight = int.Parse(dataReader["weight"].ToString());
+
+        //    Nationality = dataReader["nationality"].ToString();
+        //}
+
+
+        public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality)
         {
-            Id = int.Parse(dataReader["id"].ToString());
-            FirstName = dataReader["pname"].ToString();
-            LastName = dataReader["lastname"].ToString();
-            BirthDate = DateTime.Parse(dataReader["dateofbirth"].ToString());
-            Position = dataReader["position"].ToString();
-
-            if (dataReader["height"].ToString() == "") Height = 0;
-            else Height = int.Parse(dataReader["height"].ToString());
-
-            if (dataReader["weight"].ToString() == "") Weight = 0;
-            else Weight = int.Parse(dataReader["weight"].ToString());
-
-            Nationality = dataReader["nationality"].ToString();
-            ClubPlayer = dataReader["cname"].ToString();
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.BirthDate = BirthDate;
+            this.Position = Position;
+            this.Height = Height;
+            this.Weight = Weight;
+            this.Nationality = Nationality;
+          //<<<<<<< player-test
+            //Nationality = dataReader["nationality"].ToString();
+            //ClubPlayer = dataReader["cname"].ToString();
         }
 
         public Tuple<int, string, string, DateTime, string, int, int, string> GetInfo()

@@ -14,45 +14,62 @@ namespace application
 {
     class Model
     {
-        public string[] GetItems(string table)
+        private readonly DBconnection _connection = DBconnection.Instance;
+
+        //public List<string> GetPlayers(string table)
+        //{
+        //    Console.WriteLine("GETITEMS");
+        //    List<string> players = new List<string>();
+
+        //    if (_connection.OpenConnection())
+        //    {
+        //        using (var command = new MySqlCommand("select players.id, lastname, players.name pname, dateofbirth, " +
+        //                            "position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id;", _connection))
+        //        {
+        //            try
+        //            {
+
+        //                MySqlDataReader dataReader = command.ExecuteReader();
+
+        //                while (dataReader.Read())
+        //                {
+        //                    players.Add(new Player(dataReader).ToString());
+        //                }
+
+        //                _connection.CloseConnection();
+        //            }
+        //            catch (MySqlException e)
+        //            {
+        //                Console.WriteLine("does not exist");
+        //                return new List<string>().ToArray();
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return new List<string>().ToArray();
+        //    }
+
+        //    foreach (string p in players)
+        //        Console.WriteLine(p);
+
+        //    return players.ToArray();
+        //}
+
+        public List<string> GetPlayers(string specialization)
         {
-            Console.WriteLine("GETITEMS");
-            List<string> players = new List<string>();
+            if (_connection.OpenConnection())
+            {
+                List<string> queryResult = _connection.GetPlayers($"select players.id, lastname, players.name pname, dateofbirth, " +
+                    $"position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id");
 
-            MySqlConnection _connection = DBconnection.Instance.Connection;
-
-            if (_connection != null && _connection.State == ConnectionState.Closed)
-                _connection.Open();
+                _connection.CloseConnection();
+                return queryResult;
+            }
             else
             {
-                using (var command = new MySqlCommand("select players.id, lastname, players.name pname, dateofbirth, " +
-                    "position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id;", _connection))
-                {
-                    try
-                    {
-
-                        MySqlDataReader dataReader = command.ExecuteReader();
-
-                        while (dataReader.Read())
-                        {
-                            players.Add(new Player(dataReader).ToString());
-                        }
-
-                        _connection.Close();
-                    }
-                    catch (MySqlException e)
-                    {
-                        Console.WriteLine("does not exist");
-                        return new List<string>().ToArray();
-                    }
-                }
+                return new List<string>();
             }
-
-
-            foreach (string p in players)
-                Console.WriteLine(p);
-
-            return players.ToArray();
         }
     }
 }

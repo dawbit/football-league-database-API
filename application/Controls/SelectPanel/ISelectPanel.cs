@@ -10,8 +10,8 @@ namespace application.Controls.SelectPanel
     {
         string Selected_Table { get; }
         List<Tuple<string, string>> Selected_Item_Display { set; }
-        string[] Items { get; set; }
+        List<string> Items { get; set; }
 
-        event Action GetItems;
+        event Action<string> GetItems;
     }
 }

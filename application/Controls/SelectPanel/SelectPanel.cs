@@ -20,6 +20,12 @@ namespace application.Controls.SelectPanel
             listViewItems.MultiSelect = false;
             listViewItems.GridLines = true;
             listViewItems.FullRowSelect = true;
+            listViewItems.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+
+            ColumnHeader column = new ColumnHeader();
+            column.Text = "";
+            column.Width = 1192;
+            listViewItems.Columns.Add(column);
         }
 
         public string Selected_Table
@@ -32,11 +38,11 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public string[] Items
+        public List<string> Items
         {
             get
             {
-                return listViewItems.Items.OfType<string>().ToArray();
+                return listViewItems.Items.OfType<string>().ToList();
             }
             set
             {
@@ -89,11 +95,20 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public event Action GetItems;
+        public event Action<string> GetItems;
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            GetItems?.Invoke();
+            if (Selected_Table != "")
+            {
+                GetItems?.Invoke(Selected_Table);
+            }
+        }
+
+        private void listViewItems_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            e.Cancel = true;
+            e.NewWidth = listViewItems.Columns[e.ColumnIndex].Width;
         }
     }
 }
