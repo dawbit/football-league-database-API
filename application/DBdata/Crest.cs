@@ -24,7 +24,7 @@ namespace application.DBdata
             //byteArrayToImage(dr.GetSqlBytes(dr.GetOrdinal("img")).Buffer);
         }
 
-        public Tuple<int, byte[]> GetCrest()
+        public Tuple<int, byte[]> GetInfo()
         {
             return new Tuple<int, byte[]>((int)Id, Image);
         }

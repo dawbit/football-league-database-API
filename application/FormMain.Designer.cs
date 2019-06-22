@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.buttonExit = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
-            this.mainApplicationPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // buttonExit
@@ -58,16 +57,6 @@
             this.panelLogo.Size = new System.Drawing.Size(224, 36);
             this.panelLogo.TabIndex = 1;
             // 
-            // mainApplicationPanel
-            // 
-            this.mainApplicationPanel.BackColor = System.Drawing.Color.Transparent;
-            this.mainApplicationPanel.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mainApplicationPanel.ForeColor = System.Drawing.Color.White;
-            this.mainApplicationPanel.Location = new System.Drawing.Point(12, 59);
-            this.mainApplicationPanel.Name = "mainApplicationPanel";
-            this.mainApplicationPanel.Size = new System.Drawing.Size(1210, 690);
-            this.mainApplicationPanel.TabIndex = 4;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -75,7 +64,6 @@
             this.BackgroundImage = global::application.Properties.Resources.background_swapped;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1234, 761);
-            this.Controls.Add(this.mainApplicationPanel);
             this.Controls.Add(this.panelLogo);
             this.Controls.Add(this.buttonExit);
             this.DoubleBuffered = true;
@@ -92,7 +80,6 @@
 
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Panel panelLogo;
-        private System.Windows.Forms.FlowLayoutPanel mainApplicationPanel;
     }
 }
 

@@ -27,7 +27,7 @@ namespace application.DBdata
             League = (string)dataReader["active"];
         }
 
-        public Tuple<int, string, string, short, string> GetClub()
+        public Tuple<int, string, string, short, string> GetInfo()
         {
             return new Tuple<int, string, string, short, string>((int)Id, Name, City, Founded, League);
         }

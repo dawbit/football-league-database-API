@@ -28,7 +28,7 @@ namespace application.DBdata
             Nationality = (string)dataReader["nationality"];
         }
 
-        public Tuple<int, string, string, DateTime, string> GetCoach()
+        public Tuple<int, string, string, DateTime, string> GetInfo()
         {
             return new Tuple<int, string, string, DateTime, string>((int)Id, FirstName, LastName, BirthDate, Nationality);
         }

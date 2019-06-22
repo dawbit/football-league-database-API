@@ -21,22 +21,22 @@ namespace application.Controls.AdminButtons
 
         private void View_Load_SelectPanel()
         {
-            MFSingleton.Instance.view.PanelControl = model.Load_Select_Panel();
+            MFSingleton.Instance.view.Panel = model.Load_Select_Panel();
         }
 
         private void View_Load_InsertPanel()
         {
-            MFSingleton.Instance.view.PanelControl = model.Load_Insert_Panel();
+            MFSingleton.Instance.view.Panel = model.Load_Insert_Panel();
         }
 
         private void View_Load_DeletePanel()
         {
-            MFSingleton.Instance.view.PanelControl = model.Load_Delete_Panel();
+            MFSingleton.Instance.view.Panel = model.Load_Delete_Panel();
         }
 
         private void View_Load_UpdatePanel()
         {
-            MFSingleton.Instance.view.PanelControl = model.Load_Update_Panel();
+            MFSingleton.Instance.view.Panel = model.Load_Update_Panel();
         }
     }
 }

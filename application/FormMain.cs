@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using application.Controls;
 using application.Controls.AdminButtons;
+using application.Controls.SelectPanel;
+using application.Controls.InsertPanel;
+using application.Controls.DeletePanel;
+using application.Controls.UpdatePanel;
+
 
 namespace application
 {
@@ -30,6 +34,8 @@ namespace application
         }
         #endregion
 
+        private bool init = true;
+
         public FormMain()
         {
             InitializeComponent();
@@ -40,26 +46,50 @@ namespace application
             this.Text = String.Empty;
         }
 
-        public Control PanelControl
+        #region IView
+        public string CurrentControl
         {
             get
             {
-                Control control = new Control();
-                foreach (Control obj in mainApplicationPanel.Controls)
-                {
-                    control = obj;
-                }
-                return control;
+                List<Control> ControlList = new List<Control>();
+                foreach (Control c in this.Controls)
+                    ControlList.Add(c);
+
+                return ControlList[ControlList.Count - 1].Name;
+            }
+        }
+
+        public Control Panel
+        {
+            get
+            {
+                List<Control> ControlList = new List<Control>();
+                foreach (Control c in this.Controls)
+                    ControlList.Add(c);
+
+                return ControlList[ControlList.Count - 1];
             }
             set
             {
-                mainApplicationPanel.Controls.Clear();
-                SetDoubleBuffered(value); // wywołaj funkcje dla kontenera która naprawi problem migotania
-                mainApplicationPanel.Controls.Add(value);
+                List<Control> ControlList = new List<Control>();
+                foreach (Control c in this.Controls)
+                    ControlList.Add(c);
+
+                if (init == true) init = false;
+                else this.Controls.RemoveAt(ControlList.Count - 1);
+                
+                SetDoubleBuffered(value);
+                value.Location = new Point(12, 59);
+                this.Controls.Add(value);
             }
         }
 
         private AdminControls adminControl = new AdminControls();
+
+        private SelectPanel selectPanel = new SelectPanel();
+        private InsertPanel insertPanel = new InsertPanel();
+        private DeletePanel deletePanel = new DeletePanel();
+        private UpdatePanel updatePanel = new UpdatePanel();
 
         public IAdminControl AdminControl
         {
@@ -68,18 +98,47 @@ namespace application
                 return adminControl;
             }
         }
+        public ISelectPanel SelectControl
+        {
+            get
+            {
+                return selectPanel;
+            }
+        }
+        public IInsertPanel InsertControl
+        {
+            get
+            {
+                return insertPanel;
+            }
+        }
+        public IDeletePanel DeleteControl
+        {
+            get
+            {
+                return deletePanel;
+            }
+        }
+        public IUpdatePanel UpdateControl
+        {
+            get
+            {
+                return updatePanel;
+            }
+        }
 
         public event Action Load_SelectPanel;
+        #endregion
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            Load_SelectPanel?.Invoke();
-
             if (Program.AccountType == "administrator")
             {
                 adminControl.Location = new Point(959, 12);
                 this.Controls.Add(adminControl);
             }
+
+            Load_SelectPanel?.Invoke();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

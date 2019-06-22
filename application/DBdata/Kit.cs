@@ -26,7 +26,7 @@ namespace application.DBdata
             ClubColors = (string)dataReader["clubcolours"];
         }
 
-        public Tuple<int, string, string, string> GetKit()
+        public Tuple<int, string, string, string> GetInfo()
         {
             return new Tuple<int, string, string, string>((int)Id, HomeKit, AwayKit, ClubColors);
         }

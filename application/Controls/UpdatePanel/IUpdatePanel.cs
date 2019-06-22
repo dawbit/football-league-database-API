@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace application.Controls.UpdatePanel
 {
-    interface IUpdatePanel
+    public interface IUpdatePanel
     {
+        string Selected_Table { get; }
+        List<Tuple<string, string>> Selected_Item_Edit { set; }
     }
 }

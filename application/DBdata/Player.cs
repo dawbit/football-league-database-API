@@ -40,7 +40,7 @@ namespace application.DBdata
             Nationality = (string)dataReader["nationality"];
         }
 
-        public Tuple<int, string, string, DateTime, string, byte, byte, string> GetPlayer()
+        public Tuple<int, string, string, DateTime, string, byte, byte, string> GetInfo()
         {
             return new Tuple<int, string, string, DateTime, string, byte, byte, string>((int)Id, FirstName, LastName, BirthDate, Position, Height, Weight, Nationality);
         }

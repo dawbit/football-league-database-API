@@ -26,7 +26,7 @@ namespace application.DBdata
             Capacity = (int)dataReader["dateofbirth"];
         }
 
-        public Tuple<int, string, string, int> GetStadium()
+        public Tuple<int, string, string, int> GetInfo()
         {
             return new Tuple<int, string, string, int>((int)Id, Name, City, Capacity);
         }

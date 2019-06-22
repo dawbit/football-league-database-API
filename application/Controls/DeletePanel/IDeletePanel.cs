@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace application.Controls.DeletePanel
 {
-    interface IDeletePanel
+    public interface IDeletePanel
     {
+        string Selected_Table { get; }
+        List<Tuple<string, string>> Selected_Item_Display { set; }
     }
 }
