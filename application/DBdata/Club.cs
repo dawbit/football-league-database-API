@@ -15,6 +15,7 @@ namespace application.DBdata
         public short Founded { get; set; } // 0 to 65,535
         public string League { get; set; }
 
+
         public Club() { }
 
         public Club(IDataReader dataReader)

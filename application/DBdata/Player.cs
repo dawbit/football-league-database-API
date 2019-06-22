@@ -17,8 +17,10 @@ namespace application.DBdata
         public byte Height { get; set; } // 0 to 255
         public byte Weight { get; set; }
         public string Nationality { get; set; }
+        public int? ClubPlayer { get; set; }
 
         private int number;
+
 
         public Player() { }
 
@@ -38,9 +40,13 @@ namespace application.DBdata
             else Weight = (byte)dataReader["height"];
 
             Nationality = (string)dataReader["nationality"];
+            ClubPlayer = (int)dataReader["club"];
+
+            //ClubPlayer = Club.Name;
         }
 
         public Tuple<int, string, string, DateTime, string, byte, byte, string> GetInfo()
+            //dodając klucz obcy wykraczamy poza zakres tupli
         {
             return new Tuple<int, string, string, DateTime, string, byte, byte, string>((int)Id, FirstName, LastName, BirthDate, Position, Height, Weight, Nationality);
         }

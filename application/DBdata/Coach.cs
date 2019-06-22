@@ -14,6 +14,7 @@ namespace application.DBdata
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Nationality { get; set; }
+        public int? ClubCoach { get; set; }
 
 
         public Coach() { }
@@ -26,11 +27,12 @@ namespace application.DBdata
             LastName = (string)dataReader["lastname"];
             BirthDate = (DateTime)dataReader["dateofbirth"];
             Nationality = (string)dataReader["nationality"];
+            ClubCoach = (int)dataReader["club"];
         }
 
-        public Tuple<int, string, string, DateTime, string> GetInfo()
+        public Tuple<int, string, string, DateTime, string, int> GetInfo()
         {
-            return new Tuple<int, string, string, DateTime, string>((int)Id, FirstName, LastName, BirthDate, Nationality);
+            return new Tuple<int, string, string, DateTime, string, int>((int)Id, FirstName, LastName, BirthDate, Nationality, (int)ClubCoach);
         }
     }
 }

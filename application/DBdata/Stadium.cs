@@ -13,6 +13,7 @@ namespace application.DBdata
         public string Name { get; set; }
         public string City { get; set; }
         public int Capacity { get; set; }
+        //n:m
 
 
         public Stadium() { }

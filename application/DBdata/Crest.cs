@@ -11,6 +11,7 @@ namespace application.DBdata
     {
         public int? Id { get; set; } // zabezpieczenie przed nullem
         public byte[] Image { get; set; }
+        public int? ClubCrest { get; set; }
 
 
         public Crest() { }
@@ -20,13 +21,14 @@ namespace application.DBdata
             // dataReader.Read()
             Id = (int)dataReader["id"];
             Image = (byte[])dataReader["name"];
+            ClubCrest = (int)dataReader["club"];
 
             //byteArrayToImage(dr.GetSqlBytes(dr.GetOrdinal("img")).Buffer);
         }
 
-        public Tuple<int, byte[]> GetInfo()
+        public Tuple<int, byte[], int> GetInfo()
         {
-            return new Tuple<int, byte[]>((int)Id, Image);
+            return new Tuple<int, byte[], int>((int)Id, Image, (int)ClubCrest);
         }
     }
 }

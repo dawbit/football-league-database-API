@@ -13,6 +13,7 @@ namespace application.DBdata
         public string HomeKit { get; set; }
         public string AwayKit { get; set; }
         public string ClubColors { get; set; }
+        public int? ClubKit { get; set; }
 
 
         public Kit() { }
@@ -24,11 +25,12 @@ namespace application.DBdata
             HomeKit = (string)dataReader["home"];
             AwayKit = (string)dataReader["away"];
             ClubColors = (string)dataReader["clubcolours"];
+            ClubKit = (int)dataReader["club"];
         }
 
-        public Tuple<int, string, string, string> GetInfo()
+        public Tuple<int, string, string, string, int> GetInfo()
         {
-            return new Tuple<int, string, string, string>((int)Id, HomeKit, AwayKit, ClubColors);
+            return new Tuple<int, string, string, string, int>((int)Id, HomeKit, AwayKit, ClubColors, (int)ClubKit);
         }
     }
 }
