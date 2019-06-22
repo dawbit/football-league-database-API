@@ -90,6 +90,7 @@ namespace application.Forms
             }
             catch (MySqlException e)
             {
+                _connection.Close();
                 Console.WriteLine("ERROR: " + e.ToString());
                 if (e.ToString().Contains("INSERT command denied to user")) return 1;
                 else if (e.ToString().Contains("Authentication to host")) return 2;

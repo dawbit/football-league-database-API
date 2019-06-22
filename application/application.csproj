@@ -63,6 +63,7 @@
     <Compile Include="Controls\AdminButtons\AdminControls.Designer.cs">
       <DependentUpon>AdminControls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Columns.cs" />
     <Compile Include="Controls\DeletePanel\DeletePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
