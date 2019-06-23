@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace application.Controls
 {
@@ -19,12 +20,13 @@ namespace application.Controls
         private static List<Tuple<string, int>> PlayerColumns = new List<Tuple<string, int>>
         {
             new Tuple<string, int>("ID", 60),
-            new Tuple<string, int>("First name", 240),
-            new Tuple<string, int>("Last name", 240),
-            new Tuple<string, int>("Date of birth", 160),
-            new Tuple<string, int>("Height", 95),
-            new Tuple<string, int>("Weight", 95),
-            new Tuple<string, int>("Nationality", 110),
+            new Tuple<string, int>("First name", 220),
+            new Tuple<string, int>("Last name", 220),
+            new Tuple<string, int>("Date of birth", 120),
+            new Tuple<string, int>("Position", 100),
+            new Tuple<string, int>("Height", 90),
+            new Tuple<string, int>("Weight", 90),
+            new Tuple<string, int>("Nationality", 100),
             new Tuple<string, int>("Club", 192)
         };
         private static List<Tuple<string, int>> CoachColumns = new List<Tuple<string, int>>
@@ -60,15 +62,38 @@ namespace application.Controls
         };
 
         public Columns() { }
+        public static void AddColumns(ListView lv, string Table)
+        {
+            lv.Columns.Clear();
+            List<Tuple<string, int>> columns = GetColumns(Table);
+            for (int i = 0; i < columns.Count; i++)
+            {
+                ColumnHeader column = new ColumnHeader();
+                column.Text = columns[i].Item1;
+                column.Width = columns[i].Item2;
+                lv.Columns.Add(column);
+            }
+        }
 
-        public static List<Tuple<string, int>> GetColumns(string TableName)
+        private static List<Tuple<string, int>> GetColumns(string TableName)
         {
             if (TableName == "Players") return PlayerColumns;
             else if (TableName == "Crests") return CrestsColumns;
             else if (TableName == "Coaches") return CoachColumns;
             else if (TableName == "Stadiums") return StadiumColumns;
             else if (TableName == "Kits") return KitsColumns;
-            else return ClubColumns;
+            else if (TableName == "Clubs") return ClubColumns;
+            else return new List<Tuple<string, int>>();
+        }
+
+        public static List<string> ColumnNames(ListView lv)
+        {
+            List<string> columnNames = new List<string>();
+            foreach (ColumnHeader header in lv.Columns)
+            {
+                columnNames.Add(header.Text);
+            }
+            return columnNames;
         }
     }
 }

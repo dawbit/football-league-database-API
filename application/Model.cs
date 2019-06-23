@@ -16,59 +16,40 @@ namespace application
     {
         private readonly DBconnection _connection = DBconnection.Instance;
 
-        //public List<string> GetPlayers(string table)
-        //{
-        //    Console.WriteLine("GETITEMS");
-        //    List<string> players = new List<string>();
-
-        //    if (_connection.OpenConnection())
-        //    {
-        //        using (var command = new MySqlCommand("select players.id, lastname, players.name pname, dateofbirth, " +
-        //                            "position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id;", _connection))
-        //        {
-        //            try
-        //            {
-
-        //                MySqlDataReader dataReader = command.ExecuteReader();
-
-        //                while (dataReader.Read())
-        //                {
-        //                    players.Add(new Player(dataReader).ToString());
-        //                }
-
-        //                _connection.CloseConnection();
-        //            }
-        //            catch (MySqlException e)
-        //            {
-        //                Console.WriteLine("does not exist");
-        //                return new List<string>().ToArray();
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return new List<string>().ToArray();
-        //    }
-
-        //    foreach (string p in players)
-        //        Console.WriteLine(p);
-
-        //    return players.ToArray();
-        //}
-
-        public List<string> GetPlayers(string specialization)
+        public Player GetPlayer(int id)
         {
             if (_connection.OpenConnection())
             {
-                List<string> queryResult = _connection.GetPlayers($"select players.id, lastname, players.name pname, dateofbirth, " +
+                Dictionary<string, int> par = new Dictionary<string, int>()
+                {
+                    { "@id", id }
+                };
+
+                Player result = _connection.GetPlayer($"select players.id, lastname, players.name pname, dateofbirth, " +
+                    $"position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id and players.id=@id", par);
+                _connection.CloseConnection();
+                return result;
+            }
+            else
+            {
+                return new Player();
+            }
+        }
+
+        public List<List<string>> GetPlayers(string specialization)
+        {
+            if (_connection.OpenConnection())
+            {
+                List<List<string>> queryResult = _connection.GetPlayers($"select players.id, lastname, players.name pname, dateofbirth, " +
                     $"position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id");
 
                 _connection.CloseConnection();
+
                 return queryResult;
             }
             else
             {
-                return new List<string>();
+                return new List<List<string>>();
             }
         }
     }

@@ -18,7 +18,7 @@ namespace application.DBdata
         public int Height { get; set; } // 0 to 255
         public int Weight { get; set; }
         public string Nationality { get; set; }
-        public int? ClubPlayer { get; set; }
+        public string ClubPlayer { get; set; }
 
         private int number;
 
@@ -42,21 +42,22 @@ namespace application.DBdata
         //    Nationality = dataReader["nationality"].ToString();
         //}
 
-        public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality)
+        public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality, string ClubPlayer)
         {
             this.Id = Id;
             this.FirstName = FirstName;
             this.LastName = LastName;
-            this.BirthDate = BirthDate;
+            this.BirthDate = BirthDate.Date;
             this.Position = Position;
             this.Height = Height;
             this.Weight = Weight;
             this.Nationality = Nationality;
+            this.ClubPlayer = ClubPlayer;
         }
 
         public Tuple<int, string, string, DateTime, string, int, int, string> GetInfo()
         {
-            return new Tuple<int, string, string, DateTime, string, int, int, string>((int)Id, FirstName, LastName, BirthDate, Position, Height, Weight, Nationality);
+            return new Tuple<int, string, string, DateTime, string, int, int, string>((int)Id, FirstName, LastName, BirthDate.Date, Position, Height, Weight, Nationality);
         }
 
         public override string ToString()

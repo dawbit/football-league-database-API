@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using application.Controls;
+using System.Reflection;
 
 namespace application.Controls.SelectPanel
 {
     public partial class SelectPanel : UserControl, ISelectPanel
     {
+        private ListViewColumnSorter lvwColumnSorter;
+
         public SelectPanel()
         {
             InitializeComponent();
@@ -20,12 +24,14 @@ namespace application.Controls.SelectPanel
             listViewItems.MultiSelect = false;
             listViewItems.GridLines = true;
             listViewItems.FullRowSelect = true;
-            listViewItems.HeaderStyle = ColumnHeaderStyle.Nonclickable;
 
             ColumnHeader column = new ColumnHeader();
             column.Text = "";
             column.Width = 1192;
             listViewItems.Columns.Add(column);
+
+            lvwColumnSorter = new ListViewColumnSorter();
+            listViewItems.ListViewItemSorter = lvwColumnSorter;
         }
 
         public string Selected_Table
@@ -38,30 +44,46 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public List<string> Items
+        public List<List<string>> Items
         {
             get
             {
-                return listViewItems.Items.OfType<string>().ToList();
+                return listViewItems.Items.OfType<List<string>>().ToList();
             }
             set
             {
                 listViewItems.Items.Clear();
-                foreach (var item in value)
-                    listViewItems.Items.Add(item);
+                Columns.AddColumns(listViewItems, Selected_Table);
+
+                for (int i = 0; i < value.Count; i++)
+                {
+                    var listViewItem = new ListViewItem(value[i].ToArray());
+                    listViewItems.Items.Add(listViewItem);
+                }
             }
         }
 
-        public List<Tuple<string, string>> Selected_Item_Display
+        public int GetSelectedItemIndex
+        {
+            get
+            {
+                return int.Parse(listViewItems.SelectedItems[0].Text);
+            }
+        }
+
+        public object Selected_Item_Display
         {
             set
             {
                 flowLayoutPanelShow.Controls.Clear();
-                for (int i = 0; i < value.Count; i++)
+                List<string> columnNames = Columns.ColumnNames(listViewItems);
+                List<object> values = ObjectAttributeValues(value);
+
+                for (int i = 0; i < values.Count; i++)
                 {
                     AttributeControlDisplay attribute = new AttributeControlDisplay();
-                    attribute.AttributeName = value[i].Item1;
-                    attribute.AttributValue = value[i].Item2;
+                    attribute.AttributeName = columnNames[i];
+                    attribute.AttributValue = values[i].ToString();
                     flowLayoutPanelShow.Controls.Add(attribute);
                 }
             }
@@ -96,6 +118,7 @@ namespace application.Controls.SelectPanel
         }
 
         public event Action<string> GetItems;
+        public event Action<string, int> ShowSelectedItem;
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
@@ -109,6 +132,56 @@ namespace application.Controls.SelectPanel
         {
             e.Cancel = true;
             e.NewWidth = listViewItems.Columns[e.ColumnIndex].Width;
+        }
+
+        private void listViewItems_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            this.listViewItems.Sort();
+        }
+
+        private void listViewItems_DoubleClick(object sender, EventArgs e)
+        {
+            Console.WriteLine(GetSelectedItemIndex);
+            if (ShowSelectedItem != null)
+            {
+                ShowSelectedItem(Selected_Table, GetSelectedItemIndex);
+            }
+        }
+
+        public List<object> ObjectAttributeValues(object atype)
+        {
+            List<object> values = new List<object>();
+            foreach (var prop in atype.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                var propertyName = prop.Name;
+                var propertyValue = atype.GetType().GetProperty(propertyName).GetValue(atype, null);
+
+                values.Add(convertNullableToString(propertyValue));
+            }
+            return values;
+        }
+
+        private string convertNullableToString(object property)
+        {
+            if (property == null) return string.Empty;
+            else return property.ToString();
         }
     }
 }

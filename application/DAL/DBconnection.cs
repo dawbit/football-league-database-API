@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using application.DBdata;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -69,15 +70,18 @@ namespace application.DAL
         }
         #endregion
 
-        public List<string> GetPlayers(string query)
+        public Player GetPlayer(string query, Dictionary<string, int> par)
         {
             using (var cmd = new MySqlCommand(query, Connection))
             {
-                MySqlDataReader dataReader = cmd.ExecuteReader(); // czytnik
+                foreach (KeyValuePair<string, int> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
 
-                List<string> queryRecords = new List<string>(); // lista wynikow
+                MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                while (dataReader.Read())
+                if (dataReader.Read())
                 {
                     int Height;
                     int Weight;
@@ -88,8 +92,52 @@ namespace application.DAL
                     if (dataReader["weight"].ToString() == "") Weight = 0;
                     else Weight = int.Parse(dataReader["weight"].ToString());
 
-                    queryRecords.Add($"{dataReader["id"].ToString()} \t\t {dataReader["pname"].ToString()} \t\t {dataReader["lastname"].ToString()} \t\t" +
-                        $" {dataReader["dateofbirth"].ToString()} \t\t {dataReader["position"].ToString()} \t\t {Height} \t\t {Weight} \t\t {dataReader["nationality"].ToString()}");
+                    return new Player(
+                        int.Parse(dataReader["id"].ToString()),
+                        dataReader["pname"].ToString(),
+                        dataReader["lastname"].ToString(),
+                        DateTime.Parse(dataReader["dateofbirth"].ToString()).Date,
+                        dataReader["position"].ToString(),
+                        Height,
+                        Weight,
+                        dataReader["nationality"].ToString(),
+                        dataReader["cname"].ToString()
+                    );
+                }
+                else return new Player();
+            }
+        }
+
+        public List<List<string>> GetPlayers(string query)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                List<List<string>> queryRecords = new List<List<string>>();
+
+                while (dataReader.Read())
+                {
+                    string Height;
+                    string Weight;
+
+                    if (dataReader["height"].ToString() == "") Height = "0";
+                    else Height = dataReader["height"].ToString();
+
+                    if (dataReader["weight"].ToString() == "") Weight = "0";
+                    else Weight = dataReader["weight"].ToString();
+
+                    queryRecords.Add(new List<string> {
+                        dataReader["id"].ToString(),
+                        dataReader["pname"].ToString(),
+                        dataReader["lastname"].ToString(),
+                        DateTime.Parse(dataReader["dateofbirth"].ToString()).ToString("dd-MM-yyyy"),
+                        dataReader["position"].ToString(),
+                        Height,
+                        Weight,
+                        dataReader["nationality"].ToString(),
+                        dataReader["cname"].ToString()
+                    });
                 }
 
                 return queryRecords;
