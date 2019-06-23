@@ -10,7 +10,7 @@ namespace application.DBdata
     class Club
     {
         public int Id { get; set; } // zabezpieczenie przed nullem
-        public string Name { get; set; }
+        public static string Name { get; set; }
         public string City { get; set; }
         public short Founded { get; set; } // 0 to 65,535
         public string League { get; set; }
