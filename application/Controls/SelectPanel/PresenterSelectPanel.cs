@@ -17,11 +17,16 @@ namespace application.Controls.SelectPanel
             this.model = model;
 
             this.view.GetItems += View_GetItems;
+            this.view.ShowSelectedItem += View_ShowSelectedItem;
         }
 
         private void View_GetItems(string table)
         {
-            this.view.Items = model.GetPlayers(this.view.Selected_Table);
+            if (table == "Players") this.view.Items = model.GetPlayers(this.view.Selected_Table);
+        }
+        private void View_ShowSelectedItem(string table, int id)
+        {
+            if (table == "Players") this.view.Selected_Item_Display = model.GetPlayer(id);
         }
     }
 }

@@ -9,9 +9,10 @@ namespace application.Controls.SelectPanel
     public interface ISelectPanel
     {
         string Selected_Table { get; }
-        List<Tuple<string, string>> Selected_Item_Display { set; }
-        List<string> Items { get; set; }
+        object Selected_Item_Display { set; }
+        List<List<string>> Items { get; set; }
 
         event Action<string> GetItems;
+        event Action<string, int> ShowSelectedItem;
     }
 }

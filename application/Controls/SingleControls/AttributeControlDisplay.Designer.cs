@@ -36,21 +36,22 @@
             // 
             this.labelAttributeName.AutoSize = true;
             this.labelAttributeName.BackColor = System.Drawing.Color.Transparent;
-            this.labelAttributeName.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelAttributeName.ForeColor = System.Drawing.Color.White;
-            this.labelAttributeName.Location = new System.Drawing.Point(5, 3);
+            this.labelAttributeName.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelAttributeName.ForeColor = System.Drawing.Color.Gold;
+            this.labelAttributeName.Location = new System.Drawing.Point(7, 6);
             this.labelAttributeName.Name = "labelAttributeName";
-            this.labelAttributeName.Size = new System.Drawing.Size(0, 22);
+            this.labelAttributeName.Size = new System.Drawing.Size(0, 18);
             this.labelAttributeName.TabIndex = 0;
             // 
             // labelAttributeValue
             // 
             this.labelAttributeValue.AutoSize = true;
             this.labelAttributeValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelAttributeValue.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelAttributeValue.ForeColor = System.Drawing.Color.White;
-            this.labelAttributeValue.Location = new System.Drawing.Point(67, 5);
+            this.labelAttributeValue.Location = new System.Drawing.Point(97, 6);
             this.labelAttributeValue.Name = "labelAttributeValue";
-            this.labelAttributeValue.Size = new System.Drawing.Size(0, 20);
+            this.labelAttributeValue.Size = new System.Drawing.Size(0, 18);
             this.labelAttributeValue.TabIndex = 1;
             // 
             // AttributeControlDisplay

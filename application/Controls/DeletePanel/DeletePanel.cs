@@ -20,7 +20,6 @@ namespace application.Controls.DeletePanel
             listViewItems.MultiSelect = false;
             listViewItems.GridLines = true;
             listViewItems.FullRowSelect = true;
-            listViewItems.HeaderStyle = ColumnHeaderStyle.Nonclickable;
         }
 
         public string Selected_Table

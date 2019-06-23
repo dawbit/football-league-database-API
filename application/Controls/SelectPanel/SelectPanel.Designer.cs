@@ -41,20 +41,21 @@
             this.listViewItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewItems.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listViewItems.ForeColor = System.Drawing.Color.White;
-            this.listViewItems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewItems.Location = new System.Drawing.Point(0, 174);
             this.listViewItems.Name = "listViewItems";
             this.listViewItems.Size = new System.Drawing.Size(1209, 290);
             this.listViewItems.TabIndex = 0;
             this.listViewItems.UseCompatibleStateImageBehavior = false;
+            this.listViewItems.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewItems_ColumnClick);
             this.listViewItems.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewItems_ColumnWidthChanging);
+            this.listViewItems.DoubleClick += new System.EventHandler(this.listViewItems_DoubleClick);
             // 
             // flowLayoutPanelShow
             // 
             this.flowLayoutPanelShow.ForeColor = System.Drawing.Color.White;
-            this.flowLayoutPanelShow.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelShow.Location = new System.Drawing.Point(31, 33);
             this.flowLayoutPanelShow.Name = "flowLayoutPanelShow";
-            this.flowLayoutPanelShow.Size = new System.Drawing.Size(1209, 168);
+            this.flowLayoutPanelShow.Size = new System.Drawing.Size(1178, 135);
             this.flowLayoutPanelShow.TabIndex = 1;
             // 
             // flowLayoutPanelSearch
