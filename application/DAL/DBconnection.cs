@@ -108,36 +108,36 @@ namespace application.DAL
             }
         }
 
-        public List<List<string>> GetPlayers(string query)
+        public List<Player> GetPlayers(string query)
         {
             using (var cmd = new MySqlCommand(query, Connection))
             {
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                List<List<string>> queryRecords = new List<List<string>>();
+                List<Player> queryRecords = new List<Player>();
 
                 while (dataReader.Read())
                 {
-                    string Height;
-                    string Weight;
+                    int Height;
+                    int Weight;
 
-                    if (dataReader["height"].ToString() == "") Height = "0";
-                    else Height = dataReader["height"].ToString();
+                    if (dataReader["height"].ToString() == "") Height = 0;
+                    else Height = int.Parse(dataReader["height"].ToString());
 
-                    if (dataReader["weight"].ToString() == "") Weight = "0";
-                    else Weight = dataReader["weight"].ToString();
+                    if (dataReader["weight"].ToString() == "") Weight = 0;
+                    else Weight = int.Parse(dataReader["weight"].ToString());
 
-                    queryRecords.Add(new List<string> {
-                        dataReader["id"].ToString(),
+                    queryRecords.Add(new Player (
+                        int.Parse(dataReader["id"].ToString()),
                         dataReader["pname"].ToString(),
                         dataReader["lastname"].ToString(),
-                        DateTime.Parse(dataReader["dateofbirth"].ToString()).ToString("dd-MM-yyyy"),
+                        DateTime.Parse(dataReader["dateofbirth"].ToString()).Date,
                         dataReader["position"].ToString(),
                         Height,
                         Weight,
                         dataReader["nationality"].ToString(),
                         dataReader["cname"].ToString()
-                    });
+                    ));
                 }
 
                 return queryRecords;

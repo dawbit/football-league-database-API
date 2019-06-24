@@ -36,11 +36,11 @@ namespace application
             }
         }
 
-        public List<List<string>> GetPlayers(string specialization)
+        public List<Player> GetPlayers()
         {
             if (_connection.OpenConnection())
             {
-                List<List<string>> queryResult = _connection.GetPlayers($"select players.id, lastname, players.name pname, dateofbirth, " +
+                List<Player> queryResult = _connection.GetPlayers($"select players.id, lastname, players.name pname, dateofbirth, " +
                     $"position, height, weight, nationality, clubs.name cname from players, clubs where players.club = clubs.id");
 
                 _connection.CloseConnection();
@@ -49,7 +49,7 @@ namespace application
             }
             else
             {
-                return new List<List<string>>();
+                return new List<Player>();
             }
         }
     }

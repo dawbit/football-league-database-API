@@ -86,13 +86,53 @@ namespace application.Controls
             else return new List<Tuple<string, int>>();
         }
 
-        public static List<string> ColumnNames(ListView lv)
+        public static List<string> ColumnNames(string TableName)
         {
             List<string> columnNames = new List<string>();
-            foreach (ColumnHeader header in lv.Columns)
+
+            if (TableName == "Players")
             {
-                columnNames.Add(header.Text);
+                for (int i = 0; i < PlayerColumns.Count; i++)
+                {
+                    columnNames.Add(PlayerColumns[i].Item1);
+                }
             }
+            else if (TableName == "Crests")
+            {
+                for (int i = 0; i < CrestsColumns.Count; i++)
+                {
+                    columnNames.Add(CrestsColumns[i].Item1);
+                }
+            }
+            else if (TableName == "Coaches")
+            {
+                for (int i = 0; i < CoachColumns.Count; i++)
+                {
+                    columnNames.Add(CoachColumns[i].Item1);
+                }
+            }
+            else if (TableName == "Stadiums")
+            {
+                for (int i = 0; i < StadiumColumns.Count; i++)
+                {
+                    columnNames.Add(StadiumColumns[i].Item1);
+                }
+            }
+            else if (TableName == "Kits")
+            {
+                for (int i = 0; i < KitsColumns.Count; i++)
+                {
+                    columnNames.Add(KitsColumns[i].Item1);
+                }
+            }
+            else if (TableName == "Clubs")
+            {
+                for (int i = 0; i < ClubColumns.Count; i++)
+                {
+                    columnNames.Add(ClubColumns[i].Item1);
+                }
+            }
+
             return columnNames;
         }
     }

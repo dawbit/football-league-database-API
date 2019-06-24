@@ -22,7 +22,7 @@ namespace application.Controls.SelectPanel
 
         private void View_GetItems(string table)
         {
-            if (table == "Players") this.view.Items = model.GetPlayers(this.view.Selected_Table);
+            if (table == "Players") this.view.Items = model.GetPlayers().Cast<object>().ToList();
         }
         private void View_ShowSelectedItem(string table, int id)
         {

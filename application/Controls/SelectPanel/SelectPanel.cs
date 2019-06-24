@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using application.Controls;
+using application.Controls.SingleControls;
 using System.Reflection;
 
 namespace application.Controls.SelectPanel
@@ -44,20 +44,16 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public List<List<string>> Items
+        public List<object> Items
         {
-            get
-            {
-                return listViewItems.Items.OfType<List<string>>().ToList();
-            }
             set
             {
                 listViewItems.Items.Clear();
                 Columns.AddColumns(listViewItems, Selected_Table);
-
                 for (int i = 0; i < value.Count; i++)
                 {
-                    var listViewItem = new ListViewItem(value[i].ToArray());
+                    List<object> values = ObjectAttributeValues(value[i]);
+                    var listViewItem = new ListViewItem(values.Select(j => j.ToString()).ToArray());
                     listViewItems.Items.Add(listViewItem);
                 }
             }
@@ -76,7 +72,7 @@ namespace application.Controls.SelectPanel
             set
             {
                 flowLayoutPanelShow.Controls.Clear();
-                List<string> columnNames = Columns.ColumnNames(listViewItems);
+                List<string> columnNames = Columns.ColumnNames(Selected_Table);
                 List<object> values = ObjectAttributeValues(value);
 
                 for (int i = 0; i < values.Count; i++)
@@ -89,31 +85,35 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public List<Tuple<string, string>> Selected_Item_Edit
+        public List<Tuple<string, string>> Selected_Items_Show
         {
             get
             {
-                List<Tuple<string, string>> items = new List<Tuple<string, string>>();
-                foreach (AttributeControlEdit obj in flowLayoutPanelSearch.Controls)
+                List<Tuple<string, string>> parameters = new List<Tuple<string, string>>();
+                for (int i = 0; i < flowLayoutPanelSearch.Controls.Count; i++)
                 {
-                    if (obj.AttributeValue != "")
+                    if (flowLayoutPanelSearch.Controls[i] is AttributeControlEdit)
                     {
-                        //var item = new
-                        //items.Add(item.GetInfo());
+                        var obj = (AttributeControlEdit)flowLayoutPanelSearch.Controls[i];
+                        if (obj.AttributeValue != "")
+                        {
+                            Console.WriteLine(obj.AttributeName, obj.AttributeValue.ToString());
+                            //parameters.Add(Tuple.Create<string, string>(obj.AttributeName, obj.AttributeValue.ToString()));
+                        }
                     }
+                    //else
+                    //if (flowLayoutPanelSearch.Controls[i] is ComboBoxClubs)
+                    //{
+                    //    var obj = (ComboBoxClubs)flowLayoutPanelSearch.Controls[i];
+                    //    if (obj.GetClubIndex != 0)
+                    //    {
+                    //        //Console.WriteLine(obj.GetClubIndex.ToString());
+                    //        parameters.Add(new Tuple<string, string>("Club", 2.ToString()));
+                    //    }
+                    //}
                 }
-                return items;
-            }
-            set
-            {
-                flowLayoutPanelSearch.Controls.Clear();
-                for (int i = 0; i < value.Count; i++)
-                {
-                    AttributeControlEdit attribute = new AttributeControlEdit();
-                    attribute.AttributeName = value[i].Item1;
-                    attribute.AttributeValue = value[i].Item2;
-                    flowLayoutPanelSearch.Controls.Add(attribute);
-                }
+
+                return parameters;
             }
         }
 
@@ -122,8 +122,17 @@ namespace application.Controls.SelectPanel
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+
+            List<Tuple<string, string>> parameters = Selected_Items_Show;
+            //for (int i = 0; i < parameters.Count; i++)
+            //{
+            //    Console.WriteLine(":(");
+            //    Console.WriteLine(parameters[i].Item1, parameters[i].Item2);
+            //}
+
             if (Selected_Table != "")
             {
+                //List<Tuple<string, string>> parameters = Selected_Items_Show;
                 GetItems?.Invoke(Selected_Table);
             }
         }
@@ -158,14 +167,18 @@ namespace application.Controls.SelectPanel
 
         private void listViewItems_DoubleClick(object sender, EventArgs e)
         {
-            Console.WriteLine(GetSelectedItemIndex);
             if (ShowSelectedItem != null)
             {
                 ShowSelectedItem(Selected_Table, GetSelectedItemIndex);
             }
         }
 
-        public List<object> ObjectAttributeValues(object atype)
+        private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AddEditControls();
+        }
+
+        private List<object> ObjectAttributeValues(object atype)
         {
             List<object> values = new List<object>();
             foreach (var prop in atype.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
@@ -182,6 +195,27 @@ namespace application.Controls.SelectPanel
         {
             if (property == null) return string.Empty;
             else return property.ToString();
+        }
+
+        private void AddEditControls()
+        {
+            flowLayoutPanelSearch.Controls.Clear();
+            List<string> columnNames = Columns.ColumnNames(Selected_Table);
+
+            for (int i = 0; i < columnNames.Count; i++)
+            {
+                if (columnNames[i] == "Club")
+                {
+                    ComboBoxClubs club = new ComboBoxClubs();
+                    flowLayoutPanelSearch.Controls.Add(club);
+                }
+                else
+                {
+                    AttributeControlEdit attribute = new AttributeControlEdit();
+                    attribute.AttributeName = columnNames[i];
+                    flowLayoutPanelSearch.Controls.Add(attribute);
+                }
+            }
         }
     }
 }

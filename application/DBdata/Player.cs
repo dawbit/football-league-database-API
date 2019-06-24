@@ -20,27 +20,7 @@ namespace application.DBdata
         public string Nationality { get; set; }
         public string ClubPlayer { get; set; }
 
-        private int number;
-
-
         public Player() { }
-
-        //public Player(IDataReader dataReader)
-        //{
-        //    Id = int.Parse(dataReader["id"].ToString());
-        //    FirstName = dataReader["pname"].ToString();
-        //    LastName = dataReader["lastname"].ToString();
-        //    BirthDate = DateTime.Parse(dataReader["dateofbirth"].ToString());
-        //    Position = dataReader["position"].ToString();
-
-        //    if (dataReader["height"].ToString() == "") Height = 0;
-        //    else Height = int.Parse(dataReader["height"].ToString());
-
-        //    if (dataReader["weight"].ToString() == "") Weight = 0;
-        //    else Weight = int.Parse(dataReader["weight"].ToString());
-
-        //    Nationality = dataReader["nationality"].ToString();
-        //}
 
         public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality, string ClubPlayer)
 

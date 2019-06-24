@@ -98,6 +98,7 @@
             this.comboBoxTables.Name = "comboBoxTables";
             this.comboBoxTables.Size = new System.Drawing.Size(286, 26);
             this.comboBoxTables.TabIndex = 4;
+            this.comboBoxTables.SelectedIndexChanged += new System.EventHandler(this.comboBoxTables_SelectedIndexChanged);
             // 
             // SelectPanel
             // 
