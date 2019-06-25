@@ -13,23 +13,18 @@ namespace application.DBdata
         public string HomeKit { get; set; }
         public string AwayKit { get; set; }
         public string ClubColors { get; set; }
-        public int? ClubKit { get; set; }
+        public string ClubKit { get; set; }
 
 
         public Kit() { }
 
-        public Kit(IDataReader dataReader)
+        public Kit(int Id, string HomeKit, string AwayKit, string ClubColors, string ClubKit)
         {
-            Id = int.Parse(dataReader["id"].ToString());
-            HomeKit = dataReader["home"].ToString();
-            AwayKit = dataReader["away"].ToString();
-            ClubColors = dataReader["clubcolours"].ToString();
-            ClubKit = int.Parse(dataReader["club"].ToString());
-        }
-
-        public Tuple<int, string, string, string, int> GetInfo()
-        {
-            return new Tuple<int, string, string, string, int>((int)Id, HomeKit, AwayKit, ClubColors, (int)ClubKit);
+            this.Id = Id;
+            this.HomeKit = HomeKit;
+            this.AwayKit = AwayKit;
+            this.ClubColors = ClubColors;
+            this.ClubKit = ClubKit;
         }
     }
 }

@@ -23,7 +23,6 @@ namespace application.DBdata
         public Player() { }
 
         public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality, string ClubPlayer)
-
         {
             this.Id = Id;
             this.FirstName = FirstName;
@@ -40,11 +39,6 @@ namespace application.DBdata
         public Tuple<int, string, string, DateTime, string, int, int, string> GetInfo()
         {
             return new Tuple<int, string, string, DateTime, string, int, int, string>((int)Id, FirstName, LastName, BirthDate.Date, Position, Height, Weight, Nationality);
-        }
-
-        public override string ToString()
-        {
-            return $"{Id} {FirstName}\t{LastName}\t{BirthDate.ToString("dd-MM-yyyy")}\t{Position}\t{Height}\t{Weight}\t{Nationality}\t{ClubPlayer}";
         }
     }
 }

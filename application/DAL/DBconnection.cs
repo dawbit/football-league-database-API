@@ -70,6 +70,7 @@ namespace application.DAL
         }
         #endregion
 
+        #region Player
         public Player GetPlayer(string query, Dictionary<string, object> par)
         {
             using (var cmd = new MySqlCommand(query, Connection))
@@ -146,7 +147,9 @@ namespace application.DAL
                 return queryRecords;
             }
         }
+        #endregion
 
+        #region Club
         public Club GetClub(string query, Dictionary<string, object> par)
         {
             using (var cmd = new MySqlCommand(query, Connection))
@@ -199,5 +202,118 @@ namespace application.DAL
                 return queryRecords;
             }
         }
+        #endregion
+
+        #region Coach
+        public Coach GetCoach(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    return new Coach(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Firstname"].ToString(),
+                        dataReader["Lastname"].ToString(),
+                        DateTime.Parse(dataReader["Dateofbirth"].ToString()).Date,
+                        dataReader["Nationality"].ToString(),
+                        dataReader["Club"].ToString()
+                    );
+                }
+                else return new Coach();
+            }
+        }
+
+        public List<Coach> GetCoaches(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                List<Coach> queryRecords = new List<Coach>();
+
+                while (dataReader.Read())
+                {
+                    queryRecords.Add(new Coach(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Firstname"].ToString(),
+                        dataReader["Lastname"].ToString(),
+                        DateTime.Parse(dataReader["Dateofbirth"].ToString()).Date,
+                        dataReader["Nationality"].ToString(),
+                        dataReader["Club"].ToString()
+                    ));
+                }
+
+                return queryRecords;
+            }
+        }
+        #endregion
+
+        #region Kit
+        public Kit GetKit(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    return new Kit(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Homekit"].ToString(),
+                        dataReader["Awaykit"].ToString(),
+                        dataReader["Clubcolours"].ToString(),
+                        dataReader["Club"].ToString()
+                    );
+                }
+                else return new Kit();
+            }
+        }
+
+        public List<Kit> GetKits(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                List<Kit> queryRecords = new List<Kit>();
+
+                while (dataReader.Read())
+                {
+                    queryRecords.Add(new Kit(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Homekit"].ToString(),
+                        dataReader["Awaykit"].ToString(),
+                        dataReader["Clubcolours"].ToString(),
+                        dataReader["Club"].ToString()
+                    ));
+                }
+
+                return queryRecords;
+            }
+        }
+        #endregion Kit
     }
 }
