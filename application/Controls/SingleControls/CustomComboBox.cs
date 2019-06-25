@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace application.Controls.SingleControls
 {
-    public partial class ComboBoxClubs : UserControl
+    public partial class CustomComboBox : UserControl
     {
         private readonly DBconnection _connection = DBconnection.Instance;
 
-        public ComboBoxClubs()
+        public CustomComboBox()
         {
             InitializeComponent();
             Clubs();
@@ -26,6 +26,7 @@ namespace application.Controls.SingleControls
 
         private void Clubs()
         {
+            labelText.Text = "Club";
             string query = "select clubs.name from clubs order by clubs.id";
             if (_connection.OpenConnection())
             {

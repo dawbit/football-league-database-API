@@ -10,7 +10,7 @@ namespace application.DBdata
 {
     class Player
     {
-        public int? Id { get; set; } // zabezpieczenie przed nullem
+        public int Id { get; set; } // zabezpieczenie przed nullem
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }

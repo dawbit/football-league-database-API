@@ -1,6 +1,6 @@
 ﻿namespace application.Controls.SingleControls
 {
-    partial class ComboBoxClubs
+    partial class CustomComboBox
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.cbClubs = new System.Windows.Forms.ComboBox();
-            this.labelClub = new System.Windows.Forms.Label();
+            this.labelText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbClubs
@@ -42,22 +42,21 @@
             this.cbClubs.Size = new System.Drawing.Size(199, 26);
             this.cbClubs.TabIndex = 0;
             // 
-            // labelClub
+            // labelText
             // 
-            this.labelClub.AutoSize = true;
-            this.labelClub.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold);
-            this.labelClub.Location = new System.Drawing.Point(10, 5);
-            this.labelClub.Name = "labelClub";
-            this.labelClub.Size = new System.Drawing.Size(33, 18);
-            this.labelClub.TabIndex = 1;
-            this.labelClub.Text = "Club";
+            this.labelText.AutoSize = true;
+            this.labelText.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold);
+            this.labelText.Location = new System.Drawing.Point(6, 6);
+            this.labelText.Name = "labelText";
+            this.labelText.Size = new System.Drawing.Size(0, 18);
+            this.labelText.TabIndex = 1;
             // 
             // ComboBoxClubs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(47)))), ((int)(((byte)(86)))));
-            this.Controls.Add(this.labelClub);
+            this.Controls.Add(this.labelText);
             this.Controls.Add(this.cbClubs);
             this.Font = new System.Drawing.Font("Trebuchet MS", 11.25F);
             this.ForeColor = System.Drawing.Color.White;
@@ -72,6 +71,6 @@
         #endregion
 
         private System.Windows.Forms.ComboBox cbClubs;
-        private System.Windows.Forms.Label labelClub;
+        private System.Windows.Forms.Label labelText;
     }
 }

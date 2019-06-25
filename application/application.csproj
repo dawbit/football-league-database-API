@@ -81,11 +81,11 @@
     <Compile Include="Controls\SelectPanel\SelectPanel.Designer.cs">
       <DependentUpon>SelectPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SingleControls\ComboBoxClubs.cs">
+    <Compile Include="Controls\SingleControls\CustomComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\SingleControls\ComboBoxClubs.Designer.cs">
-      <DependentUpon>ComboBoxClubs.cs</DependentUpon>
+    <Compile Include="Controls\SingleControls\CustomComboBox.Designer.cs">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\UpdatePanel\IUpdatePanel.cs" />
     <Compile Include="Controls\UpdatePanel\PresenterUpdatePanel.cs" />
@@ -151,8 +151,8 @@
     <EmbeddedResource Include="Controls\SelectPanel\SelectPanel.resx">
       <DependentUpon>SelectPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\SingleControls\ComboBoxClubs.resx">
-      <DependentUpon>ComboBoxClubs.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SingleControls\CustomComboBox.resx">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\UpdatePanel\UpdatePanel.resx">
       <DependentUpon>UpdatePanel.cs</DependentUpon>

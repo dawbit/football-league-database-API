@@ -85,34 +85,24 @@ namespace application.Controls.SelectPanel
             }
         }
 
-        public List<Tuple<string, string>> Selected_Items_Show
+        public List<Tuple<string, object>> Selected_Query_Records
         {
             get
             {
-                List<Tuple<string, string>> parameters = new List<Tuple<string, string>>();
+                List<Tuple<string, object>> parameters = new List<Tuple<string, object>>();
                 for (int i = 0; i < flowLayoutPanelSearch.Controls.Count; i++)
                 {
                     if (flowLayoutPanelSearch.Controls[i] is AttributeControlEdit)
                     {
                         var obj = (AttributeControlEdit)flowLayoutPanelSearch.Controls[i];
-                        if (obj.AttributeValue != "")
-                        {
-                            Console.WriteLine(obj.AttributeName, obj.AttributeValue.ToString());
-                            //parameters.Add(Tuple.Create<string, string>(obj.AttributeName, obj.AttributeValue.ToString()));
-                        }
+                        if (obj.AttributeValue != "") parameters.Add(new Tuple<string, object>(obj.AttributeName, obj.AttributeValue));
                     }
-                    //else
-                    //if (flowLayoutPanelSearch.Controls[i] is ComboBoxClubs)
-                    //{
-                    //    var obj = (ComboBoxClubs)flowLayoutPanelSearch.Controls[i];
-                    //    if (obj.GetClubIndex != 0)
-                    //    {
-                    //        //Console.WriteLine(obj.GetClubIndex.ToString());
-                    //        parameters.Add(new Tuple<string, string>("Club", 2.ToString()));
-                    //    }
-                    //}
+                    else if (flowLayoutPanelSearch.Controls[i] is CustomComboBox)
+                    {
+                        var obj = (CustomComboBox)flowLayoutPanelSearch.Controls[i];
+                        if (obj.GetClubIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetClubIndex));
+                    }
                 }
-
                 return parameters;
             }
         }
@@ -122,19 +112,8 @@ namespace application.Controls.SelectPanel
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-
-            List<Tuple<string, string>> parameters = Selected_Items_Show;
-            //for (int i = 0; i < parameters.Count; i++)
-            //{
-            //    Console.WriteLine(":(");
-            //    Console.WriteLine(parameters[i].Item1, parameters[i].Item2);
-            //}
-
             if (Selected_Table != "")
-            {
-                //List<Tuple<string, string>> parameters = Selected_Items_Show;
                 GetItems?.Invoke(Selected_Table);
-            }
         }
 
         private void listViewItems_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
@@ -148,13 +127,9 @@ namespace application.Controls.SelectPanel
             if (e.Column == lvwColumnSorter.SortColumn)
             {
                 if (lvwColumnSorter.Order == SortOrder.Ascending)
-                {
                     lvwColumnSorter.Order = SortOrder.Descending;
-                }
                 else
-                {
                     lvwColumnSorter.Order = SortOrder.Ascending;
-                }
             }
             else
             {
@@ -167,10 +142,7 @@ namespace application.Controls.SelectPanel
 
         private void listViewItems_DoubleClick(object sender, EventArgs e)
         {
-            if (ShowSelectedItem != null)
-            {
-                ShowSelectedItem(Selected_Table, GetSelectedItemIndex);
-            }
+            ShowSelectedItem?.Invoke(Selected_Table, GetSelectedItemIndex);
         }
 
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
@@ -206,7 +178,7 @@ namespace application.Controls.SelectPanel
             {
                 if (columnNames[i] == "Club")
                 {
-                    ComboBoxClubs club = new ComboBoxClubs();
+                    CustomComboBox club = new CustomComboBox();
                     flowLayoutPanelSearch.Controls.Add(club);
                 }
                 else
