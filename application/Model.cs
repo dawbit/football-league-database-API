@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using application.DAL;
-using System.Windows.Forms;
 using application.Controls.SelectPanel;
 using application.DBdata;
 using System.Data;
@@ -16,7 +15,7 @@ namespace application
     class Model
     {
         private readonly DBconnection _connection = DBconnection.Instance;
-        
+
         // funkcja która zwraca pojedyńczy obiekt do wyświetlania dwuklikiem
         public object GetItem(int id, string table)
         {
@@ -59,6 +58,16 @@ namespace application
                     _connection.CloseConnection();
                     return result;
                 }
+                else if (table == "Stadiums")
+                {
+                    object result = _connection.GetStadium($"SELECT stadiums.id ID, stadiums.name Name, stadiums.city City, " +
+                        $"stadiums.capacity Capacity, stadiums.buildyear YearOfBuilt, clubs.name Club FROM stadiums " +
+                        $"JOIN clubs_has_stadiums JOIN clubs WHERE clubs_id_clubs = clubs.id " +
+                        $"AND stadiums_id_stadiums = stadiums.id and stadiums.id = @id ", par);
+
+                    _connection.CloseConnection();
+                    return result;
+                }
                 return new object();
             }
             else
@@ -91,7 +100,7 @@ namespace application
                             par.Add("@" + AttributeName, QueryRecords[i].Item2);
                             Query += " and " + columns[j].Item1 + "=@" + AttributeName;
                         }
-                    }  
+                    }
                 }
 
                 List<Player> queryResult = _connection.GetPlayers(Query, par);
@@ -126,7 +135,7 @@ namespace application
                         if (columns[j].Item2 == QueryRecords[i].Item1)
                         {
                             par.Add("@" + AttributeName, QueryRecords[i].Item2);
-                            if ( i==0 ) Query += " where " + columns[j].Item1 + "=@" + AttributeName;
+                            if (i == 0) Query += " where " + columns[j].Item1 + "=@" + AttributeName;
                             else Query += " and " + columns[j].Item1 + "=@" + AttributeName;
                         }
                     }
@@ -220,5 +229,45 @@ namespace application
             }
         }
         #endregion
+
+        #region Stadium
+        public List<Stadium> GetStadiums(List<Tuple<string, object>> QueryRecords)
+        {
+            if (_connection.OpenConnection())
+            {
+                Dictionary<string, object> par = new Dictionary<string, object>();
+                string Query = $"SELECT stadiums.id ID, stadiums.name Name, stadiums.city City, +"
+                                + $"stadiums.capacity Capacity, stadiums.buildyear YearOfBuilt, clubs.name Club FROM stadiums "
+                                + $"JOIN clubs_has_stadiums JOIN clubs WHERE clubs_id_clubs = clubs.id "
+                                + $"AND stadiums_id_stadiums = stadiums.id";
+
+                List<Tuple<string, string, int>> columns = Columns.GetColumns("Stadiums");
+
+                for (int i = 0; i < QueryRecords.Count; i++)
+                {
+                    string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
+                    for (int j = 0; j < columns.Count; j++)
+                    {
+                        if (columns[j].Item2 == QueryRecords[i].Item1)
+                        {
+                            par.Add("@" + AttributeName, QueryRecords[i].Item2);
+                            Query += " and " + columns[j].Item1 + "=@" + AttributeName;
+                        }
+                    }
+                }
+
+                List<Stadium> queryResult = _connection.GetStadiums(Query, par);
+
+                _connection.CloseConnection();
+
+                return queryResult;
+            }
+            else
+            {
+                return new List<Stadium>();
+            }
+        }
+        #endregion
+
     }
 }

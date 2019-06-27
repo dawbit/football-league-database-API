@@ -56,9 +56,10 @@ namespace application.Controls
         private static List<Tuple<string, string, int>> StadiumColumns = new List<Tuple<string, string, int>>
         {
             new Tuple<string, string, int>("stadiums.id", "ID", 60),
-            new Tuple<string, string, int>("stadiums.name", "Name", 430),
-            new Tuple<string, string, int>("stadiums.city", "City", 270),
-            new Tuple<string, string, int>("stadiums.capacity", "Capacity", 190),
+            new Tuple<string, string, int>("stadiums.name", "Name", 480),
+            new Tuple<string, string, int>("stadiums.city", "City", 193),
+            new Tuple<string, string, int>("stadiums.capacity", "Capacity", 117),
+            new Tuple<string, string, int>("stadiums.buildyear", "YearOfBuilt", 117),
             new Tuple<string, string, int>("clubs.id" ,"Club", 225)
         };
 

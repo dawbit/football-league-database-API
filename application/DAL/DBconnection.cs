@@ -319,5 +319,78 @@ namespace application.DAL
             }
         }
         #endregion Kit
+
+        #region Stadium
+        public Stadium GetStadium(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    int Capacity, YearOfBuilt;
+
+                    if (dataReader["Capacity"].ToString() == "") Capacity = 0;
+                    else Capacity = int.Parse(dataReader["Capacity"].ToString());
+
+                    if (dataReader["YearOfBuilt"].ToString() == "") YearOfBuilt = 0;
+                    else YearOfBuilt = int.Parse(dataReader["YearOfBuilt"].ToString());
+
+                    return new Stadium(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Name"].ToString(),
+                        dataReader["City"].ToString(),
+                        Capacity,
+                        YearOfBuilt,
+                        dataReader["Club"].ToString()
+                    );
+                }
+                else return new Stadium();
+            }
+        }
+
+        public List<Stadium> GetStadiums(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                List<Stadium> queryRecords = new List<Stadium>();
+
+                while (dataReader.Read())
+                {
+                    int Capacity, YearOfBuilt;
+
+                    if (dataReader["Capacity"].ToString() == "") Capacity = 0;
+                    else Capacity = int.Parse(dataReader["Capacity"].ToString());
+
+                    if (dataReader["YearOfBuilt"].ToString() == "") YearOfBuilt = 0;
+                    else YearOfBuilt = int.Parse(dataReader["YearOfBuilt"].ToString());
+
+                    queryRecords.Add(new Stadium(
+                        int.Parse(dataReader["ID"].ToString()),
+                        dataReader["Name"].ToString(),
+                        dataReader["City"].ToString(),
+                        Capacity,
+                        YearOfBuilt,
+                        dataReader["Club"].ToString()
+                    ));
+                }
+
+                return queryRecords;
+            }
+        }
+        #endregion
     }
 }

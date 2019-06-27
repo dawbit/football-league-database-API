@@ -13,23 +13,21 @@ namespace application.DBdata
         public string Name { get; set; }
         public string City { get; set; }
         public int Capacity { get; set; }
-        //n:m
+        public int YearOfBuilt { get; set; }
+        public string ClubStadium { get; set; } 
 
 
         public Stadium() { }
 
-        public Stadium(IDataReader dataReader)
+        public Stadium(int Id, string Name, string City, int Capacity, int YearOfBuilt, string ClubStadium)
         {
-            // dataReader.Read()
-            Id = int.Parse(dataReader["id"].ToString());
-            Name = dataReader["name"].ToString();
-            City = dataReader["lastname"].ToString();
-            Capacity = int.Parse(dataReader["dateofbirth"].ToString());
+            this.Id = Id;
+            this.Name = Name;
+            this.City = City;
+            this.Capacity = Capacity;
+            this.YearOfBuilt = YearOfBuilt;
+            this.ClubStadium = ClubStadium;
         }
 
-        public Tuple<int, string, string, int> GetInfo()
-        {
-            return new Tuple<int, string, string, int>((int)Id, Name, City, Capacity);
-        }
     }
 }

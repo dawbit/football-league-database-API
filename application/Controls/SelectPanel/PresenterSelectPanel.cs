@@ -26,6 +26,7 @@ namespace application.Controls.SelectPanel
             if (table == "Clubs") this.view.Items = model.GetClubs(this.view.Selected_Query_Records).Cast<object>().ToList();
             if (table == "Coaches") this.view.Items = model.GetCoaches(this.view.Selected_Query_Records).Cast<object>().ToList();
             if (table == "Kits") this.view.Items = model.GetKits(this.view.Selected_Query_Records).Cast<object>().ToList();
+            if (table == "Stadiums") this.view.Items = model.GetStadiums(this.view.Selected_Query_Records).Cast<object>().ToList();
         }
         private void View_ShowSelectedItem(string table, int id)
         {

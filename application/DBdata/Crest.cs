@@ -26,9 +26,5 @@ namespace application.DBdata
             //byteArrayToImage(dr.GetSqlBytes(dr.GetOrdinal("img")).Buffer);
         }
 
-        public Tuple<int, byte[], int> GetInfo()
-        {
-            return new Tuple<int, byte[], int>((int)Id, Image, (int)ClubCrest);
-        }
     }
 }
