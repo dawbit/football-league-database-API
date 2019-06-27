@@ -29,10 +29,7 @@ namespace application.Controls.SelectPanel
         }
         private void View_ShowSelectedItem(string table, int id)
         {
-            if (table == "Players") this.view.Selected_Item_Display = model.GetPlayer(id);
-            if (table == "Clubs") this.view.Selected_Item_Display = model.GetClub(id);
-            if (table == "Coaches") this.view.Selected_Item_Display = model.GetCoach(id);
-            if (table == "Kits") this.view.Selected_Item_Display = model.GetKit(id);
+            this.view.Selected_Item_Display = model.GetItem(id, table);
         }
     }
 }

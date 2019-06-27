@@ -16,16 +16,9 @@ namespace application
     class Model
     {
         private readonly DBconnection _connection = DBconnection.Instance;
-
-        private bool IsNumber(string s)
-        {
-            int n;
-            if (int.TryParse(s, out n)) return true;
-            else return false;
-        }
-
-        #region Players
-        public Player GetPlayer(int id)
+        
+        // funkcja która zwraca pojedyńczy obiekt do wyświetlania dwuklikiem
+        public object GetItem(int id, string table)
         {
             if (_connection.OpenConnection())
             {
@@ -34,17 +27,48 @@ namespace application
                     { "@id", id }
                 };
 
-                Player result = _connection.GetPlayer($"select players.id ID, players.name Firstname, lastname Lastname," +
-                    $"dateofbirth Dateofbirth, position Position, height Height, weight Weight, nationality Nationality, clubs.name Club" +
-                    $" from players, clubs where players.club = clubs.id and players.id=@id", par);
-                _connection.CloseConnection();
-                return result;
+                if (table == "Players")
+                {
+                    object result = _connection.GetPlayer($"select players.id ID, players.name Firstname, lastname Lastname," +
+                        $"dateofbirth Dateofbirth, position Position, height Height, weight Weight, nationality Nationality, clubs.name Club" +
+                        $" from players, clubs where players.club = clubs.id and players.id=@id", par);
+
+                    _connection.CloseConnection();
+                    return result;
+                }
+                else if (table == "Clubs")
+                {
+                    object result = _connection.GetClub($"select clubs.id ID, clubs.name Club, clubs.city City," +
+                        $" clubs.founded Founded, clubs.active League from clubs where clubs.id=@id", par);
+                    _connection.CloseConnection();
+                    return result;
+                }
+                else if (table == "Kits")
+                {
+                    object result = _connection.GetKit($"select kits.id ID, kits.home Homekit, kits.away Awaykit," +
+                        $"kits.clubcolours Clubcolours, clubs.name Club from kits, clubs where kits.club = clubs.id and kits.id=@id", par);
+
+                    _connection.CloseConnection();
+                    return result;
+                }
+                else if (table == "Coaches")
+                {
+                    object result = _connection.GetCoach($"select coaches.id ID, coaches.name Firstname, coaches.lastname Lastname," +
+                        $"coaches.dateofbirth Dateofbirth, coaches.nationality Nationality, clubs.name Club from coaches, clubs where coaches.club = clubs.id and coaches.id=@id", par);
+
+                    _connection.CloseConnection();
+                    return result;
+                }
+                return new object();
             }
             else
             {
-                return new Player();
+                return new object();
             }
         }
+
+        // Funkcje które wybierają listę graczy/klubów/trenerów/koszulek
+        #region Players
         public List<Player> GetPlayers(List<Tuple<string, object>> QueryRecords)
         {
             if (_connection.OpenConnection())
@@ -84,24 +108,6 @@ namespace application
         #endregion
 
         #region Clubs
-        public Club GetClub(int id)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>()
-                {
-                    { "@id", id }
-                };
-
-                Club result = _connection.GetClub($"select clubs.id ID, clubs.name Club, clubs.city City, clubs.founded Founded, clubs.active League from clubs where clubs.id=@id", par);
-                _connection.CloseConnection();
-                return result;
-            }
-            else
-            {
-                return new Club();
-            }
-        }
         public List<Club> GetClubs(List<Tuple<string, object>> QueryRecords)
         {
             if (_connection.OpenConnection())
@@ -140,26 +146,6 @@ namespace application
         #endregion
 
         #region Coaches
-        public Coach GetCoach(int id)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>()
-                {
-                    { "@id", id }
-                };
-
-                Coach result = _connection.GetCoach($"select coaches.id ID, coaches.name Firstname, coaches.lastname Lastname," +
-                    $"coaches.dateofbirth Dateofbirth, coaches.nationality Nationality, clubs.name Club from coaches, clubs where coaches.club = clubs.id and coaches.id=@id", par);
-
-                _connection.CloseConnection();
-                return result;
-            }
-            else
-            {
-                return new Coach();
-            }
-        }
         public List<Coach> GetCoaches(List<Tuple<string, object>> QueryRecords)
         {
             if (_connection.OpenConnection())
@@ -198,26 +184,6 @@ namespace application
         #endregion
 
         #region Kits
-        public Kit GetKit(int id)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>()
-                {
-                    { "@id", id }
-                };
-
-                Kit result = _connection.GetKit($"select kits.id ID, kits.home Homekit, kits.away Awaykit," +
-                    $"kits.clubcolours Clubcolours, clubs.name Club from kits, clubs where kits.club = clubs.id and kits.id=@id", par);
-
-                _connection.CloseConnection();
-                return result;
-            }
-            else
-            {
-                return new Kit();
-            }
-        }
         public List<Kit> GetKits(List<Tuple<string, object>> QueryRecords)
         {
             if (_connection.OpenConnection())

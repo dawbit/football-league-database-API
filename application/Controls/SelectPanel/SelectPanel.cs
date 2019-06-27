@@ -34,6 +34,7 @@ namespace application.Controls.SelectPanel
             listViewItems.ListViewItemSorter = lvwColumnSorter;
         }
 
+        //zwróc wybraną tabelę z comboboxa
         public string Selected_Table
         {
             get
@@ -44,6 +45,7 @@ namespace application.Controls.SelectPanel
             }
         }
 
+        //wyświetl dane w listview
         public List<object> Items
         {
             set
@@ -59,6 +61,7 @@ namespace application.Controls.SelectPanel
             }
         }
 
+        //zwróc indeks (z kolumny ID) z listview
         public int GetSelectedItemIndex
         {
             get
@@ -67,6 +70,7 @@ namespace application.Controls.SelectPanel
             }
         }
 
+        //do wypisywania danych po naciśnięciu dwuklikiem
         public object Selected_Item_Display
         {
             set
@@ -85,6 +89,7 @@ namespace application.Controls.SelectPanel
             }
         }
 
+        //do pobierania wartości wpisywanych do customizowania zapytań przez użytkownika
         public List<Tuple<string, object>> Selected_Query_Records
         {
             get
@@ -107,21 +112,25 @@ namespace application.Controls.SelectPanel
             }
         }
 
+
         public event Action<string> GetItems;
         public event Action<string, int> ShowSelectedItem;
 
+        //precyzuj zapytanie
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (Selected_Table != "")
                 GetItems?.Invoke(Selected_Table);
         }
 
+        //zapobiega zmianie rozmiaru kolumn
         private void listViewItems_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
         {
             e.Cancel = true;
             e.NewWidth = listViewItems.Columns[e.ColumnIndex].Width;
         }
 
+        //sortowanie kolumn
         private void listViewItems_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             if (e.Column == lvwColumnSorter.SortColumn)
@@ -140,16 +149,20 @@ namespace application.Controls.SelectPanel
             this.listViewItems.Sort();
         }
 
+        //dwuklik na itemie z listview
         private void listViewItems_DoubleClick(object sender, EventArgs e)
         {
             ShowSelectedItem?.Invoke(Selected_Table, GetSelectedItemIndex);
         }
 
+        //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             AddEditControls();
         }
 
+        #region PRIVATE FUNCTIONS
+        //funkcja która pobiera wartości przechowywane przez publiczne pola obiektu gdy przekazujemy itemy do listview
         private List<object> ObjectAttributeValues(object atype)
         {
             List<object> values = new List<object>();
@@ -163,12 +176,14 @@ namespace application.Controls.SelectPanel
             return values;
         }
 
+        //przekształca nulla na stringa
         private string convertNullableToString(object property)
         {
             if (property == null) return string.Empty;
             else return property.ToString();
         }
 
+        //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
         private void AddEditControls()
         {
             flowLayoutPanelSearch.Controls.Clear();
@@ -189,5 +204,6 @@ namespace application.Controls.SelectPanel
                 }
             }
         }
+        #endregion
     }
 }

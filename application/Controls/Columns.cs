@@ -9,6 +9,7 @@ namespace application.Controls
 {
     class Columns
     {
+        //tuple, zawierają nazwy kolumn odpowiednich tabel z mysql, nazwy kolumn które mają być wyświetlane w lsitview i ich rozmiar
         private static List<Tuple<string, string, int>> ClubColumns = new List<Tuple<string, string, int>>
         {
             new Tuple<string, string, int>("clubs.id", "ID", 60),
@@ -62,6 +63,8 @@ namespace application.Controls
         };
 
         public Columns() { }
+
+        //dodaj kolumny w listview
         public static void AddColumns(ListView lv, string Table)
         {
             lv.Columns.Clear();
@@ -75,6 +78,7 @@ namespace application.Controls
             }
         }
 
+        //zwróc całe tuple, zrobione by zwracać nazwy kolumn w sql do podzapytań w modelu
         public static List<Tuple<string, string, int>> GetColumns(string TableName)
         {
             if (TableName == "Players") return PlayerColumns;
@@ -85,6 +89,8 @@ namespace application.Controls
             else if (TableName == "Clubs") return ClubColumns;
             else return new List<Tuple<string, string, int>>();
         }
+
+        //zwróc nazwy kolumn
         public static List<string> ColumnNames(string TableName)
         {
             List<string> columnNames = new List<string>();

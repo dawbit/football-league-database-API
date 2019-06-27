@@ -70,6 +70,7 @@ namespace application.DAL
         }
         #endregion
 
+        //zwróć dane o pojedyńczym graczu/graczach
         #region Player
         public Player GetPlayer(string query, Dictionary<string, object> par)
         {
@@ -149,6 +150,7 @@ namespace application.DAL
         }
         #endregion
 
+        //zwróć dane o pojedyńczym klubie/klubach
         #region Club
         public Club GetClub(string query, Dictionary<string, object> par)
         {
@@ -204,6 +206,7 @@ namespace application.DAL
         }
         #endregion
 
+        //zwróć dane o pojedyńczym trenerze/trenerach
         #region Coach
         public Coach GetCoach(string query, Dictionary<string, object> par)
         {
@@ -261,6 +264,7 @@ namespace application.DAL
         }
         #endregion
 
+        //zwróć dane o pojedyńczym stroju/strojacch
         #region Kit
         public Kit GetKit(string query, Dictionary<string, object> par)
         {

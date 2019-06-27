@@ -35,10 +35,5 @@ namespace application.DBdata
             this.ClubPlayer = ClubPlayer;
 
         }
-
-        public Tuple<int, string, string, DateTime, string, int, int, string> GetInfo()
-        {
-            return new Tuple<int, string, string, DateTime, string, int, int, string>((int)Id, FirstName, LastName, BirthDate.Date, Position, Height, Weight, Nationality);
-        }
     }
 }
