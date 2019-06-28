@@ -136,7 +136,7 @@ namespace application.DAL
                         int.Parse(dataReader["ID"].ToString()),
                         dataReader["Firstname"].ToString(),
                         dataReader["Lastname"].ToString(),
-                        DateTime.Parse(dataReader["Dateofbirth"].ToString()).Date,
+                        DateTime.Parse(dataReader["Dateofbirth"].ToString()),
                         dataReader["Position"].ToString(),
                         Height,
                         Weight,
@@ -392,5 +392,37 @@ namespace application.DAL
             }
         }
         #endregion
+
+        public bool InsertRecord(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+                try
+                {
+                    Console.WriteLine("FUNKCJA InsertRecord z DBconnection");
+                    for (int i = 0; i < par.Count; i ++)
+                    {
+                        Console.WriteLine(par.ElementAt(i).Value);
+                    }
+
+                    // MySqlCommand.ExecuteNonQuery zwraca inta, oznacza on ilość wierszy które zostały dodane. My dodajemy pojedyńcze.
+                    // Błąd w dodaniu rekordu wyrzuca Exception, stąd try catch
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (MySqlException e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                }
+            }
+        }
     }
 }

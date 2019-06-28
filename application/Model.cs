@@ -129,6 +129,94 @@ namespace application
             }
         }
 
+        public bool InsertRecord(List<object> values, string table)
+        {
+            if (_connection.OpenConnection())
+            {
+                string Query = "";
+                Dictionary<string, object> par = new Dictionary<string, object>();
+                if (table == "Players")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@name", values[0] },
+                        { "@lastname", values[1] },
+                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
+                        { "@position",  values[3] },
+                        { "@height", values[4] },
+                        { "@weight", values[5] },
+                        { "@nationality", values[6] },
+                        { "@club",  values[7] }
+                    };
+
+                    Query = $"insert into players (name, lastname, dateofbirth, position, height, weight, nationality, club) " +
+                        $"values (@name, @lastname, @dateofbirth, @position, @height, @weight, @nationality, @club)";
+
+                }
+                else if (table == "Clubs")
+                {
+                    foreach (var item in values)
+                    {
+                        Console.WriteLine(item.ToString());
+                    }
+                    par = new Dictionary<string, object>
+                    {
+                        { "@name", values[0] },
+                        { "@city", values[1] },
+                        { "@founded", values[2] },
+                        { "@active",  values[3] }
+                    };
+
+                    Query = $"insert into clubs (name, city, founded, active) values (@name, @city, @founded, @active)";
+                }
+                else if (table == "Kits")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@home", values[0] },
+                        { "@away", values[1] },
+                        { "@clubcolours",  values[2] },
+                        { "@club", values[3] }
+                    };
+
+                    Query = $"insert into kits (home, away, clubcolours, club) values (@home, @away, @clubcolours, @club)";
+                }
+                else if (table == "Coaches")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@name", values[0] },
+                        { "@lastname", values[1].ToString() },
+                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
+                        { "@nationality", values[3] },
+                        { "@club",  values[4] }
+                    };
+
+                    Query = $"insert into coaches (name, lastname, dateofbirth, nationality, club) values " +
+                        $"(@name, @lastname, @dateofbirth, @nationality, @club)";
+                }
+                else if (table == "Stadiums")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@name", values[0] },
+                        { "@city", values[1] },
+                        { "@capacity", values[2] },
+                        { "@buildyear",  values[3] }
+                    };
+
+                    Query = $"insert into stadiums (name, city, capacity, buildyear) values (@name, @city, @capacity, @buildyear)";
+                }
+
+                bool result = _connection.InsertRecord(Query, par);
+                return result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // prywatna funkcja, otrzymuje tablice, zapytanie i rekordy według których ma szukać
         // zwraca uzupełnione rekordy według tablicy (Clubs nie ma dopasowania po id więc trzeba zrobić dodatkowe where), uzupełniony słownik o wartości po
         // których ma szukać

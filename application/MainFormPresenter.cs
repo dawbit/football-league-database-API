@@ -46,7 +46,6 @@ namespace application
 
         private void AdminControl_Load_SelectPanel()
         {
-            //this.view.Panel = new SelectPanel();
             this.view.Panel = (Control)this.view.SelectControl;
         }
         private void AdminControl_Load_InsertPanel()
