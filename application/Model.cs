@@ -76,34 +76,48 @@ namespace application
             }
         }
 
-        // Funkcje które wybierają listę graczy/klubów/trenerów/koszulek
-        #region Players
-        public List<Player> GetPlayers(List<Tuple<string, object>> QueryRecords)
+        public List<object> GetItems(List<Tuple<string, object>> QueryRecords, string table)
         {
             if (_connection.OpenConnection())
             {
-                Dictionary<string, object> par = new Dictionary<string, object>();
-
-                string Query = $"select players.id ID, players.name Firstname, lastname Lastname," +
+                // definiujemy bazowe zapytanie do tabeli
+                string Query = "";
+                if (table == "Players")
+                {
+                    Query = $"select players.id ID, players.name Firstname, lastname Lastname," +
                     $"dateofbirth Dateofbirth, position Position, height Height, weight Weight, nationality Nationality, clubs.name Club" +
                     $" from players, clubs where players.club = clubs.id";
-
-                List<Tuple<string, string, int>> columns = Columns.GetColumns("Players");
-
-                for (int i = 0; i < QueryRecords.Count; i++)
+                }
+                else if (table == "Clubs")
                 {
-                    string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
-                    for (int j = 0; j < columns.Count; j++)
-                    {
-                        if (columns[j].Item2 == QueryRecords[i].Item1)
-                        {
-                            par.Add("@" + AttributeName, QueryRecords[i].Item2);
-                            Query += " and " + columns[j].Item1 + "=@" + AttributeName;
-                        }
-                    }
+                    Query = $"select clubs.id ID, clubs.name Club, clubs.city City, clubs.founded Founded, clubs.active League from clubs";
+                }
+                else if (table == "Kits")
+                {
+                    Query = $"select kits.id ID, kits.home Homekit, kits.away Awaykit," +
+                        $"kits.clubcolours Clubcolours, clubs.name Club from kits, clubs where kits.club = clubs.id";
+                }
+                else if (table == "Coaches")
+                {
+                    Query = $"select coaches.id ID, coaches.name Firstname, coaches.lastname Lastname," +
+                        $"coaches.dateofbirth Dateofbirth, coaches.nationality Nationality, clubs.name Club from coaches, clubs where coaches.club = clubs.id";
+                }
+                else if (table == "Stadiums")
+                {
+                    Query = $"SELECT stadiums.id ID, stadiums.name Name, stadiums.city City, +"
+                                    + $"stadiums.capacity Capacity, stadiums.buildyear YearOfBuilt, clubs.name Club FROM stadiums "
+                                    + $"JOIN clubs_has_stadiums JOIN clubs WHERE clubs_id_clubs = clubs.id AND stadiums_id_stadiums = stadiums.id";
                 }
 
-                List<Player> queryResult = _connection.GetPlayers(Query, par);
+                //wywołujemy funkcję która zwraca nam uzupełnione zapytanie (Item1), oraz Dictionary dla wywoływanych funkcji z DBconnection
+                Tuple<string, Dictionary<string, object>> fullData = FillDictionaryAndQuery(table, Query, QueryRecords);
+
+                List<object> queryResult = new List<object>();
+                if (table == "Players") queryResult = _connection.GetPlayers(fullData.Item1, fullData.Item2).Cast<object>().ToList();
+                else if (table == "Clubs") queryResult = _connection.GetClubs(fullData.Item1, fullData.Item2).Cast<object>().ToList();
+                else if (table == "Kits") queryResult = _connection.GetKits(fullData.Item1, fullData.Item2).Cast<object>().ToList();
+                else if (table == "Coaches") queryResult = _connection.GetCoaches(fullData.Item1, fullData.Item2).Cast<object>().ToList();
+                else if (table == "Stadiums") queryResult = _connection.GetStadiums(fullData.Item1, fullData.Item2).Cast<object>().ToList();
 
                 _connection.CloseConnection();
 
@@ -111,22 +125,20 @@ namespace application
             }
             else
             {
-                return new List<Player>();
+                return new List<object>();
             }
         }
-        #endregion
 
-        #region Clubs
-        public List<Club> GetClubs(List<Tuple<string, object>> QueryRecords)
+        // prywatna funkcja, otrzymuje tablice, zapytanie i rekordy według których ma szukać
+        // zwraca uzupełnione rekordy według tablicy (Clubs nie ma dopasowania po id więc trzeba zrobić dodatkowe where), uzupełniony słownik o wartości po
+        // których ma szukać
+        private Tuple<string, Dictionary<string, object>> FillDictionaryAndQuery (string table, string Query, List<Tuple<string, object>> QueryRecords)
         {
-            if (_connection.OpenConnection())
+            Dictionary<string, object> par = new Dictionary<string, object>();
+            List<Tuple<string, string, int>> columns = Columns.GetColumns(table);
+
+            if (table == "Clubs")
             {
-                Dictionary<string, object> par = new Dictionary<string, object>();
-
-                string Query = $"select clubs.id ID, clubs.name Club, clubs.city City, clubs.founded Founded, clubs.active League from clubs";
-
-                List<Tuple<string, string, int>> columns = Columns.GetColumns("Clubs");
-
                 for (int i = 0; i < QueryRecords.Count; i++)
                 {
                     string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
@@ -140,32 +152,9 @@ namespace application
                         }
                     }
                 }
-
-                List<Club> queryResult = _connection.GetClubs(Query, par);
-
-                _connection.CloseConnection();
-
-                return queryResult;
             }
             else
             {
-                return new List<Club>();
-            }
-        }
-        #endregion
-
-        #region Coaches
-        public List<Coach> GetCoaches(List<Tuple<string, object>> QueryRecords)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>();
-
-                string Query = $"select coaches.id ID, coaches.name Firstname, coaches.lastname Lastname," +
-                    $"coaches.dateofbirth Dateofbirth, coaches.nationality Nationality, clubs.name Club from coaches, clubs where coaches.club = clubs.id";
-
-                List<Tuple<string, string, int>> columns = Columns.GetColumns("Coaches");
-
                 for (int i = 0; i < QueryRecords.Count; i++)
                 {
                     string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
@@ -178,96 +167,8 @@ namespace application
                         }
                     }
                 }
-
-                List<Coach> queryResult = _connection.GetCoaches(Query, par);
-
-                _connection.CloseConnection();
-
-                return queryResult;
             }
-            else
-            {
-                return new List<Coach>();
-            }
+            return new Tuple<string, Dictionary<string, object>>(Query, par);
         }
-        #endregion
-
-        #region Kits
-        public List<Kit> GetKits(List<Tuple<string, object>> QueryRecords)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>();
-
-                string Query = $"select kits.id ID, kits.home Homekit, kits.away Awaykit," +
-                    $"kits.clubcolours Clubcolours, clubs.name Club from kits, clubs where kits.club = clubs.id";
-
-                List<Tuple<string, string, int>> columns = Columns.GetColumns("Kits");
-
-                for (int i = 0; i < QueryRecords.Count; i++)
-                {
-                    string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
-                    for (int j = 0; j < columns.Count; j++)
-                    {
-                        if (columns[j].Item2 == QueryRecords[i].Item1)
-                        {
-                            par.Add("@" + AttributeName, QueryRecords[i].Item2);
-                            Query += " and " + columns[j].Item1 + "=@" + AttributeName;
-                        }
-                    }
-                }
-
-                List<Kit> queryResult = _connection.GetKits(Query, par);
-
-                _connection.CloseConnection();
-
-                return queryResult;
-            }
-            else
-            {
-                return new List<Kit>();
-            }
-        }
-        #endregion
-
-        #region Stadium
-        public List<Stadium> GetStadiums(List<Tuple<string, object>> QueryRecords)
-        {
-            if (_connection.OpenConnection())
-            {
-                Dictionary<string, object> par = new Dictionary<string, object>();
-                string Query = $"SELECT stadiums.id ID, stadiums.name Name, stadiums.city City, +"
-                                + $"stadiums.capacity Capacity, stadiums.buildyear YearOfBuilt, clubs.name Club FROM stadiums "
-                                + $"JOIN clubs_has_stadiums JOIN clubs WHERE clubs_id_clubs = clubs.id "
-                                + $"AND stadiums_id_stadiums = stadiums.id";
-
-                List<Tuple<string, string, int>> columns = Columns.GetColumns("Stadiums");
-
-                for (int i = 0; i < QueryRecords.Count; i++)
-                {
-                    string AttributeName = QueryRecords[i].Item1.Replace(" ", string.Empty);
-                    for (int j = 0; j < columns.Count; j++)
-                    {
-                        if (columns[j].Item2 == QueryRecords[i].Item1)
-                        {
-                            par.Add("@" + AttributeName, QueryRecords[i].Item2);
-                            Query += " and " + columns[j].Item1 + "=@" + AttributeName;
-                        }
-                    }
-                }
-
-                List<Stadium> queryResult = _connection.GetStadiums(Query, par);
-
-                _connection.CloseConnection();
-
-                return queryResult;
-            }
-            else
-            {
-                return new List<Stadium>();
-            }
-        }
-        #endregion
-
     }
 }

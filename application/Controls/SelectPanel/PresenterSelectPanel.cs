@@ -22,11 +22,7 @@ namespace application.Controls.SelectPanel
 
         private void View_GetItems(string table)
         {
-            if (table == "Players") this.view.Items = model.GetPlayers(this.view.Selected_Query_Records).Cast<object>().ToList();
-            if (table == "Clubs") this.view.Items = model.GetClubs(this.view.Selected_Query_Records).Cast<object>().ToList();
-            if (table == "Coaches") this.view.Items = model.GetCoaches(this.view.Selected_Query_Records).Cast<object>().ToList();
-            if (table == "Kits") this.view.Items = model.GetKits(this.view.Selected_Query_Records).Cast<object>().ToList();
-            if (table == "Stadiums") this.view.Items = model.GetStadiums(this.view.Selected_Query_Records).Cast<object>().ToList();
+            this.view.Items = model.GetItems(this.view.Selected_Query_Records, table);
         }
         private void View_ShowSelectedItem(string table, int id)
         {

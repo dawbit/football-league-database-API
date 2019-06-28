@@ -120,7 +120,10 @@ namespace application.Controls.SelectPanel
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (Selected_Table != "")
+            {
+                flowLayoutPanelShow.Controls.Clear();
                 GetItems?.Invoke(Selected_Table);
+            }
         }
 
         //zapobiega zmianie rozmiaru kolumn
