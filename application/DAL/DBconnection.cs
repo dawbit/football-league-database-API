@@ -28,7 +28,7 @@ namespace application.DAL
             connStrBuilder.Password = _password;
             connStrBuilder.Server = DBinfo.server;
             connStrBuilder.Database = DBinfo.database;
-
+            connStrBuilder.CharacterSet = "utf8mb4";
             Connection = new MySqlConnection(connStrBuilder.ToString());
         }
 

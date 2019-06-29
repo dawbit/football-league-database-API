@@ -27,7 +27,7 @@ namespace application.DBdata
             this.Id = Id;
             this.FirstName = FirstName;
             this.LastName = LastName;
-            this.BirthDate = BirthDate.Date;
+            this.BirthDate = DateTime.Parse(BirthDate.ToString("yyyy-MM-dd"));
             this.Position = Position;
             this.Height = Height;
             this.Weight = Weight;

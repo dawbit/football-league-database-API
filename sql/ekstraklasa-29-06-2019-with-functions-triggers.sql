@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas generowania: 29 Cze 2019, 01:38
+-- Czas generowania: 29 Cze 2019, 12:46
 -- Wersja serwera: 10.1.16-MariaDB
 -- Wersja PHP: 5.6.24
 
@@ -24,9 +24,9 @@ DELIMITER $$
 --
 -- Funkcje
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `capitalize` (`string` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_polish_ci) RETURNS VARCHAR(50) CHARSET utf8 COLLATE utf8_polish_ci BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `capitalize` (`string` VARCHAR(50) CHARACTER SET utf8mb4) RETURNS VARCHAR(50) CHARSET utf8mb4 BEGIN
 	DECLARE i int;
-	DECLARE res, base, x varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci;
+	DECLARE res, base, x varchar(50) CHARACTER SET utf8mb4;
 	SET res = upper(substring(string, 1, 1));
 	SET base = lower(substr(string, 2));
 	SET i = instr(base, ' ');
@@ -53,11 +53,11 @@ DELIMITER ;
 
 CREATE TABLE `clubs` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-  `city` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `founded` year(4) DEFAULT NULL,
-  `active` enum('ekstraklasa','other league','doesn''t exist') COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+  `active` enum('ekstraklasa','other league','doesn''t exist') CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `clubs`
@@ -113,7 +113,7 @@ DELIMITER ;
 CREATE TABLE `clubs_has_stadiums` (
   `clubs_id_clubs` int(10) UNSIGNED NOT NULL,
   `stadiums_id_stadiums` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `clubs_has_stadiums`
@@ -135,12 +135,12 @@ INSERT INTO `clubs_has_stadiums` (`clubs_id_clubs`, `stadiums_id_stadiums`) VALU
 
 CREATE TABLE `coaches` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-  `lastname` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `lastname` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `dateofbirth` date DEFAULT NULL,
-  `nationality` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
+  `nationality` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
   `club` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `coaches`
@@ -179,7 +179,7 @@ CREATE TABLE `crests` (
   `id` int(10) UNSIGNED NOT NULL,
   `image` longblob,
   `club` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `crests`
@@ -236,11 +236,11 @@ INSERT INTO `crests` (`id`, `image`, `club`) VALUES
 
 CREATE TABLE `kits` (
   `id` int(10) UNSIGNED NOT NULL,
-  `home` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
-  `away` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
-  `clubcolours` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
+  `home` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  `away` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
+  `clubcolours` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
   `club` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `kits`
@@ -293,9 +293,9 @@ DELIMITER ;
 
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL,
-  `user` varchar(40) COLLATE utf8_polish_ci NOT NULL,
+  `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `logs`
@@ -328,7 +328,14 @@ INSERT INTO `logs` (`id`, `user`, `date`) VALUES
 (35, 'admin', '2019-06-29 01:19:45'),
 (36, 'admin', '2019-06-29 01:31:25'),
 (37, 'admin', '2019-06-29 01:34:26'),
-(38, 'admin', '2019-06-29 01:37:06');
+(38, 'admin', '2019-06-29 01:37:06'),
+(39, 'admin', '2019-06-29 11:41:12'),
+(40, 'admin', '2019-06-29 11:45:26'),
+(41, 'admin', '2019-06-29 11:55:45'),
+(42, 'admin', '2019-06-29 11:57:22'),
+(43, 'admin', '2019-06-29 12:00:46'),
+(44, 'admin', '2019-06-29 12:05:03'),
+(45, 'admin', '2019-06-29 12:10:59');
 
 -- --------------------------------------------------------
 
@@ -338,15 +345,15 @@ INSERT INTO `logs` (`id`, `user`, `date`) VALUES
 
 CREATE TABLE `players` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-  `lastname` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `name` text CHARACTER SET utf8,
+  `lastname` text CHARACTER SET utf8,
   `dateofbirth` date DEFAULT NULL,
-  `position` enum('goalkeeper','defender','midfielder','striker') COLLATE utf8_polish_ci NOT NULL,
+  `position` enum('goalkeeper','defender','midfielder','striker') CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `height` tinyint(3) UNSIGNED DEFAULT NULL,
   `weight` tinyint(3) UNSIGNED DEFAULT NULL,
-  `nationality` varchar(50) COLLATE utf8_polish_ci DEFAULT NULL,
+  `nationality` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci DEFAULT NULL,
   `club` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `players`
@@ -372,7 +379,12 @@ INSERT INTO `players` (`id`, `name`, `lastname`, `dateofbirth`, `position`, `hei
 (17, 'Łukasz', 'Wolsztyński', '1994-12-08', 'striker', 183, 73, 'Polish', 11),
 (18, 'Boris', 'Sekulić', '1991-10-21', 'defender', 187, 82, 'Slovakian', 11),
 (19, 'Kamil', 'Jóźwiak', '1998-04-22', 'midfielder', 176, 70, 'Polish', 8),
-(20, 'Marcin', 'Budziński', '1990-07-06', 'midfielder', 184, 80, 'Polish', 4);
+(20, 'Marcin', 'Budziński', '1990-07-06', 'midfielder', 184, 80, 'Polish', 4),
+(21, 'Jakub', 'Błaszczykowski', '1985-12-14', 'midfielder', 175, 71, 'Polish', 9),
+(22, 'Paweł', 'Brożek', '1983-04-21', 'striker', 180, 72, 'Polish', 9),
+(23, 'Łukasz', 'Burliga', '1988-05-10', 'defender', 186, 81, 'Polish', 9),
+(24, 'Szymon', 'Pawłowski', '1986-11-04', 'midfielder', 176, 72, 'Polish', 16),
+(25, 'Adam', 'Dźwigała', '1995-09-25', 'defender', 185, 72, 'Polish', 14);
 
 --
 -- Wyzwalacze `players`
@@ -398,11 +410,11 @@ DELIMITER ;
 
 CREATE TABLE `stadiums` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(100) COLLATE utf8_polish_ci NOT NULL,
-  `city` varchar(50) COLLATE utf8_polish_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
   `capacity` mediumint(8) UNSIGNED DEFAULT NULL,
   `buildyear` year(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Zrzut danych tabeli `stadiums`
@@ -524,12 +536,12 @@ ALTER TABLE `kits`
 -- AUTO_INCREMENT dla tabeli `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT dla tabeli `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT dla tabeli `stadiums`
 --
