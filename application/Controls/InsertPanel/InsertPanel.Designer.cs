@@ -67,7 +67,6 @@
             this.listViewItems.UseCompatibleStateImageBehavior = false;
             this.listViewItems.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewItems_ColumnClick);
             this.listViewItems.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.listViewItems_ColumnWidthChanging);
-            this.listViewItems.DoubleClick += new System.EventHandler(this.listViewItems_DoubleClick);
             // 
             // buttonSearch
             // 

@@ -9,6 +9,15 @@ namespace application.Controls.UpdatePanel
     public interface IUpdatePanel
     {
         string Selected_Table { get; }
-        List<Tuple<string, string>> Selected_Item_Edit { set; }
+        int GetSelectedItemIndex { get; }
+        object Selected_Item_Display { set; }
+        List<object> Update_Item { get; }
+        List<object> Items { set; }
+
+        List<Tuple<string, object>> Selected_Query_Records { get; }
+
+        event Action<string> ShowSelectedItem;
+        event Action<string> GetItems;
+        event Action<string, int> UpdateRecord;
     }
 }

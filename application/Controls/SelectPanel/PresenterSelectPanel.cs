@@ -24,9 +24,9 @@ namespace application.Controls.SelectPanel
         {
             this.view.Items = model.GetItems(this.view.Selected_Query_Records, table);
         }
-        private void View_ShowSelectedItem(string table, int id)
+        private void View_ShowSelectedItem(string table)
         {
-            this.view.Selected_Item_Display = model.GetItem(id, table);
+            this.view.Selected_Item_Display = model.GetItem(this.view.GetSelectedItemIndex, table);
         }
     }
 }

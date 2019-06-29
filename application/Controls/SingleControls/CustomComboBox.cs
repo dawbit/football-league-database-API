@@ -24,6 +24,14 @@ namespace application.Controls.SingleControls
             }
         }
 
+        public string SetCurrentIndex
+        {
+            set
+            {
+                cbClubs.SelectedIndex = cbClubs.FindStringExact(value);
+            }
+        }
+
         private void Clubs()
         {
             labelText.Text = "Club";

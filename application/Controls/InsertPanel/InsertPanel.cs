@@ -119,7 +119,6 @@ namespace application.Controls.InsertPanel
 
         public event Action<string> GetItems;
         public event Action<string> InsertRecord;
-        public event Action<string, int> ShowSelectedItem;
 
         //precyzuj zapytanie
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -169,12 +168,6 @@ namespace application.Controls.InsertPanel
             }
 
             this.listViewItems.Sort();
-        }
-
-        //dwuklik na itemie z listview
-        private void listViewItems_DoubleClick(object sender, EventArgs e)
-        {
-            ShowSelectedItem?.Invoke(Selected_Table, GetSelectedItemIndex);
         }
 
         //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa

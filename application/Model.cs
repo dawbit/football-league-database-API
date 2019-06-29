@@ -217,6 +217,94 @@ namespace application
             }
         }
 
+        public bool UpdateRecord(List<object> values, string table, int id)
+        {
+            if (_connection.OpenConnection())
+            {
+                string Query = "";
+                Dictionary<string, object> par = new Dictionary<string, object>();
+                if (table == "Players")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@id", id },
+                        { "@name", values[0] },
+                        { "@lastname", values[1] },
+                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
+                        { "@position",  values[3] },
+                        { "@height", values[4] },
+                        { "@weight", values[5] },
+                        { "@nationality", values[6] },
+                        { "@club",  values[7] }
+                    };
+                    // UPDATE players SET name=@name WHERE
+                    Query = $"UPDATE players SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, position=@position, " +
+                        $"height=@height, weight=@weight, nationality=@nationality, club=@club WHERE id=@id";
+
+                }
+                else if (table == "Clubs")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@id", id },
+                        { "@name", values[0] },
+                        { "@city", values[1] },
+                        { "@founded", values[2] },
+                        { "@active",  values[3] }
+                    };
+
+                    Query = $"UPDATE clubs SET name=@name, city=@city, founded=@founded, active=@active WHERE id=@id";
+                }
+                else if (table == "Kits")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@id", id },
+                        { "@home", values[0] },
+                        { "@away", values[1] },
+                        { "@clubcolours",  values[2] },
+                        { "@club", values[3] }
+                    };
+
+                    Query = $"UPDATE kits SET home=@home, away=@away, clubcolours=@clubcolours, club=@club WHERE id=@id";
+                }
+                else if (table == "Coaches")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@id", id },
+                        { "@name", values[0] },
+                        { "@lastname", values[1].ToString() },
+                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
+                        { "@nationality", values[3] },
+                        { "@club",  values[4] }
+                    };
+
+                    Query = $"UPDATE coaches SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, nationality=@nationality, club=@club WHERE id=@id";
+                }
+                else if (table == "Stadiums")
+                {
+                    par = new Dictionary<string, object>
+                    {
+                        { "@id", id },
+                        { "@name", values[0] },
+                        { "@city", values[1] },
+                        { "@capacity", values[2] },
+                        { "@buildyear",  values[3] }
+                    };
+
+                    Query = $"UPDATE stadiums SET name=@name, city=@city, capacity=@capacity, buildyear=@buildyear WHERE id=@id";
+                }
+
+                bool result = _connection.UpdateRecord(Query, par);
+                return result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // prywatna funkcja, otrzymuje tablice, zapytanie i rekordy według których ma szukać
         // zwraca uzupełnione rekordy według tablicy (Clubs nie ma dopasowania po id więc trzeba zrobić dodatkowe where), uzupełniony słownik o wartości po
         // których ma szukać
@@ -250,8 +338,8 @@ namespace application
                     {
                         if (columns[j].Item2 == QueryRecords[i].Item1)
                         {
-                            par.Add("@" + AttributeName, QueryRecords[i].Item2);
-                            Query += " and " + columns[j].Item1 + "=@" + AttributeName;
+                            par.Add("@" + AttributeName, QueryRecords[i].Item2 + "%");
+                            Query += " and " + columns[j].Item1 + " LIKE @" + AttributeName;
                         }
                     }
                 }

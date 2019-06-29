@@ -114,7 +114,7 @@ namespace application.Controls.SelectPanel
 
 
         public event Action<string> GetItems;
-        public event Action<string, int> ShowSelectedItem;
+        public event Action<string> ShowSelectedItem;
 
         //precyzuj zapytanie
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace application.Controls.SelectPanel
         //dwuklik na itemie z listview
         private void listViewItems_DoubleClick(object sender, EventArgs e)
         {
-            ShowSelectedItem?.Invoke(Selected_Table, GetSelectedItemIndex);
+            ShowSelectedItem?.Invoke(Selected_Table);
         }
 
         //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
