@@ -305,6 +305,25 @@ namespace application
             }
         }
 
+        public bool DeleteRecord(string table, int id)
+        {
+            if (_connection.OpenConnection())
+            {
+                Dictionary<string, object> par = new Dictionary<string, object>()
+                {
+                    { "@id", id }
+                };
+
+                string Query = $"DELETE from {table.ToLower()} WHERE id=@id";
+                bool result = _connection.DeleteRecord(Query, par);
+                return result;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // prywatna funkcja, otrzymuje tablice, zapytanie i rekordy według których ma szukać
         // zwraca uzupełnione rekordy według tablicy (Clubs nie ma dopasowania po id więc trzeba zrobić dodatkowe where), uzupełniony słownik o wartości po
         // których ma szukać
@@ -338,8 +357,16 @@ namespace application
                     {
                         if (columns[j].Item2 == QueryRecords[i].Item1)
                         {
-                            par.Add("@" + AttributeName, QueryRecords[i].Item2 + "%");
-                            Query += " and " + columns[j].Item1 + " LIKE @" + AttributeName;
+                            if (AttributeName == "Club")
+                            {
+                                par.Add("@" + AttributeName, QueryRecords[i].Item2);
+                                Query += " and " + columns[j].Item1 + "=@" + AttributeName;
+                            }
+                            else
+                            {
+                                par.Add("@" + AttributeName, QueryRecords[i].Item2 + "%");
+                                Query += " and " + columns[j].Item1 + " LIKE @" + AttributeName;
+                            }
                         }
                     }
                 }

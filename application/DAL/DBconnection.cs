@@ -439,7 +439,31 @@ namespace application.DAL
                 }
                 catch (MySqlException e)
                 {
-                    Console.WriteLine(e);
+                    return false;
+                }
+            }
+        }
+
+        public bool DeleteRecord(string query, Dictionary<string, object> par)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                foreach (KeyValuePair<string, object> p in par)
+                {
+                    cmd.Parameters.AddWithValue(p.Key, p.Value);
+                }
+                try
+                {
+                    // MySqlCommand.ExecuteNonQuery zwraca inta, oznacza on ilość wierszy które zostały dodane. My dodajemy pojedyńcze.
+                    // Błąd w dodaniu rekordu wyrzuca Exception, stąd try catch
+                    int result = cmd.ExecuteNonQuery();
+                    if (result > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (MySqlException e)
+                {
                     return false;
                 }
             }

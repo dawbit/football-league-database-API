@@ -144,7 +144,17 @@ namespace application.Controls.UpdatePanel
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            UpdateRecord?.Invoke(Selected_Table, SelectedItemIndex);
+            if (Selected_Table != "")
+            {
+                if (Validate())
+                {
+                    UpdateRecord?.Invoke(Selected_Table, SelectedItemIndex);
+                }
+                else
+                {
+                    MessageBox.Show("Values can't be null!");
+                }
+            }
         }
 
         //zapobiega zmianie rozmiaru kolumn
