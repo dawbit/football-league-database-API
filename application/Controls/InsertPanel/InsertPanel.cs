@@ -136,6 +136,7 @@ namespace application.Controls.InsertPanel
                 if (Validate())
                 {
                     InsertRecord?.Invoke(Selected_Table);
+                    AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert);
                 }
                 else
                 {
@@ -173,6 +174,7 @@ namespace application.Controls.InsertPanel
         //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            flowLayoutPanelInsert.Controls.Clear();
             AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch);
             AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert);
         }

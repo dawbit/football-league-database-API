@@ -177,6 +177,8 @@ namespace application.Controls.DeletePanel
         //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            flowLayoutPanelShow.Controls.Clear();
+            SelectedItemIndex = 0;
             AddEditControls();
         }
 

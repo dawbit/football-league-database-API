@@ -68,9 +68,7 @@ namespace application
             set
             {
                 if (init == true) init = false;
-                else this.Controls.RemoveAt(this.Controls.Count - 1);
-
-                Console.WriteLine(value.ToString());
+                    else this.Controls.RemoveAt(this.Controls.Count - 1);
 
                 SetDoubleBuffered(value);
                 value.Location = new Point(12, 59);

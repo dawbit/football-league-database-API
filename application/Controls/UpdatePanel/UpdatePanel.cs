@@ -195,6 +195,8 @@ namespace application.Controls.UpdatePanel
         //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
+            flowLayoutPanelUpdate.Controls.Clear();
+            SelectedItemIndex = 0;
             AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch, new List<string>());
         }
 
