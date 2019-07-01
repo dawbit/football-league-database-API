@@ -33,7 +33,11 @@ namespace application.DBdata
             this.Weight = Weight;
             this.Nationality = Nationality;
             this.ClubPlayer = ClubPlayer;
+        }
 
+        public override string ToString()
+        {
+            return $"{Id} {FirstName}\t{LastName}\t{BirthDate.ToString("dd-MM-yyyy")}\t{Position}\t{Height}\t{Weight}\t{Nationality}\t{ClubPlayer}";
         }
     }
 }

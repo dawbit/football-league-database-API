@@ -28,5 +28,10 @@ namespace application.DBdata
             this.Nationality = Nationality;
             this.ClubCoach = ClubCoach;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {FirstName}\t{LastName}\t{BirthDate.ToString("dd-MM-yyyy")}\t{Nationality}\t{ClubCoach}";
+        }
     }
 }

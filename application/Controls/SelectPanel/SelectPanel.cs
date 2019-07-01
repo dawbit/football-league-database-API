@@ -55,6 +55,15 @@ namespace application.Controls.SelectPanel
                 for (int i = 0; i < value.Count; i++)
                 {
                     List<object> values = ObjectAttributeValues(value[i]);
+                    for (int j = 0; j < values.Count; j++)
+                    {
+                        try
+                        {
+                            DateTime date = DateTime.Parse(values[j].ToString());
+                            values[j] = date.ToString("dd-MM-yyyy");
+                        }
+                        catch (FormatException) { }
+                    }
                     var listViewItem = new ListViewItem(values.Select(j => j.ToString()).ToArray());
                     listViewItems.Items.Add(listViewItem);
                 }
