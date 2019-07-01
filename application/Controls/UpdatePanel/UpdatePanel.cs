@@ -58,7 +58,7 @@ namespace application.Controls.UpdatePanel
                 Columns.AddColumns(listViewItems, Selected_Table);
                 for (int i = 0; i < value.Count; i++)
                 {
-                    List<object> values = ObjectAttributeValues(value[i]);
+                    List<object> values = SharedFunctions.ObjectAttributeValues(value[i]);
                     var listViewItem = new ListViewItem(values.Select(j => j.ToString()).ToArray());
                     listViewItems.Items.Add(listViewItem);
                 }
@@ -85,12 +85,11 @@ namespace application.Controls.UpdatePanel
                     if (flowLayoutPanelUpdate.Controls[i] is AttributeControlEdit)
                     {
                         var obj = (AttributeControlEdit)flowLayoutPanelUpdate.Controls[i];
-                        parameters.Add(obj.AttributeValue);
                     }
                     else if (flowLayoutPanelUpdate.Controls[i] is CustomComboBox)
                     {
                         var obj = (CustomComboBox)flowLayoutPanelUpdate.Controls[i];
-                        parameters.Add(obj.GetClubIndex);
+                        parameters.Add(obj.GetComboBoxIndex);
                     }
                 }
                 return parameters;
@@ -101,8 +100,8 @@ namespace application.Controls.UpdatePanel
         {
             set
             {
-                List<object> values = ObjectAttributeValues(value);
-                AddEditableControls(1, new int[] { 68, 47, 130 }, flowLayoutPanelUpdate, values.Cast<string>().ToList());
+                List<object> values = SharedFunctions.ObjectAttributeValues(value);
+                SharedFunctions.AddEditableControls(1, new int[] { 68, 47, 130 }, flowLayoutPanelUpdate, values.Cast<string>().ToList(), Selected_Table);
             }
         }
 
@@ -122,7 +121,8 @@ namespace application.Controls.UpdatePanel
                     else if (flowLayoutPanelSearch.Controls[i] is CustomComboBox)
                     {
                         var obj = (CustomComboBox)flowLayoutPanelSearch.Controls[i];
-                        if (obj.GetClubIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetClubIndex));
+                        if (obj.Type == "Club") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetComboBoxIndex)); }
+                        else if (obj.Type == "Position") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Position", obj.GetComboBoxValue)); }
                     }
                 }
                 return parameters;
@@ -197,62 +197,11 @@ namespace application.Controls.UpdatePanel
         {
             flowLayoutPanelUpdate.Controls.Clear();
             SelectedItemIndex = 0;
-            AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch, new List<string>());
+            SharedFunctions.AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch, new List<string>(), Selected_Table);
         }
 
         #region PRIVATE FUNCTIONS
         //funkcja która pobiera wartości przechowywane przez publiczne pola obiektu gdy przekazujemy itemy do listview
-        private List<object> ObjectAttributeValues(object atype)
-        {
-            List<object> values = new List<object>();
-            foreach (var prop in atype.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                var propertyName = prop.Name;
-                var propertyValue = atype.GetType().GetProperty(propertyName).GetValue(atype, null);
-
-                values.Add(convertNullableToString(propertyValue));
-            }
-            return values;
-        }
-
-        //przekształca nulla na stringa
-        private string convertNullableToString(object property)
-        {
-            if (property == null) return string.Empty;
-            else return property.ToString();
-        }
-
-        //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
-        private void AddEditableControls(int start_index, int[] RGB, FlowLayoutPanel panel, List<string> values)
-        {
-            panel.Controls.Clear();
-            List<string> columnNames = Columns.ColumnNames(Selected_Table);
-            // wypełnij tablicę pustymi stringami jeśli values jest puste
-            if (!values.Any()) {
-                for (int i = 0; i < columnNames.Count; i++)
-                    values.Add("");
-            }
-
-            for (int i = start_index; i < columnNames.Count; i++)
-            {
-                if (columnNames[i] == "Club")
-                {
-                    CustomComboBox club = new CustomComboBox();
-                    club.BackColor = Color.FromArgb(RGB[0], RGB[1], RGB[2]);
-                    club.SetCurrentIndex = values[i];
-                    panel.Controls.Add(club);
-                }
-                else
-                {
-                    AttributeControlEdit attribute = new AttributeControlEdit();
-                    attribute.BackColor = Color.FromArgb(RGB[0], RGB[1], RGB[2]);
-                    attribute.AttributeName = columnNames[i];
-                    attribute.AttributeValue = values[i];
-                    panel.Controls.Add(attribute);
-                }
-            }
-        }
-
         private bool Validate()
         {
             List<object> Records = Update_Item;

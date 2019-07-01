@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbClubs = new System.Windows.Forms.ComboBox();
+            this.cbItems = new System.Windows.Forms.ComboBox();
             this.labelText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // cbClubs
+            // cbItems
             // 
-            this.cbClubs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbClubs.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cbClubs.FormattingEnabled = true;
-            this.cbClubs.Location = new System.Drawing.Point(78, 1);
-            this.cbClubs.Name = "cbClubs";
-            this.cbClubs.Size = new System.Drawing.Size(199, 26);
-            this.cbClubs.TabIndex = 0;
+            this.cbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbItems.Font = new System.Drawing.Font("Trebuchet MS", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbItems.FormattingEnabled = true;
+            this.cbItems.Location = new System.Drawing.Point(78, 1);
+            this.cbItems.Name = "cbItems";
+            this.cbItems.Size = new System.Drawing.Size(199, 26);
+            this.cbItems.TabIndex = 0;
             // 
             // labelText
             // 
@@ -51,17 +51,17 @@
             this.labelText.Size = new System.Drawing.Size(0, 18);
             this.labelText.TabIndex = 1;
             // 
-            // ComboBoxClubs
+            // CustomComboBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(47)))), ((int)(((byte)(86)))));
             this.Controls.Add(this.labelText);
-            this.Controls.Add(this.cbClubs);
+            this.Controls.Add(this.cbItems);
             this.Font = new System.Drawing.Font("Trebuchet MS", 11.25F);
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "ComboBoxClubs";
+            this.Name = "CustomComboBox";
             this.Size = new System.Drawing.Size(278, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -70,7 +70,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cbClubs;
+        private System.Windows.Forms.ComboBox cbItems;
         private System.Windows.Forms.Label labelText;
     }
 }

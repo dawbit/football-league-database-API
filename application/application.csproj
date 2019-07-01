@@ -81,6 +81,7 @@
     <Compile Include="Controls\SelectPanel\SelectPanel.Designer.cs">
       <DependentUpon>SelectPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SharedFunctions.cs" />
     <Compile Include="Controls\SingleControls\CustomComboBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

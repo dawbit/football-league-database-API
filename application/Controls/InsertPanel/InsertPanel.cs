@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using application.Controls.SingleControls;
+using System.Globalization;
 
 namespace application.Controls.InsertPanel
 {
@@ -54,7 +55,7 @@ namespace application.Controls.InsertPanel
                 Columns.AddColumns(listViewItems, Selected_Table);
                 for (int i = 0; i < value.Count; i++)
                 {
-                    List<object> values = ObjectAttributeValues(value[i]);
+                    List<object> values = SharedFunctions.ObjectAttributeValues(value[i]);
                     var listViewItem = new ListViewItem(values.Select(j => j.ToString()).ToArray());
                     listViewItems.Items.Add(listViewItem);
                 }
@@ -81,12 +82,11 @@ namespace application.Controls.InsertPanel
                     if (flowLayoutPanelInsert.Controls[i] is AttributeControlEdit)
                     {
                         var obj = (AttributeControlEdit)flowLayoutPanelInsert.Controls[i];
-                        parameters.Add(obj.AttributeValue);
                     }
                     else if (flowLayoutPanelInsert.Controls[i] is CustomComboBox)
                     {
                         var obj = (CustomComboBox)flowLayoutPanelInsert.Controls[i];
-                        parameters.Add(obj.GetClubIndex);
+                        parameters.Add(obj.GetComboBoxIndex);
                     }
                 }
                 return parameters;
@@ -109,7 +109,8 @@ namespace application.Controls.InsertPanel
                     else if (flowLayoutPanelSearch.Controls[i] is CustomComboBox)
                     {
                         var obj = (CustomComboBox)flowLayoutPanelSearch.Controls[i];
-                        if (obj.GetClubIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetClubIndex));
+                        if (obj.Type == "Club") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetComboBoxIndex)); }
+                        else if (obj.Type == "Position") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Position", obj.GetComboBoxValue)); }
                     }
                 }
                 return parameters;
@@ -136,7 +137,7 @@ namespace application.Controls.InsertPanel
                 if (Validate())
                 {
                     InsertRecord?.Invoke(Selected_Table);
-                    AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert);
+                    SharedFunctions.AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert, new List<string>(), Selected_Table);
                 }
                 else
                 {
@@ -175,56 +176,12 @@ namespace application.Controls.InsertPanel
         private void comboBoxTables_SelectedIndexChanged(object sender, EventArgs e)
         {
             flowLayoutPanelInsert.Controls.Clear();
-            AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch);
-            AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert);
+            SharedFunctions.AddEditableControls(0, new int[] { 255, 47, 86 }, flowLayoutPanelSearch, new List<string>(), Selected_Table);
+            SharedFunctions.AddEditableControls(1, new int[] { 100, 136, 51 }, flowLayoutPanelInsert, new List<string>(), Selected_Table);
         }
 
         #region PRIVATE FUNCTIONS
         //funkcja która pobiera wartości przechowywane przez publiczne pola obiektu gdy przekazujemy itemy do listview
-        private List<object> ObjectAttributeValues(object atype)
-        {
-            List<object> values = new List<object>();
-            foreach (var prop in atype.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                var propertyName = prop.Name;
-                var propertyValue = atype.GetType().GetProperty(propertyName).GetValue(atype, null);
-
-                values.Add(convertNullableToString(propertyValue));
-            }
-            return values;
-        }
-
-        //przekształca nulla na stringa
-        private string convertNullableToString(object property)
-        {
-            if (property == null) return string.Empty;
-            else return property.ToString();
-        }
-
-        //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
-        private void AddEditableControls(int start_index, int[] RGB, FlowLayoutPanel panel)
-        {
-            panel.Controls.Clear();
-            List<string> columnNames = Columns.ColumnNames(Selected_Table);
-
-            for (int i = start_index; i < columnNames.Count; i++)
-            {
-                if (columnNames[i] == "Club")
-                {
-                    CustomComboBox club = new CustomComboBox();
-                    club.BackColor = Color.FromArgb(RGB[0], RGB[1], RGB[2]);
-                    panel.Controls.Add(club);
-                }
-                else
-                {
-                    AttributeControlEdit attribute = new AttributeControlEdit();
-                    attribute.BackColor = Color.FromArgb(RGB[0], RGB[1], RGB[2]);
-                    attribute.AttributeName = columnNames[i];
-                    panel.Controls.Add(attribute);
-                }
-            }
-        }
-
         private bool Validate()
         {
             List<object> Records = Insert_Item;

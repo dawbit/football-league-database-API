@@ -56,7 +56,7 @@ namespace application.Controls.DeletePanel
                 Columns.AddColumns(listViewItems, Selected_Table);
                 for (int i = 0; i < value.Count; i++)
                 {
-                    List<object> values = ObjectAttributeValues(value[i]);
+                    List<object> values = SharedFunctions.ObjectAttributeValues(value[i]);
                     var listViewItem = new ListViewItem(values.Select(j => j.ToString()).ToArray());
                     listViewItems.Items.Add(listViewItem);
                 }
@@ -79,7 +79,7 @@ namespace application.Controls.DeletePanel
             {
                 flowLayoutPanelShow.Controls.Clear();
                 List<string> columnNames = Columns.ColumnNames(Selected_Table);
-                List<object> values = ObjectAttributeValues(value);
+                List<object> values = SharedFunctions.ObjectAttributeValues(value);
 
                 for (int i = 0; i < values.Count; i++)
                 {
@@ -108,7 +108,8 @@ namespace application.Controls.DeletePanel
                     else if (flowLayoutPanelSearch.Controls[i] is CustomComboBox)
                     {
                         var obj = (CustomComboBox)flowLayoutPanelSearch.Controls[i];
-                        if (obj.GetClubIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetClubIndex));
+                        if (obj.Type == "Club") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Club", obj.GetComboBoxIndex)); }
+                        else if (obj.Type == "Position") { if (obj.GetComboBoxIndex != 0) parameters.Add(new Tuple<string, object>("Position", obj.GetComboBoxValue)); }
                     }
                 }
                 return parameters;
@@ -179,52 +180,7 @@ namespace application.Controls.DeletePanel
         {
             flowLayoutPanelShow.Controls.Clear();
             SelectedItemIndex = 0;
-            AddEditControls();
+            SharedFunctions.AddEditControls(flowLayoutPanelSearch, Selected_Table);
         }
-
-        #region PRIVATE FUNCTIONS
-        //funkcja która pobiera wartości przechowywane przez publiczne pola obiektu gdy przekazujemy itemy do listview
-        private List<object> ObjectAttributeValues(object atype)
-        {
-            List<object> values = new List<object>();
-            foreach (var prop in atype.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                var propertyName = prop.Name;
-                var propertyValue = atype.GetType().GetProperty(propertyName).GetValue(atype, null);
-
-                values.Add(convertNullableToString(propertyValue));
-            }
-            return values;
-        }
-
-        //przekształca nulla na stringa
-        private string convertNullableToString(object property)
-        {
-            if (property == null) return string.Empty;
-            else return property.ToString();
-        }
-
-        //dodaje kontrolki do edytowania po załadowaniu tabeli z comboboxa
-        private void AddEditControls()
-        {
-            flowLayoutPanelSearch.Controls.Clear();
-            List<string> columnNames = Columns.ColumnNames(Selected_Table);
-
-            for (int i = 0; i < columnNames.Count; i++)
-            {
-                if (columnNames[i] == "Club")
-                {
-                    CustomComboBox club = new CustomComboBox();
-                    flowLayoutPanelSearch.Controls.Add(club);
-                }
-                else
-                {
-                    AttributeControlEdit attribute = new AttributeControlEdit();
-                    attribute.AttributeName = columnNames[i];
-                    flowLayoutPanelSearch.Controls.Add(attribute);
-                }
-            }
-        }
-        #endregion
     }
 }

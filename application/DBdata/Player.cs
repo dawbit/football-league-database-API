@@ -8,13 +8,20 @@ using System.Globalization;
 
 namespace application.DBdata
 {
+    public enum Position
+    {
+        goalkeeper,
+        defender,
+        midfielder,
+        striker
+    };
     class Player
     {
         public int Id { get; set; } // zabezpieczenie przed nullem
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Position { get; set; }
+        public Position Position { get; set; }
         public int Height { get; set; } // 0 to 255
         public int Weight { get; set; }
         public string Nationality { get; set; }
@@ -22,7 +29,7 @@ namespace application.DBdata
 
         public Player() { }
 
-        public Player(int Id, string FirstName, string LastName, DateTime BirthDate, string Position, int Height, int Weight, string Nationality, string ClubPlayer)
+        public Player(int Id, string FirstName, string LastName, DateTime BirthDate, Position Position, int Height, int Weight, string Nationality, string ClubPlayer)
         {
             this.Id = Id;
             this.FirstName = FirstName;

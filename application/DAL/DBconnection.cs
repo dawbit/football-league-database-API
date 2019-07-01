@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using application.DBdata;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using static application.DBdata.Player;
 
 namespace application.DAL
 {
@@ -86,6 +87,7 @@ namespace application.DAL
                 if (dataReader.Read())
                 {
                     int Height, Weight;
+                    Position Position;
 
                     if (dataReader["Height"].ToString() == "") Height = 0;
                     else Height = int.Parse(dataReader["Height"].ToString());
@@ -93,12 +95,17 @@ namespace application.DAL
                     if (dataReader["Weight"].ToString() == "") Weight = 0;
                     else Weight = int.Parse(dataReader["Weight"].ToString());
 
+                    if (dataReader["Position"].ToString() == "goalkeeper") { Position = Position.goalkeeper; }
+                    else if (dataReader["Position"].ToString() == "defender") { Position = Position.defender; }
+                    else if (dataReader["Position"].ToString() == "midfielder") { Position = Position.midfielder; }
+                    else { Position = Position.striker; }
+
                     return new Player(
                         int.Parse(dataReader["ID"].ToString()),
                         dataReader["Firstname"].ToString(),
                         dataReader["Lastname"].ToString(),
                         DateTime.Parse(dataReader["Dateofbirth"].ToString()).Date,
-                        dataReader["Position"].ToString(),
+                        Position,
                         Height,
                         Weight,
                         dataReader["Nationality"].ToString(),
@@ -125,6 +132,7 @@ namespace application.DAL
                 while (dataReader.Read())
                 {
                     int Height, Weight;
+                    Position Position;
 
                     if (dataReader["Height"].ToString() == "") Height = 0;
                     else Height = int.Parse(dataReader["Height"].ToString());
@@ -132,12 +140,18 @@ namespace application.DAL
                     if (dataReader["Weight"].ToString() == "") Weight = 0;
                     else Weight = int.Parse(dataReader["Weight"].ToString());
 
-                    queryRecords.Add(new Player (
+
+                    if (dataReader["Position"].ToString() == "goalkeeper") { Position = Position.goalkeeper; }
+                    else if (dataReader["Position"].ToString() == "defender") { Position = Position.defender; }
+                    else if (dataReader["Position"].ToString() == "midfielder") { Position = Position.midfielder; }
+                    else { Position = Position.striker; }
+
+                    queryRecords.Add(new Player(
                         int.Parse(dataReader["ID"].ToString()),
                         dataReader["Firstname"].ToString(),
                         dataReader["Lastname"].ToString(),
                         DateTime.Parse(dataReader["Dateofbirth"].ToString()),
-                        dataReader["Position"].ToString(),
+                        Position,
                         Height,
                         Weight,
                         dataReader["Nationality"].ToString(),
