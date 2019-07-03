@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using application.Controls.SingleControls;
+using System.Globalization;
 
 namespace application.Controls.UpdatePanel
 {
@@ -85,6 +86,9 @@ namespace application.Controls.UpdatePanel
                     if (flowLayoutPanelUpdate.Controls[i] is AttributeControlEdit)
                     {
                         var obj = (AttributeControlEdit)flowLayoutPanelUpdate.Controls[i];
+                        if (DateTime.TryParseExact(obj.AttributeValue.ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                            parameters.Add(date.ToString("yyyy-MM-dd"));
+                        else parameters.Add(obj.AttributeValue);
                     }
                     else if (flowLayoutPanelUpdate.Controls[i] is CustomComboBox)
                     {

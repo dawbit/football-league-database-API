@@ -491,30 +491,37 @@ GRANT SELECT ON `ekstraklasa`.* TO 'user'@'localhost';
     Ustawia łańcuch znaków $res(result)$ jako wielka litera dla pierwszej wartości w łańcuchu wejściowym, łańcuch znaków $base$ jako reszta łańcucha wejściowego z użyciem funkcji $lower$ oraz indeks $i$ jako indeks pierwszego wystąpienia spacji w łańcuchu $base$.
     
     Następnie w pętli, która wykonuje się dopóki nie znajdzie w łańcuchu base kolejnej spacji, ustawia zmienną pomocniczą $x$ jako łańcuch znaków od pierwszej wartości z łańcucha znaków $base$ do pierwszego indeksu spacji. Następnie ustawia $res$ jako łączenie $res$ oraz $x$. Następnie do zmiennej $x$ przypisujemy pierwszą literę wyrazu znajdującego się po indeksie spacji, używając do tego funkcji $upper$. Kolejnym krokiem jest ustawienie zmiennej base jako reszty łańcucha znaków, czyli tego co znajduje się za zmienną $x$, oraz przypisanie i nowego indeksu spacji. Pętla wykonuje się dla całego łańcucha wejściowego.
-    \begin{Verbatim}
+    \begin{verbatim}
 SET GLOBAL log_bin_trust_function_creators = 1;    
     
 CREATE FUNCTION capitalize (string varchar(50) CHARACTER SET utf8mb4)
 RETURNS varchar(50) CHARACTER SET utf8mb4
 BEGIN
 DECLARE i int;
-	DECLARE res, base, x varchar(50) CHARACTER SET utf8mb4;
-	SET res = upper(substring(string, 1, 1));
-	SET base = lower(substr(string, 2));
-	SET i = instr(base, ' ');
-	WHILE i > 0
-	DO
-		SET x = substr(base, 1, i);
-		SET res = concat(res, x);
-		SET x = upper(substr(base, i + 1, 1));
-		SET res = concat(res, x);
-		SET base = substr(base, i + 2);
-		SET i = instr(base, ' ');
-	END WHILE;
-	SET res = concat(res, base);
-	RETURN res;
+DECLARE res, base, x varchar(50) CHARACTER SET utf8mb4;
+SET res = upper(substring(string, 1, 1));
+SET base = lower(substr(string, 2));
+IF (instr(base, ' ') = 0 AND instr(base, '-') > 0) THEN SET i = instr(base, '-');
+ELSEIF (instr(base, ' ') > 0 AND instr(base, '-') = 0) THEN SET i = instr(base, ' ');
+ELSEIF instr(base, ' ') > instr(base, '-') THEN SET i = instr(base, '-');
+ELSE SET i = instr(base, ' ');
+END IF;
+WHILE i > 0 DO
+SET x = substr(base, 1, i);
+SET res = concat(res, x);
+SET x = upper(substr(base, i + 1, 1));
+SET res = concat(res, x);
+SET base = substr(base, i + 2);
+IF (instr(base, ' ') = 0 AND instr(base, '-') > 0) THEN SET i = instr(base, '-');
+ELSEIF (instr(base, ' ') > 0 AND instr(base, '-') = 0) THEN SET i = instr(base, ' ');
+ELSEIF instr(base, ' ') > instr(base, '-') THEN SET i = instr(base, '-');
+ELSE SET i = instr(base, ' ');
+END IF;
+END WHILE;
+SET res = concat(res, base);
+RETURN res;
 END //
-    \end{Verbatim}
+    \end{verbatim}
     Wyzwalacze dla tabel wykorzystujące funkcję $capitalize$.
     \begin{Verbatim}
 --

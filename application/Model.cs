@@ -137,28 +137,30 @@ namespace application
                 Dictionary<string, object> par = new Dictionary<string, object>();
                 if (table == "Players")
                 {
-                    par = new Dictionary<string, object>
+                    try
                     {
-                        { "@name", values[0] },
-                        { "@lastname", values[1] },
-                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
-                        { "@position",  values[3] },
-                        { "@height", values[4] },
-                        { "@weight", values[5] },
-                        { "@nationality", values[6] },
-                        { "@club",  values[7] }
-                    };
+                        DateTime date = DateTime.Parse(values[2].ToString());
 
-                    Query = $"insert into players (name, lastname, dateofbirth, position, height, weight, nationality, club) " +
-                        $"values (@name, @lastname, @dateofbirth, @position, @height, @weight, @nationality, @club)";
+                        par = new Dictionary<string, object>
+                        {
+                            { "@name", values[0] },
+                            { "@lastname", values[1] },
+                            { "@dateofbirth", date.ToString("yyyy-MM-dd") },
+                            { "@position",  values[3] },
+                            { "@height", values[4] },
+                            { "@weight", values[5] },
+                            { "@nationality", values[6] },
+                            { "@club",  values[7] }
+                        };
+                        // UPDATE players SET name=@name WHERE
 
+                        Query = $"insert into players (name, lastname, dateofbirth, position, height, weight, nationality, club) " +
+                            $"values (@name, @lastname, @dateofbirth, @position, @height, @weight, @nationality, @club)";
+                    }
+                    catch { return false; }
                 }
                 else if (table == "Clubs")
                 {
-                    foreach (var item in values)
-                    {
-                        Console.WriteLine(item.ToString());
-                    }
                     par = new Dictionary<string, object>
                     {
                         { "@name", values[0] },
@@ -183,17 +185,23 @@ namespace application
                 }
                 else if (table == "Coaches")
                 {
-                    par = new Dictionary<string, object>
+                    try
                     {
-                        { "@name", values[0] },
-                        { "@lastname", values[1].ToString() },
-                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
-                        { "@nationality", values[3] },
-                        { "@club",  values[4] }
-                    };
+                        DateTime date = DateTime.Parse(values[2].ToString());
 
-                    Query = $"insert into coaches (name, lastname, dateofbirth, nationality, club) values " +
-                        $"(@name, @lastname, @dateofbirth, @nationality, @club)";
+                        par = new Dictionary<string, object>
+                        {
+                            { "@name", values[0] },
+                            { "@lastname", values[1] },
+                            { "@dateofbirth", date.ToString("yyyy-MM-dd") },
+                            { "@nationality", values[3] },
+                            { "@club",  values[4] }
+                        };
+                        // UPDATE players SET name=@name WHERE
+                        Query = $"insert into coaches (name, lastname, dateofbirth, nationality, club) values " +
+                                                $"(@name, @lastname, @dateofbirth, @nationality, @club)";
+                    }
+                    catch { return false; }
                 }
                 else if (table == "Stadiums")
                 {
@@ -225,22 +233,27 @@ namespace application
                 Dictionary<string, object> par = new Dictionary<string, object>();
                 if (table == "Players")
                 {
-                    par = new Dictionary<string, object>
+                    try
                     {
-                        { "@id", id },
-                        { "@name", values[0] },
-                        { "@lastname", values[1] },
-                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
-                        { "@position",  values[3] },
-                        { "@height", values[4] },
-                        { "@weight", values[5] },
-                        { "@nationality", values[6] },
-                        { "@club",  values[7] }
-                    };
-                    // UPDATE players SET name=@name WHERE
-                    Query = $"UPDATE players SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, position=@position, " +
-                        $"height=@height, weight=@weight, nationality=@nationality, club=@club WHERE id=@id";
+                        DateTime date = DateTime.Parse(values[2].ToString());
 
+                        par = new Dictionary<string, object>
+                        {
+                            { "@id", id },
+                            { "@name", values[0] },
+                            { "@lastname", values[1] },
+                            { "@dateofbirth", date.ToString("yyyy-MM-dd") },
+                            { "@position",  values[3] },
+                            { "@height", values[4] },
+                            { "@weight", values[5] },
+                            { "@nationality", values[6] },
+                            { "@club",  values[7] }
+                        };
+                        // UPDATE players SET name=@name WHERE
+                        Query = $"UPDATE players SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, position=@position, " +
+                            $"height=@height, weight=@weight, nationality=@nationality, club=@club WHERE id=@id";
+                    }
+                    catch { return false; }
                 }
                 else if (table == "Clubs")
                 {
@@ -270,18 +283,23 @@ namespace application
                 }
                 else if (table == "Coaches")
                 {
-                    par = new Dictionary<string, object>
+                    try
                     {
-                        { "@id", id },
-                        { "@name", values[0] },
-                        { "@lastname", values[1].ToString() },
-                        { "@dateofbirth", DateTime.Parse(values[2].ToString()).ToString("yyyy-MM-dd") },
-                        { "@nationality", values[3] },
-                        { "@club",  values[4] }
-                    };
+                        DateTime date = DateTime.Parse(values[2].ToString());
 
-                    Query = $"UPDATE coaches SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, nationality=@nationality, club=@club WHERE id=@id";
-                }
+                        par = new Dictionary<string, object>
+                        {
+                            { "@id", id },
+                            { "@name", values[0] },
+                            { "@lastname", values[1] },
+                            { "@dateofbirth", date.ToString("yyyy-MM-dd") },
+                            { "@nationality", values[3] },
+                            { "@club",  values[4] }
+                        };
+                        // UPDATE players SET name=@name WHERE
+                        Query = $"UPDATE coaches SET name=@name, lastname=@lastname, dateofbirth=@dateofbirth, nationality=@nationality, club=@club WHERE id=@id";
+                    }
+                    catch { return false; } }
                 else if (table == "Stadiums")
                 {
                     par = new Dictionary<string, object>

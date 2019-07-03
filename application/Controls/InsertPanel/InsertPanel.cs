@@ -82,6 +82,9 @@ namespace application.Controls.InsertPanel
                     if (flowLayoutPanelInsert.Controls[i] is AttributeControlEdit)
                     {
                         var obj = (AttributeControlEdit)flowLayoutPanelInsert.Controls[i];
+                        if (DateTime.TryParseExact(obj.AttributeValue.ToString(), "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                            parameters.Add(date.ToString("yyyy-MM-dd"));
+                        else parameters.Add(obj.AttributeValue);
                     }
                     else if (flowLayoutPanelInsert.Controls[i] is CustomComboBox)
                     {
