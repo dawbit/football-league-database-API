@@ -19,7 +19,7 @@ namespace application.Controls
             {
                 var propertyName = prop.Name;
                 var propertyValue = atype.GetType().GetProperty(propertyName).GetValue(atype, null);
-                if (DateTime.TryParse(propertyValue.ToString(), out DateTime date))
+                if (propertyName == "BirthDate" && DateTime.TryParse(propertyValue.ToString(), out DateTime date))
                     values.Add(date.ToString("dd-MM-yyyy"));
                 else
                     values.Add(convertNullableToString(propertyValue));
