@@ -41,6 +41,26 @@ namespace application.DAL
             return Instance;
         }
 
+        public bool CreateUser(string query)
+        {
+            using (var cmd = new MySqlCommand(query, Connection))
+            {
+                try
+                {
+                    Connection.Open();
+                    int result = cmd.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (MySqlException e)
+                {
+                    Console.WriteLine(e);
+                    Connection.Close();
+                    return false;
+                }   
+            }
+        }
+
         #region OPEN/CLOSE CONNECTIONS
         public bool OpenConnection()
         {

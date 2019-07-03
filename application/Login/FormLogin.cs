@@ -100,7 +100,8 @@ namespace application.Forms
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Sorry, we are currently unable to complete that action. Please try again later.");
+            Register.FormRegister frmRegister = new Register.FormRegister();
+            frmRegister.Show();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
